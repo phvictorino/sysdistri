@@ -1,0 +1,56 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<ui:define name="title">Contas a Receber</ui:define>
+
+	<ui:define name="content">
+
+		<div class="ui-grid">
+			<div class="ui-grid-responsive"></div>
+
+			<p:toolbar style="margin-bottom: 10px">
+				<p:toolbarGroup align="right">
+					<p:commandButton value="Nova conta" action="#{mbContas.novo()}" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="tableContas" widgetVar="tableContas"
+				emptyMessage="Nenhum registro encontrado." rows="10"
+				value="#{mbContas.listaContas}" var="c" paginatorPosition="bottom"
+				paginator="true" reflow="true">
+
+				<p:column headerText="Tipo">
+					<h:outputText value="#{c.tipoEnum.tag}" />
+				</p:column>
+
+				<p:column headerText="Pessoa">
+					<h:outputText value="#{c.tipoPessoa}" />
+				</p:column>
+
+				<p:column headerText="Valor">
+					<h:outputText value="'R$'.concat(#{c.valor})" />
+				</p:column>
+
+				<p:column headerText="Data vencimento">
+					<h:outputText value="#{c.dataVencimento}">
+						<f:convertDateTime pattern="dd/mm/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Status">
+					<h:outputText value="#{c.statusEnum.descricao}" />
+				</p:column>
+
+
+			</p:dataTable>
+
+
+		</div>
+	</ui:define>
+
+</ui:composition>

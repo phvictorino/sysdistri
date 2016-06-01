@@ -1,0 +1,52 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Vendedores</ui:define>
+
+	<ui:define name="content">
+
+		<div class="ui-grid">
+
+			<div class="ui-grid-responsive">
+
+				<p:toolbar style="margin-bottom: 10px">
+					<p:toolbarGroup align="right">
+						<p:commandButton value="Novo vendedor"
+							action="#{mbVendedor.novo()}" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<p:dataTable id="tableVendedores" widgetVar="tableVendedores"
+					emptyMessage="Nenhum registro encontrado." rows="10"
+					value="#{mbVendedor.vendedores}" var="v" paginatorPosition="bottom"
+					paginator="true" reflow="true">
+
+					<p:column headerText="Nome" sortBy="#{v.nome}">
+						<h:outputText value="#{v.nome}" />
+					</p:column>
+
+					<p:column headerText="Tipo de faturamento"
+						sortBy="#{v.tipoFaturamento}">
+						<h:outputText value="#{v.enumTipoFaturamento.descricao}" />
+					</p:column>
+
+					<p:column width="100" headerText="Ações">
+						<p:commandButton icon="fa fw fa-pencil"
+							action="#{mbVendedor.editar(v)}" process="@this">
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+			</div>
+
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>
