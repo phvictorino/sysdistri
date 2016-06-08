@@ -53,6 +53,8 @@
 						value="#{mbContas.idVendedorSelecionado}">
 						<f:selectItems value="#{mbContas.listaDtoVendedores}" var="v"
 							itemLabel="#{v.nome}" itemValue="#{v.id}" />
+						<p:ajax event="change" listener="#{mbContas.pessoaConta()}"
+							process="@this" />
 					</p:selectOneMenu>
 
 					<p:outputLabel />

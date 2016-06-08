@@ -28,7 +28,7 @@ public class MbContas implements Serializable {
 	private List<EnumTipoConta> listaTipoConta;
 	private List<EnumTipoDocumento> listaTipoDocumento;
 	private List<EnumPessoa> listaPessoas;
-	private Integer tipoPessoa;
+	private EnumPessoa tipoPessoa;
 	private Integer idVendedorSelecionado;
 
 	private List<DtoVendedor> listaDtoVendedores;
@@ -41,7 +41,6 @@ public class MbContas implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		tipoPessoa = 0;
 		listaTipoConta = EnumTipoConta.getValues();
 		listaPessoas = EnumPessoa.getValues();
 		listaTipoDocumento = EnumTipoDocumento.getValues();
@@ -56,7 +55,7 @@ public class MbContas implements Serializable {
 
 	public void carregarPessoas() {
 
-		if (tipoPessoa.equals(EnumPessoa.VENDEDOR.getCodigo()))
+		if (tipoPessoa.equals(EnumPessoa.VENDEDOR))
 			listaDtoVendedores = boVendedor.buscarTodosPorDto();
 		// else if (tipoPessoa.equals(EnumPessoa.CLIENTE.getCodigo()))
 		// listaDtoPessoas = new ArrayList<DtoPessoa>();
@@ -74,7 +73,17 @@ public class MbContas implements Serializable {
 		return results;
 	}
 
+	public void pessoaConta() {
+		switch (tipoPessoa) {
+		case VENDEDOR:
+			conta.setCodVendedor(idVendedorSelecionado);
+		default:
+			break;
+		}
+	}
+
 	public void salvar() {
+		conta.setCodVendedor(idVendedorSelecionado);
 	}
 
 	public EnContasPr getConta() {
@@ -117,14 +126,6 @@ public class MbContas implements Serializable {
 		this.listaPessoas = listaPessoas;
 	}
 
-	public Integer getTipoPessoa() {
-		return tipoPessoa;
-	}
-
-	public void setTipoPessoa(Integer tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
-	}
-
 	public List<DtoVendedor> getListaDtoVendedores() {
 		return listaDtoVendedores;
 	}
@@ -139,6 +140,14 @@ public class MbContas implements Serializable {
 
 	public void setIdVendedorSelecionado(Integer idVendedorSelecionado) {
 		this.idVendedorSelecionado = idVendedorSelecionado;
+	}
+
+	public EnumPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(EnumPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
 	}
 
 }

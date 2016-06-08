@@ -355,4 +355,20 @@ public class EnContasPr implements Serializable {
 		return "EnContasPr [codigo=" + codigo + "]";
 	}
 
+	public Integer getCodVendedor() {
+		return codVendedor;
+	}
+
+	public void setCodVendedor(Integer codVendedor) {
+		this.codVendedor = codVendedor;
+	}
+
+	public EnVendedor getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(EnVendedor vendedor) {
+		this.vendedor = vendedor;
+	}
+
 }
