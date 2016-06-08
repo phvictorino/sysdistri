@@ -41,16 +41,19 @@
 						<f:selectItems value="#{mbContas.listaPessoas}" var="p"
 							itemValue="#{p.codigo}" itemLabel="#{p.descricao}" />
 						<p:ajax event="change" listener="#{mbContas.carregarPessoas()}"
-							process="@this" update="@this" />
+							process="@form" update="@form" />
 					</p:selectOneMenu>
 
-					<p:outputLabel value="Vendedor" for="vendedor" />
-					<p:autoComplete id="vendedor" dropdown="true"
-						value="#{mbContas.dtoVendedorSelecionado}"
-						converter="converterDtoVendedor"
-						completeMethod="#{mbContas.completeVendedor}" var="v"
-						itemLabel="#{v.nome}" itemValue="#{v}">
-					</p:autoComplete>
+					<p:outputLabel id="labelVendedor" value="Vendedor"
+						for="inputVendedor"
+						rendered="#{not empty mbContas.listaDtoVendedores}" />
+					<p:selectOneMenu id="inputVendedor" dropdown="true" filter="true"
+						rendered="#{not empty mbContas.listaDtoVendedores}"
+						filterMatchMode="startsWith"
+						value="#{mbContas.idVendedorSelecionado}">
+						<f:selectItems value="#{mbContas.listaDtoVendedores}" var="v"
+							itemLabel="#{v.nome}" itemValue="#{v.id}" />
+					</p:selectOneMenu>
 
 					<p:outputLabel />
 					<p:commandButton value="Salvar" action="#{mbContas.salvar()}"

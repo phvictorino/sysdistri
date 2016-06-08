@@ -29,7 +29,7 @@ public class MbContas implements Serializable {
 	private List<EnumTipoDocumento> listaTipoDocumento;
 	private List<EnumPessoa> listaPessoas;
 	private Integer tipoPessoa;
-	private DtoVendedor dtoVendedorSelecionado;
+	private Integer idVendedorSelecionado;
 
 	private List<DtoVendedor> listaDtoVendedores;
 
@@ -66,22 +66,15 @@ public class MbContas implements Serializable {
 	}
 
 	public List<DtoVendedor> completeVendedor(String query) {
-
 		List<DtoVendedor> results = new ArrayList<DtoVendedor>();
-
 		for (DtoVendedor p : listaDtoVendedores) {
-			if (p.getNome().toLowerCase().startsWith(query.toLowerCase())) {
+			if (p.getNome().toLowerCase().startsWith(query.toLowerCase()))
 				results.add(p);
-			}
 		}
-
 		return results;
 	}
 
 	public void salvar() {
-		System.out.println(dtoVendedorSelecionado);
-		System.out.println(conta);
-
 	}
 
 	public EnContasPr getConta() {
@@ -140,12 +133,12 @@ public class MbContas implements Serializable {
 		this.listaDtoVendedores = listaDtoVendedores;
 	}
 
-	public DtoVendedor getDtoVendedorSelecionado() {
-		return dtoVendedorSelecionado;
+	public Integer getIdVendedorSelecionado() {
+		return idVendedorSelecionado;
 	}
 
-	public void setDtoVendedorSelecionado(DtoVendedor dtoVendedorSelecionado) {
-		this.dtoVendedorSelecionado = dtoVendedorSelecionado;
+	public void setIdVendedorSelecionado(Integer idVendedorSelecionado) {
+		this.idVendedorSelecionado = idVendedorSelecionado;
 	}
 
 }
