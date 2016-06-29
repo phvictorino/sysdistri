@@ -54,7 +54,7 @@ public class MbVendedor implements Serializable {
 
 			if (retorno != null) {
 				UtilsFaces.adicionarMsgInfo("Vendedor salvo com sucesso.");
-				
+
 				// if (!vendedores.contains(retorno)) {
 				// vendedores.add(retorno);
 				// }
@@ -62,7 +62,7 @@ public class MbVendedor implements Serializable {
 				UtilsFaces.showErrorDialog("Erro ao salvar vendedor.");
 			}
 		}
-		
+
 		UtilsFaces.redirecionar("private/vendedor/listar.xhtml");
 
 	}
@@ -75,6 +75,17 @@ public class MbVendedor implements Serializable {
 		} else {
 			UtilsFaces.adicionarMsgErro("Erro interno.");
 			return "listar.xhtml?faces-redirect=true";
+		}
+	}
+
+	public void deletar(EnVendedor vendedorSelecionado) {
+		try {
+			boVendedor.remover(vendedorSelecionado);
+			vendedores.remove(vendedorSelecionado);
+			UtilsFaces.adicionarMsgInfo("Vendedor excluído com sucesso.");
+		} catch (Exception e) {
+			UtilsFaces.adicionarMsgErro("Erro ao excluir vendedor.");
+			e.printStackTrace();
 		}
 	}
 

@@ -33,8 +33,8 @@
 						<i class="fa  fa-fw  fa-user"></i>Vendedores</h:link></li>
 				<li><h:link outcome="/private/contasReceber/listar.xhtml">
 						<i class="fa  fa-fw  fa-file-text"></i>Contas à receber</h:link></li>
-				<li><h:link>
-						<i class="fa  fa-fw  fa-cog"></i>Configurações</h:link></li>
+				<li><h:link outcome="/private/cidade/listar.xhtml">
+						<i class="fa  fa-fw  fa-map-marker"></i>Cidade</h:link></li>
 			</ul>
 		</nav>
 	</aside>
@@ -44,7 +44,8 @@
 			<ui:insert name="title" />
 		</h2>
 		<h:form id="fPadrao">
-			<p:messages id="mensagens" autoUpdate="true" globalOnly="true" showDetail="true" />
+			<p:messages id="mensagens" autoUpdate="true" globalOnly="true"
+				showDetail="true" />
 			<ui:insert name="content" />
 		</h:form>
 	</section>

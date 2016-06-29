@@ -5,7 +5,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="title">Vendedores</ui:define>
+	<ui:define name="title">Cidades</ui:define>
 
 	<ui:define name="content">
 
@@ -15,30 +15,28 @@
 
 				<p:toolbar style="margin-bottom: 10px">
 					<p:toolbarGroup align="right">
-						<p:commandButton value="Novo vendedor"
-							action="#{mbVendedor.novo()}" />
+						<p:commandButton value="Nova cidade" action="#{mbCidade.novo()}" />
 					</p:toolbarGroup>
 				</p:toolbar>
 
-				<p:dataTable id="tableVendedores" widgetVar="tableVendedores"
+				<p:dataTable id="tableCidades" widgetVar="tableCidades"
 					emptyMessage="Nenhum registro encontrado." rows="10"
-					value="#{mbVendedor.vendedores}" var="v" paginatorPosition="bottom"
+					value="#{mbCidade.listaCidades}" var="c" paginatorPosition="bottom"
 					paginator="true" reflow="true">
 
-					<p:column headerText="Nome" sortBy="#{v.nome}">
-						<h:outputText value="#{v.nome}" />
+					<p:column headerText="Nome" sortBy="#{c.nome}">
+						<h:outputText value="#{c.nome}" />
 					</p:column>
 
-					<p:column headerText="Tipo de faturamento"
-						sortBy="#{v.tipoFaturamento}">
-						<h:outputText value="#{v.enumTipoFaturamento.descricao}" />
+					<p:column headerText="UF" sortBy="#{c.siglaUf}">
+						<h:outputText value="#{c.siglaUf}" />
 					</p:column>
 
 					<p:column width="100" headerText="Ações">
 						<p:commandButton icon="fa fw fa-pencil"
-							action="#{mbVendedor.editar(v)}" process="@this" />
+							action="#{mbCidade.editar(v)}" process="@this" />
 						<p:commandButton icon="fa fa-trash"
-							action="#{mbVendedor.deletar(v)}" process="@this"
+							action="#{mbCidade.deletar(v)}" process="@this"
 							update="tableVendedores" />
 					</p:column>
 
