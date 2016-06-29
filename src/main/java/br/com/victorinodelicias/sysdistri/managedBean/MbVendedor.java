@@ -31,11 +31,11 @@ public class MbVendedor implements Serializable {
 	@PostConstruct
 	public void init() {
 
-		if (UtilsFaces.getSessionMapValue("vendedor") != null) {
-			vendedor = (EnVendedor) UtilsFaces.getSessionMapValue("vendedor");
-			UtilsFaces.removeSessionMapValue("vendedor");
-		} else
-			vendedor = new EnVendedor();
+		// if (UtilsFaces.getSessionMapValue("vendedor") != null) {
+		// vendedor = (EnVendedor) UtilsFaces.getSessionMapValue("vendedor");
+		// UtilsFaces.removeSessionMapValue("vendedor");
+		// } else
+		// vendedor = new EnVendedor();
 
 		vendedores = new ArrayList<EnVendedor>();
 		vendedores = boVendedor.listarTodos();
@@ -44,29 +44,33 @@ public class MbVendedor implements Serializable {
 
 	public String novo() {
 		vendedor = new EnVendedor();
-		return "form.xhtml?faces-redirect=true";
+		return "form.xhtml";
 	}
 
-	public String salvar() {
+	public void salvar() {
 
 		if (vendedor != null) {
 			EnVendedor retorno = boVendedor.salvaOuAtualiza(vendedor);
 
 			if (retorno != null) {
 				UtilsFaces.adicionarMsgInfo("Vendedor salvo com sucesso.");
+				
+				// if (!vendedores.contains(retorno)) {
+				// vendedores.add(retorno);
+				// }
 			} else {
 				UtilsFaces.showErrorDialog("Erro ao salvar vendedor.");
 			}
 		}
-
-		return "listar.xhtml?faces-redirect=true";
+		
+		UtilsFaces.redirecionar("private/vendedor/listar.xhtml");
 
 	}
 
 	public String editar(EnVendedor vendedorSelecionado) {
 
-		if (vendedorSelecionado.getCodigo() != null) {
-			UtilsFaces.setSessionMapValue("vendedor", vendedorSelecionado);
+		if (vendedorSelecionado != null) {
+			this.vendedor = vendedorSelecionado;
 			return "form.xhtml?faces-redirect=true";
 		} else {
 			UtilsFaces.adicionarMsgErro("Erro interno.");
