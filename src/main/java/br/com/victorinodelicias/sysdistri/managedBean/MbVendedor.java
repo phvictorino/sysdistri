@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 
 import br.com.victorinodelicias.sysdistri.bussiness.BoVendedor;
 import br.com.victorinodelicias.sysdistri.entity.EnVendedor;
@@ -15,7 +16,7 @@ import br.com.victorinodelicias.sysdistri.enums.EnumTipoFaturamento;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
 
 @Named
-@ViewScoped
+@ViewAccessScoped
 public class MbVendedor implements Serializable {
 
 	private static final long serialVersionUID = 1L;

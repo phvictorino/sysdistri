@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 
 import br.com.victorinodelicias.dto.DtoVendedor;
 import br.com.victorinodelicias.sysdistri.bussiness.BoContasPR;
@@ -18,7 +19,7 @@ import br.com.victorinodelicias.sysdistri.enums.EnumTipoConta;
 import br.com.victorinodelicias.sysdistri.enums.EnumTipoDocumento;
 
 @Named
-@ViewScoped
+@ViewAccessScoped
 public class MbContas implements Serializable {
 
 	private static final long serialVersionUID = 1L;
