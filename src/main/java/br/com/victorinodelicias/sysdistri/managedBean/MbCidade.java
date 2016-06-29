@@ -27,7 +27,7 @@ public class MbCidade implements Serializable {
 
 	@PostConstruct
 	public void init() {
-
+		listaCidades = boCidade.listarTodos();
 	}
 
 	public String novo() {
@@ -41,7 +41,9 @@ public class MbCidade implements Serializable {
 
 			if (retorno != null) {
 				UtilsFaces.adicionarMsgInfo("Cidade adicionada com sucesso.");
-				listaCidades.add(retorno);
+
+				if (!listaCidades.contains(retorno))
+					listaCidades.add(retorno);
 			} else
 				UtilsFaces.adicionarMsgErro("Erro interno.");
 
@@ -63,13 +65,15 @@ public class MbCidade implements Serializable {
 	}
 
 	public void deletar(EnCidade cidadeSelecionada) {
-		try {
-			boCidade.remover(cidadeSelecionada);
-			listaCidades.remove(cidadeSelecionada);
-			UtilsFaces.adicionarMsgInfo("Cidade removida com sucesso.");
-		} catch (Exception e) {
-			UtilsFaces.adicionarMsgErro("Erro ao remover cidade");
-			e.printStackTrace();
+		if (cidadeSelecionada != null) {
+			try {
+				boCidade.remover(cidadeSelecionada);
+				listaCidades.remove(cidadeSelecionada);
+				UtilsFaces.adicionarMsgInfo("Cidade removida com sucesso.");
+			} catch (Exception e) {
+				UtilsFaces.adicionarMsgErro("Erro ao remover cidade");
+				e.printStackTrace();
+			}
 		}
 	}
 

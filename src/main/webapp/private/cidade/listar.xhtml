@@ -34,10 +34,10 @@
 
 					<p:column width="100" headerText="Ações">
 						<p:commandButton icon="fa fw fa-pencil"
-							action="#{mbCidade.editar(v)}" process="@this" />
+							action="#{mbCidade.editar(c)}" process="@this" />
 						<p:commandButton icon="fa fa-trash"
-							action="#{mbCidade.deletar(v)}" process="@this"
-							update="tableVendedores" />
+							action="#{mbCidade.deletar(c)}" process="@this"
+							update="tableCidades" />
 					</p:column>
 
 				</p:dataTable>

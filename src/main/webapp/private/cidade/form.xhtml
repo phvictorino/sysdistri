@@ -14,6 +14,7 @@
 				<p:panelGrid columns="2"
 					columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid"
 					styleClass="panelgrid-noborder">
+					
 					<p:outputLabel value="Nome" for="nome" />
 					<p:inputText id="nome" value="#{mbCidade.cidade.nome}"
 						required="true" requiredMessage="Nome do vendedor obrigatório." />
@@ -22,7 +23,6 @@
 					<p:inputText id="uf" value="#{mbCidade.cidade.siglaUf}"
 						required="true" requiredMessage="Sigla UF obrigatório."
 						maxlength="2" />
-					</p:selectOneMenu>
 
 					<p:outputLabel />
 					<p:commandButton value="Salvar" action="#{mbCidade.salvar()}"
