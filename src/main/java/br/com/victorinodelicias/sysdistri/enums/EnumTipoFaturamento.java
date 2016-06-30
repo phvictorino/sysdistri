@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Named;
+
 public enum EnumTipoFaturamento {
 
 	MENSAL(1, "Mensal"), QUINZENAL(2, "Quinzenal"), SEMANAL(3, "Semanal");

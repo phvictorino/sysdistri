@@ -5,7 +5,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="title">Vendedores</ui:define>
+	<ui:define name="title">Fornecedores</ui:define>
 
 	<ui:define name="content">
 
@@ -14,32 +14,43 @@
 			<div class="ui-grid-responsive">
 
 				<p:toolbar style="margin-bottom: 10px">
-					<p:toolbarGroup align="right">
-						<p:commandButton value="Novo vendedor"
-							action="#{mbVendedor.novo()}" />
+					<p:toolbarGroup align="left">
+						<p:commandButton value="Novo fornecedor"
+							action="#{mbFornecedor.novo()}" />
 					</p:toolbarGroup>
 				</p:toolbar>
 
-				<p:dataTable id="tableVendedores" widgetVar="tableVendedores"
+				<p:dataTable id="tableFornecedores" widgetVar="tableFornecedores"
 					emptyMessage="Nenhum registro encontrado." rows="10"
-					value="#{mbVendedor.vendedores}" var="v" paginatorPosition="bottom"
-					paginator="true" reflow="true">
+					value="#{mbFornecedor.listaFornecedores}" var="f"
+					paginatorPosition="bottom" paginator="true" reflow="true">
 
-					<p:column headerText="Nome" sortBy="#{v.nome}">
-						<h:outputText value="#{v.nome}" />
+					<p:column headerText="Nome" sortBy="#{f.nome}">
+						<h:outputText value="#{f.nome}" />
 					</p:column>
 
-					<p:column headerText="Tipo de faturamento"
-						sortBy="#{v.tipoFaturamento}">
-						<h:outputText value="#{v.enumTipoFaturamento.descricao}" />
+					<p:column headerText="Contato" sortBy="#{f.contato}">
+						<h:outputText value="#{f.contato}" />
 					</p:column>
 
-					<p:column width="100" headerText="Ações">
+					<p:column headerText="CNPJ" sortBy="#{f.cnpj}">
+						<h:outputText value="#{f.cnpj}" />
+					</p:column>
+
+					<p:column headerText="Cidade" sortBy="#{f.cidade.nome}">
+						<h:outputText
+							value="#{f.cidade.nome.concat('-').concat(f.cidade.siglaUf)}" />
+					</p:column>
+
+					<p:column width="150" headerText="Ações">
+						<p:commandButton icon="fa fw fa-chevron-up"
+							action="#{mbFornecedor.verDados(f)}"
+							oncomplete="PF('dialogDadosFornecedor').show()" process="@this" />
 						<p:commandButton icon="fa fw fa-pencil"
-							action="#{mbVendedor.editar(v)}" process="@this" />
+							action="#{mbVendedor.editar(f)}" process="@this" />
 						<p:commandButton icon="fa fa-trash"
-							action="#{mbVendedor.deletar(v)}" process="@this"
-							update="tableVendedores" />
+							action="#{mbVendedor.deletar(f)}" process="@this"
+							update="tableFornecedores" />
 					</p:column>
 
 				</p:dataTable>
@@ -47,6 +58,11 @@
 			</div>
 
 		</div>
+
+		<p:dialog id="dialogDadosFornecedor" widgetVar="dialogDadosFornecedor"
+			responsive="true" modal="true">
+
+		</p:dialog>
 
 
 	</ui:define>

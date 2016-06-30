@@ -5,31 +5,78 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="title">Formulário de vendedor</ui:define>
+	<ui:define name="title">Formulário de Fornecedor</ui:define>
 
 	<ui:define name="content">
 		<div class="ui-grid">
 			<div class="ui-grid-responsive">
+				<div class="ui-grid-col-12">
+					<p:panelGrid columns="4"
+						columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3"
+						layout="grid" styleClass="panelgrid-noborder">
+						<p:outputLabel value="Nome" for="nome" />
+						<p:inputText id="nome" value="#{mbFornecedor.fornecedor.nome}"
+							required="true" requiredMessage="Nome obrigatório." />
+						<p:outputLabel value="Contato" for="contato" />
+						<p:inputText id="contato"
+							value="#{mbFornecedor.fornecedor.contato}" />
 
-				<p:panelGrid columns="2"
-					columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid"
-					styleClass="panelgrid-noborder">
-					<p:outputLabel value="Nome" for="nome" />
-					<p:inputText id="nome" value="#{mbVendedor.vendedor.nome}"
-						required="true" requiredMessage="Nome do vendedor obrigatório." />
+						<p:outputLabel value="CPNJ" for="cnpj" />
+						<p:inputMask mask="99.999.999/9999-99" id="cnpj"
+							value="#{mbFornecedor.fornecedor.cnpj}" />
 
-					<p:outputLabel value="Tipo Faturamento" for="tipoFaturamento" />
-					<p:selectOneMenu id="tipoFaturamento"
-						value="#{mbVendedor.vendedor.tipoFaturamento}">
-						<f:selectItems value="#{mbVendedor.listaTipoFaturamento}" var="t"
-							itemValue="#{t.codigo}" itemLabel="#{t.descricao}" />
-					</p:selectOneMenu>
+						<p:outputLabel value="Cidade" for="cidade" />
+						<p:selectOneMenu id="cidade"
+							value="#{mbFornecedor.fornecedor.codCidade}">
+							<f:selectItems value="#{mbFornecedor.listaCidades}" var="c"
+								itemLabel="#{c.nome.concat('-').concat(c.siglaUf)}"
+								itemValue="#{c.codigo}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="CEP" for="cep" />
+						<p:inputMask mask="99999-999" id="cep"
+							value="#{mbFornecedor.fornecedor.cep}" />
 
-					<p:outputLabel />
-					<p:commandButton value="Salvar" action="#{mbVendedor.salvar()}"
-						process="@form" update="@form" />
-				</p:panelGrid>
+						<p:outputLabel value="Logradouro" for="logradouro" />
+						<p:inputText id="logradouro"
+							value="#{mbFornecedor.fornecedor.logradouro}" />
+						<p:outputLabel value="Número" for="numero" />
+						<p:inputText id="numero"
+							value="#{mbFornecedor.fornecedor.numLogradouro}"
+							style="width: 50%" />
 
+
+						<p:outputLabel value="Bairro" for="bairro" />
+						<p:inputText id="bairro" value="#{mbFornecedor.fornecedor.bairro}" />
+
+						<p:outputLabel value="Telefone" for="telefone" />
+						<p:inputMask mask="(99)9999-9999" id="telefone"
+							value="#{mbFornecedor.fornecedor.telefone}"
+							requiredMessage="Preencha o campo TELEFONE ou CELULAR." />
+						<p:outputLabel value="Celular" for="celular" />
+						<p:inputMask mask="(99)99999999?9" id="celular"
+							value="#{mbFornecedor.fornecedor.celular}"
+							requiredMessage="Preencha o campo TELEFONE ou CELULAR." />
+
+						<p:outputLabel value="Email" for="email" />
+						<p:inputText id="email" value="#{mbFornecedor.fornecedor.email}" />
+						<p:outputLabel value="Inscrição Estadual" for="inscEstadual" />
+						<p:inputText id="inscEstadual"
+							value="#{mbFornecedor.fornecedor.inscricaoEstadual}" />
+
+						<p:outputLabel value="Tipo Faturamento" for="tipoFaturamento" />
+						<p:selectOneMenu id="tipoFaturamento"
+							value="#{mbFornecedor.fornecedor.tipoFaturamento}">
+							<f:selectItems value="#{mbFornecedor.listaTipoFaturamentos}"
+								var="t" itemValue="#{t.codigo}" itemLabel="#{t.descricao}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel />
+						<p:outputLabel />
+						<p:outputLabel />
+						<p:commandButton value="Salvar" action="#{mbFornecedor.salvar()}"
+							process="@form" update="@form" />
+					</p:panelGrid>
+				</div>
 			</div>
 		</div>
 	</ui:define>

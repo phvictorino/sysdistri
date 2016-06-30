@@ -14,6 +14,7 @@ import br.com.victorinodelicias.sysdistri.bussiness.BoVendedor;
 import br.com.victorinodelicias.sysdistri.entity.EnVendedor;
 import br.com.victorinodelicias.sysdistri.enums.EnumTipoFaturamento;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
+import br.com.victorinodelicias.sysdistri.util.UtilsMensagem;
 
 @Named
 @ViewAccessScoped
@@ -53,13 +54,13 @@ public class MbVendedor implements Serializable {
 			EnVendedor retorno = boVendedor.salvaOuAtualiza(vendedor);
 
 			if (retorno != null) {
-				UtilsFaces.adicionarMsgInfo("Vendedor salvo com sucesso.");
+				UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
 
-				// if (!vendedores.contains(retorno)) {
-				// vendedores.add(retorno);
-				// }
+				if (!vendedores.contains(vendedor))
+					vendedores.add(retorno);
+				
 			} else {
-				UtilsFaces.showErrorDialog("Erro ao salvar vendedor.");
+				UtilsFaces.showErrorDialog(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 			}
 		}
 
@@ -73,7 +74,7 @@ public class MbVendedor implements Serializable {
 			this.vendedor = vendedorSelecionado;
 			return "form.xhtml?faces-redirect=true";
 		} else {
-			UtilsFaces.adicionarMsgErro("Erro interno.");
+			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 			return "listar.xhtml?faces-redirect=true";
 		}
 	}
@@ -82,9 +83,9 @@ public class MbVendedor implements Serializable {
 		try {
 			boVendedor.remover(vendedorSelecionado);
 			vendedores.remove(vendedorSelecionado);
-			UtilsFaces.adicionarMsgInfo("Vendedor excluído com sucesso.");
+			UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
 		} catch (Exception e) {
-			UtilsFaces.adicionarMsgErro("Erro ao excluir vendedor.");
+			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 			e.printStackTrace();
 		}
 	}

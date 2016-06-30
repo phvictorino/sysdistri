@@ -12,6 +12,7 @@ import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 import br.com.victorinodelicias.sysdistri.bussiness.BoCidade;
 import br.com.victorinodelicias.sysdistri.entity.EnCidade;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
+import br.com.victorinodelicias.sysdistri.util.UtilsMensagem;
 
 @Named
 @ViewAccessScoped
@@ -35,22 +36,23 @@ public class MbCidade implements Serializable {
 		return "form.xhtml?faces-redirect=true";
 	}
 
-	public String salvar() {
+	public void salvar() {
 		if (cidade != null) {
 			EnCidade retorno = boCidade.salvaOuAtualiza(cidade);
 
 			if (retorno != null) {
-				UtilsFaces.adicionarMsgInfo("Cidade adicionada com sucesso.");
+				UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
 
-				if (!listaCidades.contains(retorno))
+				if (!listaCidades.contains(cidade))
 					listaCidades.add(retorno);
+				
 			} else
-				UtilsFaces.adicionarMsgErro("Erro interno.");
+				UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 
 		} else
-			UtilsFaces.adicionarMsgErro("Erro interno.");
+			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 
-		return "listar.xhtml?faces-redirect=true";
+		UtilsFaces.redirecionar("private/cidade/listar.xhtml");
 
 	}
 
@@ -69,9 +71,9 @@ public class MbCidade implements Serializable {
 			try {
 				boCidade.remover(cidadeSelecionada);
 				listaCidades.remove(cidadeSelecionada);
-				UtilsFaces.adicionarMsgInfo("Cidade removida com sucesso.");
+				UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
 			} catch (Exception e) {
-				UtilsFaces.adicionarMsgErro("Erro ao remover cidade");
+				UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 				e.printStackTrace();
 			}
 		}
