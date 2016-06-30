@@ -40,7 +40,7 @@ public class MbFornecedor implements Serializable {
 		listaCidades = boCidade.listarTodos();
 		listaTipoFaturamentos = EnumTipoFaturamento.getValues();
 	}
-	
+
 	public void verDados(EnFornecedor fornecedorSelecionado) {
 		fornecedor = fornecedorSelecionado;
 	}
@@ -53,7 +53,7 @@ public class MbFornecedor implements Serializable {
 	public String editar(EnFornecedor fornecedorSelecionado) {
 		if (fornecedorSelecionado != null) {
 			fornecedor = fornecedorSelecionado;
-			return "form.xhtml";
+			return "form.xhtml?faces-redirect=true";
 		} else {
 			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 			return null;
@@ -66,8 +66,8 @@ public class MbFornecedor implements Serializable {
 		if (retorno != null) {
 			UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
 
-			if (!listaFornecedores.contains(retorno))
-				listaFornecedores.add(retorno);
+			listaFornecedores.remove(fornecedor);
+			listaFornecedores.add(retorno);
 
 		} else
 			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);

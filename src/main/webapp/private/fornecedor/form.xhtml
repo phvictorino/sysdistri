@@ -26,15 +26,20 @@
 							value="#{mbFornecedor.fornecedor.cnpj}" />
 
 						<p:outputLabel value="Cidade" for="cidade" />
-						<p:selectOneMenu id="cidade"
+						<p:selectOneMenu id="cidade" filter="true"
+							filterMatchMode="startsWith"
 							value="#{mbFornecedor.fornecedor.codCidade}">
+							<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 							<f:selectItems value="#{mbFornecedor.listaCidades}" var="c"
 								itemLabel="#{c.nome.concat('-').concat(c.siglaUf)}"
 								itemValue="#{c.codigo}" />
 						</p:selectOneMenu>
+
 						<p:outputLabel value="CEP" for="cep" />
 						<p:inputMask mask="99999-999" id="cep"
 							value="#{mbFornecedor.fornecedor.cep}" />
+						<p:outputLabel />
+						<p:outputLabel />
 
 						<p:outputLabel value="Logradouro" for="logradouro" />
 						<p:inputText id="logradouro"
@@ -47,6 +52,8 @@
 
 						<p:outputLabel value="Bairro" for="bairro" />
 						<p:inputText id="bairro" value="#{mbFornecedor.fornecedor.bairro}" />
+						<p:outputLabel />
+						<p:outputLabel />
 
 						<p:outputLabel value="Telefone" for="telefone" />
 						<p:inputMask mask="(99)9999-9999" id="telefone"
@@ -59,6 +66,9 @@
 
 						<p:outputLabel value="Email" for="email" />
 						<p:inputText id="email" value="#{mbFornecedor.fornecedor.email}" />
+						<p:outputLabel />
+						<p:outputLabel />
+
 						<p:outputLabel value="Inscrição Estadual" for="inscEstadual" />
 						<p:inputText id="inscEstadual"
 							value="#{mbFornecedor.fornecedor.inscricaoEstadual}" />
@@ -69,12 +79,10 @@
 							<f:selectItems value="#{mbFornecedor.listaTipoFaturamentos}"
 								var="t" itemValue="#{t.codigo}" itemLabel="#{t.descricao}" />
 						</p:selectOneMenu>
-						
-						<p:outputLabel />
-						<p:outputLabel />
+
 						<p:outputLabel />
 						<p:commandButton value="Salvar" action="#{mbFornecedor.salvar()}"
-							process="@form" update="@form" />
+							ajax="false" type="submit" />
 					</p:panelGrid>
 				</div>
 			</div>

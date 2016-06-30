@@ -44,12 +44,12 @@
 
 					<p:column width="150" headerText="Ações">
 						<p:commandButton icon="fa fw fa-chevron-up"
-							action="#{mbFornecedor.verDados(f)}"
+							action="#{mbFornecedor.verDados(f)}" update="@form"
 							oncomplete="PF('dialogDadosFornecedor').show()" process="@this" />
 						<p:commandButton icon="fa fw fa-pencil"
-							action="#{mbVendedor.editar(f)}" process="@this" />
+							action="#{mbFornecedor.editar(f)}" process="@this" />
 						<p:commandButton icon="fa fa-trash"
-							action="#{mbVendedor.deletar(f)}" process="@this"
+							action="#{mbFornecedor.deletar(f)}" process="@this"
 							update="tableFornecedores" />
 					</p:column>
 
@@ -60,7 +60,24 @@
 		</div>
 
 		<p:dialog id="dialogDadosFornecedor" widgetVar="dialogDadosFornecedor"
-			responsive="true" modal="true">
+			responsive="true" modal="true"
+			header="Informações do Fornecedor: #{mbFornecedor.fornecedor.nome}">
+
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-4"
+				layout="grid" styleClass="panelgrid-noborder">
+			Contato: <h:outputText value="#{mbFornecedor.fornecedor.contato}" />
+			CNPJ: <h:outputText value="#{mbFornecedor.fornecedor.cnpj}" />
+			Telefone: <h:outputText value="#{mbFornecedor.fornecedor.telefone}" />
+			Celular: <h:outputText value="#{mbFornecedor.fornecedor.celular}" />
+			Cidade: <h:outputText
+					value="#{mbFornecedor.fornecedor.cidade.nome.concat('-').concat(mbFornecedor.fornecedor.cidade.siglaUf)}" />
+			CEP: <h:outputText value="#{mbFornecedor.fornecedor.cep}" />
+			Bairro: <h:outputText value="#{mbFornecedor.fornecedor.bairro}" />
+			Logradouro: <h:outputText
+					value="#{mbFornecedor.fornecedor.logradouro}" />
+			Número: <h:outputText
+					value="#{mbFornecedor.fornecedor.numLogradouro}" />
+			</p:panelGrid>
 
 		</p:dialog>
 
