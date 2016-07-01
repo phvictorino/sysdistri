@@ -43,9 +43,9 @@ public class MbCidade implements Serializable {
 			if (retorno != null) {
 				UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
 
-				if (!listaCidades.contains(cidade))
-					listaCidades.add(retorno);
-				
+				listaCidades.remove(cidade);
+				listaCidades.add(retorno);
+
 			} else
 				UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 

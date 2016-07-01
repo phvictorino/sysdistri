@@ -1,0 +1,35 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Formulário de Cidade</ui:define>
+
+	<ui:define name="content">
+		<div class="ui-grid">
+			<div class="ui-grid-responsive">
+
+				<p:panelGrid columns="2"
+					columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid"
+					styleClass="panelgrid-noborder">
+					
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome" value="#{mbCidade.cidade.nome}"
+						required="true" requiredMessage="Nome do vendedor obrigatório." />
+
+					<p:outputLabel value="UF" for="uf" />
+					<p:inputText id="uf" value="#{mbCidade.cidade.siglaUf}"
+						required="true" requiredMessage="Sigla UF obrigatório."
+						maxlength="2" />
+
+					<p:outputLabel />
+					<p:commandButton value="Salvar" action="#{mbCidade.salvar()}"
+						process="@form" update="@form" />
+				</p:panelGrid>
+
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

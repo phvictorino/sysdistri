@@ -56,9 +56,8 @@ public class MbVendedor implements Serializable {
 			if (retorno != null) {
 				UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
 
-				if (!vendedores.contains(vendedor))
-					vendedores.add(retorno);
-				
+				vendedores.remove(vendedor);
+				vendedores.add(retorno);
 			} else {
 				UtilsFaces.showErrorDialog(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 			}

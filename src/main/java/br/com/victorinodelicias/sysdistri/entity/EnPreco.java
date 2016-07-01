@@ -32,7 +32,10 @@ public class EnPreco implements Serializable {
 	private Integer nomeTabelaVenda;
 
 	@Column(name = "vvendpre")
-	private BigDecimal valor;
+	private BigDecimal valorProduto;
+
+	@Column(name = "vvendven")
+	private BigDecimal valorVendedor;
 
 	@Column(name = "codprod")
 	private Integer codProduto;

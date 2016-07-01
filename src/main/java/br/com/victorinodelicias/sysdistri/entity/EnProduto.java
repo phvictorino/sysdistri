@@ -59,9 +59,6 @@ public class EnProduto implements Serializable {
 	@Column(name = "vcompro")
 	private BigDecimal valorCompra;
 
-	@Column(name = "vvendprod")
-	private BigDecimal valorVenda;
-
 	@Column(name = "codfor")
 	private Integer codForncedor;
 
