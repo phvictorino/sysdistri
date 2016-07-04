@@ -11,22 +11,16 @@
 		<div class="ui-grid">
 			<div class="ui-grid-responsive">
 
-				<p:panelGrid columns="2"
-					columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid"
-					styleClass="panelgrid-noborder">
-					
-					<p:outputLabel value="Nome" for="nome" />
-					<p:inputText id="nome" value="#{mbCidade.cidade.nome}"
-						required="true" requiredMessage="Nome do vendedor obrigatório." />
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-5"
+					layout="grid" styleClass="panelgrid-noborder">
 
-					<p:outputLabel value="UF" for="uf" />
-					<p:inputText id="uf" value="#{mbCidade.cidade.siglaUf}"
-						required="true" requiredMessage="Sigla UF obrigatório."
-						maxlength="2" />
+					<p:outputLabel value="Descrição" for="desc" />
+					<p:inputText id="desc" value="#{mbGrupo.grupo.descricao}"
+						required="true" />
 
 					<p:outputLabel />
-					<p:commandButton value="Salvar" action="#{mbCidade.salvar()}"
-						process="@form" update="@form" />
+					<p:commandButton value="Salvar" action="#{mbGrupo.salvar()}"
+						ajax="false" />
 				</p:panelGrid>
 
 			</div>

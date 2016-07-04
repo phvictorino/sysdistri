@@ -10,6 +10,7 @@ import javax.inject.Named;
 import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 
 import br.com.victorinodelicias.sysdistri.bussiness.BoGrupo;
+import br.com.victorinodelicias.sysdistri.bussiness.BoProduto;
 import br.com.victorinodelicias.sysdistri.entity.EnGrupo;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
 import br.com.victorinodelicias.sysdistri.util.UtilsMensagem;
@@ -26,6 +27,9 @@ public class MbGrupo implements Serializable {
 	@Inject
 	private BoGrupo boGrupo;
 
+	@Inject
+	BoProduto boProduto;
+
 	@PostConstruct
 	public void init() {
 		grupo = new EnGrupo();
@@ -38,11 +42,12 @@ public class MbGrupo implements Serializable {
 		if (retorno != null) {
 			UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
 			listaGrupos.remove(grupo);
-			listaGrupos.add(retorno);
+			grupo = boGrupo.buscarPorCodigoSemLazyProdutos(retorno.getCodigo());
+			listaGrupos.add(grupo);
 		} else {
 			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 		}
-		
+
 		return "listar.xhtml?faces-redirect=true";
 	}
 
@@ -68,6 +73,7 @@ public class MbGrupo implements Serializable {
 	}
 
 	public void verDados(EnGrupo grupoSelecionado) {
+		grupoSelecionado.setListaProdutos(boProduto.buscarPorGrupoSemLazyUnidade(grupoSelecionado.getCodigo()));
 		grupo = grupoSelecionado;
 	}
 

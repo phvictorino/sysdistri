@@ -15,11 +15,11 @@
 
 				<p:toolbar style="margin-bottom: 10px">
 					<p:toolbarGroup align="left">
-						<p:commandButton value="Novo grupo" action="#{mbGrupo.novo()}" />
+						<p:commandButton value="Novo produto" action="#{mbProduto.novo()}" />
 					</p:toolbarGroup>
 				</p:toolbar>
 
-				<p:dataTable id="tableGrupos" widgetVar="tableGrupos"
+				<p:dataTable id="tableProdutos" widgetVar="tableGrupos"
 					emptyMessage="Nenhum registro encontrado." rows="10"
 					value="#{mbGrupo.listaGrupos}" var="g" paginatorPosition="bottom"
 					paginator="true" reflow="true">
@@ -38,7 +38,7 @@
 						<p:commandButton icon="fa fw fa-pencil"
 							action="#{mbGrupo.editar(g)}" process="@this" />
 						<p:commandButton icon="fa fa-trash" action="#{mbGrupo.deletar(g)}"
-							process="@this" update="tableGrupos" />
+							process="@this" update="tableProdutos" />
 					</p:column>
 				</p:dataTable>
 

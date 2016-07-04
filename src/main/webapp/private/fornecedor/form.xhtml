@@ -18,7 +18,7 @@
 						<p:inputText id="nome" value="#{mbFornecedor.fornecedor.nome}"
 							required="true" requiredMessage="Nome obrigatório." />
 						<p:outputLabel value="Contato" for="contato" />
-						<p:inputText id="contato"
+						<p:inputText id="contato" required="true"
 							value="#{mbFornecedor.fornecedor.contato}" />
 
 						<p:outputLabel value="CPNJ" for="cnpj" />
@@ -57,12 +57,10 @@
 
 						<p:outputLabel value="Telefone" for="telefone" />
 						<p:inputMask mask="(99)9999-9999" id="telefone"
-							value="#{mbFornecedor.fornecedor.telefone}"
-							requiredMessage="Preencha o campo TELEFONE ou CELULAR." />
+							value="#{mbFornecedor.fornecedor.telefone}" />
 						<p:outputLabel value="Celular" for="celular" />
 						<p:inputMask mask="(99)99999999?9" id="celular"
-							value="#{mbFornecedor.fornecedor.celular}"
-							requiredMessage="Preencha o campo TELEFONE ou CELULAR." />
+							value="#{mbFornecedor.fornecedor.celular}" />
 
 						<p:outputLabel value="Email" for="email" />
 						<p:inputText id="email" value="#{mbFornecedor.fornecedor.email}" />
@@ -74,8 +72,9 @@
 							value="#{mbFornecedor.fornecedor.inscricaoEstadual}" />
 
 						<p:outputLabel value="Tipo Faturamento" for="tipoFaturamento" />
-						<p:selectOneMenu id="tipoFaturamento"
+						<p:selectOneMenu id="tipoFaturamento" required="true"
 							value="#{mbFornecedor.fornecedor.tipoFaturamento}">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
 							<f:selectItems value="#{mbFornecedor.listaTipoFaturamentos}"
 								var="t" itemValue="#{t.codigo}" itemLabel="#{t.descricao}" />
 						</p:selectOneMenu>

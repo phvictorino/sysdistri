@@ -20,5 +20,8 @@ public class BoGrupo extends GenericBO<EnGrupo> implements Serializable {
 		this.dao = daoGrupo;
 	}
 
+	public EnGrupo buscarPorCodigoSemLazyProdutos(Integer codigo) {
+		return daoGrupo.buscarPorCodigoSemLazyProdutos(codigo);
+	}
+
 }
-	

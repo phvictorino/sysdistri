@@ -24,8 +24,6 @@ public class GenericDAO<T> implements Serializable {
 
 	public Session getSession() {
 		Session session = (Session) em.getDelegate();
-		// Session session = (Session)
-		// pegaEntityManagerEmUso().getEntityManagerFactory();
 		return session;
 	}
 
