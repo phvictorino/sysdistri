@@ -76,7 +76,7 @@ public class EnProduto implements Serializable {
 	@JoinColumn(name = "codfor", insertable = false, updatable = false)
 	private EnFornecedor fornecedor;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "coduni", insertable = false, updatable = false)
 	private EnUnidade unidade;
 

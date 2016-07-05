@@ -24,4 +24,8 @@ public class BoProduto extends GenericBO<EnProduto> {
 		return daoProduto.buscarPorGrupoSemLazyUnidade(codigo);
 	}
 
+	public List<EnProduto> listarTodosSemLazyFornecedor() {
+		return daoProduto.listarTodosSemLazyFornecedor();
+	}
+
 }

@@ -20,4 +20,11 @@ public class DaoProduto extends GenericDAO<EnProduto> {
 		return c.list();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<EnProduto> listarTodosSemLazyFornecedor() {
+		Criteria c = getCriteria();
+		c.setFetchMode("fornecedor", FetchMode.JOIN);
+		return c.list();
+	}
+
 }

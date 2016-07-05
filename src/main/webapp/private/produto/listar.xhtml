@@ -21,24 +21,33 @@
 
 				<p:dataTable id="tableProdutos" widgetVar="tableGrupos"
 					emptyMessage="Nenhum registro encontrado." rows="10"
-					value="#{mbGrupo.listaGrupos}" var="g" paginatorPosition="bottom"
-					paginator="true" reflow="true">
+					value="#{mbProduto.listaProdutos}" var="p"
+					paginatorPosition="bottom" paginator="true" reflow="true">
 
-					<p:column headerText="Código" width="120" sortBy="#{g.codigo}">
-						<h:outputText value="#{g.codigo}" />
+					<p:column headerText="Código" width="120" sortBy="#{p.codigo}">
+						<h:outputText value="#{p.codigo}" />
 					</p:column>
 
-					<p:column headerText="Descrição" sortBy="#{g.descricao}">
-						<h:outputText value="#{g.descricao}" />
+					<p:column headerText="Descrição" sortBy="#{p.descricao}">
+						<h:outputText value="#{p.descricao}" />
+					</p:column>
+					
+					<p:column headerText="Fornecedor" sortBy="#{p.fornecedor.nome}">
+						<h:outputText value="#{p.fornecedor.nome}" />
+					</p:column>
+					
+					<p:column width="80" headerText="Unidade" sortBy="#{p.unidade.descricao}">
+						<h:outputText value="#{p.unidade.descricao}" />
 					</p:column>
 
 					<p:column width="120" headerText="Ações">
 						<p:commandButton icon="fa fw fa-chevron-up" process="@this"
-							update="@form" action="#{mbGrupo.verDados(g)}" />
+							update="@form" />
 						<p:commandButton icon="fa fw fa-pencil"
-							action="#{mbGrupo.editar(g)}" process="@this" />
-						<p:commandButton icon="fa fa-trash" action="#{mbGrupo.deletar(g)}"
-							process="@this" update="tableProdutos" />
+							action="#{mbProduto.editar(p)}" process="@this" />
+						<p:commandButton icon="fa fa-trash"
+							action="#{mbProduto.deletar(p)}" process="@this"
+							update="tableProdutos" />
 					</p:column>
 				</p:dataTable>
 

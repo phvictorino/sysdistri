@@ -40,30 +40,32 @@ public class MbProduto implements Serializable {
 
 	@Inject
 	private BoUnidade boUnidade;
-	
+
 	@Inject
 	private BoFornecedor boFornecedor;
 
 	@PostConstruct
 	public void init() {
 		produto = new EnProduto();
-		listaProdutos = boProduto.listarTodos();
+		listaProdutos = boProduto.listarTodosSemLazyFornecedor();
 		listaGrupos = boGrupo.listarTodos();
 		listaUnidades = boUnidade.listarTodos();
 		listaFornecedor = boFornecedor.listarTodos();
 	}
 
-	public String novo() {
+	public void novo() {
 		produto = new EnProduto();
-		return "form.xhtml";
+		// return "form.xhtml?faces-redirect=true";
+		UtilsFaces.redirecionar("private/produto/form.xhtml");
 	}
 
-	public String editar(EnProduto produtoSelecionado) {
+	public void editar(EnProduto produtoSelecionado) {
 		produto = produtoSelecionado;
-		return "form.xhtml";
+		// return "form.xhtml?faces-redirect=true";
+		UtilsFaces.redirecionar("private/produto/form.xhtml");
 	}
 
-	public String salvar() {
+	public void salvar() {
 		EnProduto retorno = boProduto.salvaOuAtualiza(produto);
 
 		if (retorno != null) {
@@ -74,7 +76,8 @@ public class MbProduto implements Serializable {
 		} else
 			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 
-		return "listar.xhtml";
+		// return "listar.xhtml?faces-redirect=true";
+		UtilsFaces.redirecionar("private/produto/form.xhtml");
 	}
 
 	public void deletar(EnProduto produtoSelecionado) {

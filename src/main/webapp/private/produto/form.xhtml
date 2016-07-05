@@ -45,6 +45,7 @@
 						filterMatchMode="startsWith">
 						<f:selectItems value="#{mbProduto.listaFornecedor}" var="f"
 							itemValue="#{f.codigo}" itemLabel="#{f.nome}" />
+						<p:ajax event="change" process="fornecedor" />
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Observação" for="observacao" />
@@ -53,7 +54,7 @@
 
 					<p:outputLabel />
 					<p:commandButton value="Salvar" action="#{mbProduto.salvar()}"
-						ajax="false" />
+						process="@form" update="@form" />
 				</p:panelGrid>
 
 			</div>
