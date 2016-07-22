@@ -26,4 +26,28 @@ public class EnFormaPagamento implements Serializable {
 	@OneToMany(mappedBy = "formaPagamento")
 	private List<EnPedido> listaPedidos;
 
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public List<EnPedido> getListaPedidos() {
+		return listaPedidos;
+	}
+
+	public void setListaPedidos(List<EnPedido> listaPedidos) {
+		this.listaPedidos = listaPedidos;
+	}
+
 }

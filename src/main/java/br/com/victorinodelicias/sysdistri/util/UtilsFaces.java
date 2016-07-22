@@ -95,6 +95,20 @@ public class UtilsFaces {
 		keepMessage();
 	}
 
+	public static void adicionarMsgSucessoPadrao() {
+		FacesMessage facesMsg = new FacesMessage(null, UtilsMensagem.MENSAGEM_SUCESSO);
+		facesMsg.setSeverity(FacesMessage.SEVERITY_INFO);
+		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		keepMessage();
+	}
+
+	public static void adicionarMsgErroPadrao() {
+		FacesMessage facesMsg = new FacesMessage(null, UtilsMensagem.MENSAGEM_ERRO_INTERNO);
+		facesMsg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		keepMessage();
+	}
+
 	public static void showErrorDialog(String msg) {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", msg);
 		RequestContext.getCurrentInstance().showMessageInDialog(message);

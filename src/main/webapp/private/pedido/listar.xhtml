@@ -5,7 +5,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="title">Produtos</ui:define>
+	<ui:define name="title">Pedidos</ui:define>
 
 	<ui:define name="content">
 
@@ -15,39 +15,28 @@
 
 				<p:toolbar style="margin-bottom: 10px">
 					<p:toolbarGroup align="left">
-						<p:commandButton value="Novo produto" action="#{mbProduto.novo()}" />
+						<p:commandButton value="Novo pedido" action="#{mbGrupo.novo()}" />
 					</p:toolbarGroup>
 				</p:toolbar>
 
-				<p:dataTable id="tableProdutos" widgetVar="tableGrupos"
+				<p:dataTable id="tablePedidos" widgetVar="tableGrupos" lazy="true"
 					emptyMessage="Nenhum registro encontrado." rows="10"
-					value="#{mbProduto.listaProdutos}" var="p"
-					paginatorPosition="bottom" paginator="true" reflow="true">
+					value="#{mbPedido.modelPedidos}" var="p" paginatorPosition="bottom"
+					paginator="true" reflow="true">
 
 					<p:column headerText="Código" width="120" sortBy="#{p.codigo}">
 						<h:outputText value="#{p.codigo}" />
 					</p:column>
 
-					<p:column headerText="Descrição" sortBy="#{p.descricao}">
-						<h:outputText value="#{p.descricao}" />
-					</p:column>
-					
-					<p:column headerText="Fornecedor" sortBy="#{p.fornecedor.nome}">
-						<h:outputText value="#{p.fornecedor.nome}" />
-					</p:column>
-					
-					<p:column width="80" headerText="Unidade" sortBy="#{p.unidade.descricao}">
-						<h:outputText value="#{p.unidade.descricao}" />
+					<p:column headerText="Vendedor" sortBy="#{p.vendedor.nome}">
+						<h:outputText value="#{p.vendedor.nome}" />
 					</p:column>
 
 					<p:column width="120" headerText="Ações">
 						<p:commandButton icon="fa fw fa-chevron-up" process="@this"
-							update="@form" />
+							update="@form" action="#{mbPedido.ver(p)}" />
 						<p:commandButton icon="fa fw fa-pencil"
-							action="#{mbProduto.editar(p)}" process="@this" />
-						<p:commandButton icon="fa fa-trash"
-							action="#{mbProduto.deletar(p)}" process="@this"
-							update="tableProdutos" />
+							action="#{mbPedido.editar(p)}" process="@this" />
 					</p:column>
 				</p:dataTable>
 

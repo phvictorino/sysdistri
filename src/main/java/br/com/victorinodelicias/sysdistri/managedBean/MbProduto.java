@@ -53,31 +53,27 @@ public class MbProduto implements Serializable {
 		listaFornecedor = boFornecedor.listarTodos();
 	}
 
-	public void novo() {
+	public String novo() {
 		produto = new EnProduto();
-		// return "form.xhtml?faces-redirect=true";
-		UtilsFaces.redirecionar("private/produto/form.xhtml");
+		return "form.xhtml?faces-redirect=true";
 	}
 
-	public void editar(EnProduto produtoSelecionado) {
+	public String editar(EnProduto produtoSelecionado) {
 		produto = produtoSelecionado;
-		// return "form.xhtml?faces-redirect=true";
-		UtilsFaces.redirecionar("private/produto/form.xhtml");
+		return "form.xhtml?faces-redirect=true";
 	}
 
-	public void salvar() {
+	public String salvar() {
 		EnProduto retorno = boProduto.salvaOuAtualiza(produto);
 
 		if (retorno != null) {
 			UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
 
-			listaProdutos.remove(produto);
-			listaProdutos.add(retorno);
+			listaProdutos = boProduto.listarTodosSemLazyFornecedor();
 		} else
 			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 
-		// return "listar.xhtml?faces-redirect=true";
-		UtilsFaces.redirecionar("private/produto/form.xhtml");
+		return "listar.xhtml?faces-redirect=true";
 	}
 
 	public void deletar(EnProduto produtoSelecionado) {

@@ -1,0 +1,51 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Grupos de Produtos</ui:define>
+
+	<ui:define name="content">
+
+		<div class="ui-grid">
+
+			<div class="ui-grid-responsive">
+
+				<p:toolbar style="margin-bottom: 10px">
+					<p:toolbarGroup align="left">
+						<p:commandButton value="Novo grupo" action="#{mbGrupo.novo()}" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<p:dataTable id="tableGrupos" widgetVar="tableGrupos"
+					emptyMessage="Nenhum registro encontrado." rows="10"
+					value="#{mbGrupo.listaGrupos}" var="g" paginatorPosition="bottom"
+					paginator="true" reflow="true">
+
+					<p:column headerText="Código" width="120" sortBy="#{g.codigo}">
+						<h:outputText value="#{g.codigo}" />
+					</p:column>
+
+					<p:column headerText="Descrição" sortBy="#{g.descricao}">
+						<h:outputText value="#{g.descricao}" />
+					</p:column>
+
+					<p:column width="120" headerText="Ações">
+						<p:commandButton icon="fa fw fa-chevron-up" process="@this"
+							update="@form" action="#{mbGrupo.verDados(g)}" />
+						<p:commandButton icon="fa fw fa-pencil"
+							action="#{mbGrupo.editar(g)}" process="@this" />
+						<p:commandButton icon="fa fa-trash" action="#{mbGrupo.deletar(g)}"
+							process="@this" update="tableGrupos" />
+					</p:column>
+				</p:dataTable>
+
+			</div>
+
+		</div>
+
+	</ui:define>
+
+</ui:composition>

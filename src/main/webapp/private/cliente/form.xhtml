@@ -1,0 +1,69 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Formulário de Clientes</ui:define>
+
+	<ui:define name="content">
+		<div class="ui-grid">
+			<div class="ui-grid-responsive">
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-5"
+					layout="grid" styleClass="panelgrid-noborder">
+
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="desc" value="#{mbGrupo.grupo.descricao}"
+						required="true" />
+
+					<p:outputLabel for="cpfCpnj" value="Selecione" />
+					<p:selectOneRadio id="cpfCpnj" value="#{mbCliente.cpfCpnj}">
+						<f:selectItem itemLabel="CPF" itemValue="cpf" />
+						<f:selectItem itemLabel="CNPJ" itemValue="cnpj" />
+						<p:ajax event="change" update="panelCpf panelCpnj" process="@this" />
+					</p:selectOneRadio>
+
+					<p:outputPanel id="panelCpf"
+						rendered="#{mbCliente.cpfCpnj eq 'cpf'}">
+						<p:outputLabel for="cpf" value="CPF" />
+						<p:inputMask id="cpf" mask="999.999.999-99"
+							value="#{mbCliente.cliente.cnpjCpf}" />
+					</p:outputPanel>
+
+					<p:outputPanel id="panelCpnj"
+						rendered="#{mbCliente.cpfCpnj eq 'cnpj'}">
+						<p:outputLabel for="cnpj" value="cNPJ" />
+						<p:inputMask id="cnpj" mask="99.999.999/9999-99"
+							value="#{mbCliente.cliente.cnpjCpf}" />
+					</p:outputPanel>
+
+					<p:outputLabel value="Telefone" for="telefone" />
+					<p:inputMask mask="(99) 99999999" id="telefone"
+						value="#{mbCliente.cliente.telefone}" />
+
+					<p:outputLabel value="Celular" for="celular" />
+					<p:inputMask mask="(99) 99999999?9" id="celular"
+						value="#{mbCliente.cliente.celular}" />
+
+					<p:outputLabel for="email" value="Email" />
+					<p:inputText id="email" value="#{mbCliente.cliente.email}" />
+
+					<p:outputLabel for="insEstadual" value="Inscrição Estadual" />
+					<p:inputText id="insEstadual"
+						value="#{mbCliente.cliente.inscricaoEstadual}" maxlength="18" />
+
+
+
+
+
+					<p:outputLabel />
+					<p:commandButton value="Salvar" action="#{mbCliente.salvar()}"
+						ajax="false" />
+				</p:panelGrid>
+
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

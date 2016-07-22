@@ -30,7 +30,7 @@ public enum EnumStatusConta {
 	}
 
 	public static List<EnumStatusConta> getValues() {
-		return new ArrayList<EnumStatusConta>(Arrays.asList(EnumStatusConta.values()));
+		return new ArrayList<EnumStatusConta>(Arrays.asList(values()));
 	}
 
 }
