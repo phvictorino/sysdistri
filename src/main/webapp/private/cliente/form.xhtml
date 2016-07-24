@@ -8,60 +8,87 @@
 	<ui:define name="title">Formulário de Clientes</ui:define>
 
 	<ui:define name="content">
+		<h:outputStylesheet library="styles" name="paginas/formCliente.css" />
 		<div class="ui-grid">
 			<div class="ui-grid-responsive">
 
-				<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-5"
-					layout="grid" styleClass="panelgrid-noborder">
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-3">
+						<p:outputLabel value="Nome" for="nome" />
+						<p:inputText id="nome" value="#{mbCliente.cliente.nome}"
+							required="true" />
+					</div>
+				</div>
 
-					<p:outputLabel value="Nome" for="nome" />
-					<p:inputText id="desc" value="#{mbGrupo.grupo.descricao}"
-						required="true" />
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-3">
+						<p:outputLabel for="cpfCpnj" value="Selecione" />
+						<p:selectOneRadio id="cpfCpnj" value="#{mbCliente.cliente.tipo}">
+							<f:selectItems value="#{mbCliente.tiposPessoa}" var="tp"
+								itemLabel="#{tp.descricao}" itemValue="#{tp.codigo}" />
+							<p:ajax event="change" update="panelCpfCnpj" process="@this" />
+						</p:selectOneRadio>
+					</div>
+				</div>
 
-					<p:outputLabel for="cpfCpnj" value="Selecione" />
-					<p:selectOneRadio id="cpfCpnj" value="#{mbCliente.cpfCpnj}">
-						<f:selectItem itemLabel="CPF" itemValue="cpf" />
-						<f:selectItem itemLabel="CNPJ" itemValue="cnpj" />
-						<p:ajax event="change" update="panelCpf panelCpnj" process="@this" />
-					</p:selectOneRadio>
+				<div class="ui-grid-row">
+					<p:outputPanel id="panelCpfCnpj">
+						<div class="ui-grid-col-3">
+							<p:outputLabel id="labelCpf" for="inputCpf" value="CPF"
+								rendered="#{mbCliente.cliente.tipo == 0}" />
+							<p:inputMask id="inputCpf" mask="999.999.999-99"
+								value="#{mbCliente.cliente.cnpjCpf}"
+								rendered="#{mbCliente.cliente.tipo == 0}" />
+						</div>
 
-					<p:outputPanel id="panelCpf"
-						rendered="#{mbCliente.cpfCpnj eq 'cpf'}">
-						<p:outputLabel for="cpf" value="CPF" />
-						<p:inputMask id="cpf" mask="999.999.999-99"
-							value="#{mbCliente.cliente.cnpjCpf}" />
+						<div class="ui-grid-col-3">
+							<p:outputLabel id="labelCnpj" for="inputCnpj" value="CNPJ"
+								rendered="#{mbCliente.cliente.tipo == 1}" />
+							<p:inputMask id="inputCnpj" mask="99.999.999/9999-99"
+								value="#{mbCliente.cliente.cnpjCpf}"
+								rendered="#{mbCliente.cliente.tipo == 1}" />
+						</div>
 					</p:outputPanel>
+				</div>
 
-					<p:outputPanel id="panelCpnj"
-						rendered="#{mbCliente.cpfCpnj eq 'cnpj'}">
-						<p:outputLabel for="cnpj" value="cNPJ" />
-						<p:inputMask id="cnpj" mask="99.999.999/9999-99"
-							value="#{mbCliente.cliente.cnpjCpf}" />
-					</p:outputPanel>
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-3">
+						<p:outputLabel value="Telefone" for="telefone" />
+						<p:inputMask mask="(99) 99999999" id="telefone"
+							value="#{mbCliente.cliente.telefone}" />
+					</div>
+				</div>
 
-					<p:outputLabel value="Telefone" for="telefone" />
-					<p:inputMask mask="(99) 99999999" id="telefone"
-						value="#{mbCliente.cliente.telefone}" />
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-3">
+						<p:outputLabel value="Celular" for="celular" />
+						<p:inputMask mask="(99) 99999999?9" id="celular"
+							value="#{mbCliente.cliente.celular}" />
+					</div>
+				</div>
 
-					<p:outputLabel value="Celular" for="celular" />
-					<p:inputMask mask="(99) 99999999?9" id="celular"
-						value="#{mbCliente.cliente.celular}" />
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-3">
+						<p:outputLabel for="email" value="Email" />
+						<p:inputText id="email" value="#{mbCliente.cliente.email}" />
+					</div>
+				</div>
 
-					<p:outputLabel for="email" value="Email" />
-					<p:inputText id="email" value="#{mbCliente.cliente.email}" />
-
-					<p:outputLabel for="insEstadual" value="Inscrição Estadual" />
-					<p:inputText id="insEstadual"
-						value="#{mbCliente.cliente.inscricaoEstadual}" maxlength="18" />
-
-
-
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-3">
+						<p:outputLabel for="insEstadual" value="Inscrição Estadual" />
+						<p:inputText id="insEstadual"
+							value="#{mbCliente.cliente.inscricaoEstadual}" maxlength="18" />
+					</div>
+				</div>
 
 
-					<p:outputLabel />
-					<p:commandButton value="Salvar" action="#{mbCliente.salvar()}"
-						ajax="false" />
-				</p:panelGrid>
+
+
+
+				<p:outputLabel />
+				<p:commandButton value="Salvar" action="#{mbCliente.salvar()}"
+					ajax="false" />
 
 			</div>
 		</div>

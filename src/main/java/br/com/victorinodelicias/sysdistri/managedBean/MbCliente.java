@@ -13,6 +13,7 @@ import br.com.victorinodelicias.dto.DtoVendedor;
 import br.com.victorinodelicias.sysdistri.bussiness.BoCliente;
 import br.com.victorinodelicias.sysdistri.bussiness.BoVendedor;
 import br.com.victorinodelicias.sysdistri.entity.EnCliente;
+import br.com.victorinodelicias.sysdistri.enums.EnumTipoPessoa;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
 
 @Named
@@ -24,7 +25,7 @@ public class MbCliente implements Serializable {
 	private EnCliente cliente;
 	private List<EnCliente> clientes;
 	private List<DtoVendedor> vendedores;
-	private String cpfCpnj;
+	private List<EnumTipoPessoa> tiposPessoa;
 
 	@Inject
 	private BoCliente boCliente;
@@ -35,11 +36,21 @@ public class MbCliente implements Serializable {
 	@PostConstruct
 	public void init() {
 		cliente = new EnCliente();
+		tiposPessoa = EnumTipoPessoa.getValues();
+	}
+
+	public List<EnumTipoPessoa> getTiposPessoa() {
+		return tiposPessoa;
+	}
+
+	public void setTiposPessoa(List<EnumTipoPessoa> tiposPessoa) {
+		this.tiposPessoa = tiposPessoa;
 	}
 
 	public String novo() {
 		cliente = new EnCliente();
 		preparaListas();
+		cliente.setTipo(EnumTipoPessoa.FISICA.getCodigo());
 		return "form.xhtml?faces-redirect=true";
 	}
 
@@ -54,7 +65,12 @@ public class MbCliente implements Serializable {
 	}
 
 	// TODO
-	public void ver(EnCliente clienteSelecionado) {
+	public void verDados(EnCliente clienteSelecionado) {
+		cliente = clienteSelecionado;
+	}
+
+	// TODO
+	public void desativar(EnCliente clienteSelecionado) {
 		cliente = clienteSelecionado;
 	}
 
@@ -68,14 +84,6 @@ public class MbCliente implements Serializable {
 
 		return "form.xhtml?faces-redirect=true";
 
-	}
-
-	public String getCpfCpnj() {
-		return cpfCpnj;
-	}
-
-	public void setCpfCpnj(String cpfCpnj) {
-		this.cpfCpnj = cpfCpnj;
 	}
 
 	public EnCliente getCliente() {
