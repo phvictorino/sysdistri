@@ -20,6 +20,20 @@
 					</div>
 				</div>
 
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-3">
+						<p:outputLabel value="Vendedor" for="vendedor" />
+						<p:selectOneMenu id="vendedor" filter="true"
+							filterMatchMode="startsWith"
+							value="#{mbCliente.cliente.codVendedor}" autoWidth="false">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItems value="#{mbCliente.vendedores}" var="v"
+								itemLabel="#{v.nome}" itemValue="#{v.id}" />
+						</p:selectOneMenu>
+					</div>
+				</div>
+
 				<div class="ui-grid-row">
 					<div class="ui-grid-col-3">
 						<p:outputLabel for="cpfCpnj" value="Selecione" />
@@ -81,6 +95,31 @@
 							value="#{mbCliente.cliente.inscricaoEstadual}" maxlength="18" />
 					</div>
 				</div>
+
+				<p:separator />
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-3">
+						<p:outputLabel for="insEstadual" value="Inscrição Estadual" />
+						<p:inputText id="insEstadual"
+							value="#{mbCliente.cliente.inscricaoEstadual}" maxlength="18" />
+					</div>
+				</div>
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-3">
+
+						<p:dataTable value="#{mbCliente.cliente.listaEnderecosCliente}"
+							var="ec" reflow="true" emptyMessage="Nenhum endereço cadastrado.">
+							
+							<p:column></p:column>
+
+						</p:dataTable>
+
+					</div>
+				</div>
+
+
 
 				<p:outputLabel />
 				<p:commandButton value="Salvar" action="#{mbCliente.salvar()}"

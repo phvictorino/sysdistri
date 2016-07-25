@@ -15,13 +15,17 @@ public class DaoCliente extends GenericDAO<EnCliente> {
 	public List<DtoCliente> buscarTodosPorDto(Integer codVendedor) {
 
 		String hql = "SELECT new br.com.victorinodelicias.dto.DtoCliente (";
-		hql = hql + " c.codigo, c.nome) ";
+		hql = hql + " c.codigo, c.nome, c.telefone, v.nome) ";
 		hql = hql + " FROM EnCliente c ";
-		hql = hql + " WHERE c.codVendedor = :codVendedor";
+		hql = hql + " LEFT OUTER JOIN c.vendedor v ";
+
+		if (codVendedor != null)
+			hql = hql + " WHERE c.codVendedor = :codVendedor";
 
 		Query query = em.createQuery(hql);
 
-		query.setParameter("codVendedor", codVendedor);
+		if (codVendedor != null)
+			query.setParameter("codVendedor", codVendedor);
 
 		try {
 			return query.getResultList();

@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 
+import br.com.victorinodelicias.dto.DtoCliente;
 import br.com.victorinodelicias.dto.DtoVendedor;
 import br.com.victorinodelicias.sysdistri.bussiness.BoCliente;
 import br.com.victorinodelicias.sysdistri.bussiness.BoVendedor;
@@ -23,7 +24,7 @@ public class MbCliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private EnCliente cliente;
-	private List<EnCliente> clientes;
+	private List<DtoCliente> clientes;
 	private List<DtoVendedor> vendedores;
 	private List<EnumTipoPessoa> tiposPessoa;
 
@@ -35,16 +36,9 @@ public class MbCliente implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		clientes = boCliente.buscarTodosPorDto(null);
 		cliente = new EnCliente();
 		tiposPessoa = EnumTipoPessoa.getValues();
-	}
-
-	public List<EnumTipoPessoa> getTiposPessoa() {
-		return tiposPessoa;
-	}
-
-	public void setTiposPessoa(List<EnumTipoPessoa> tiposPessoa) {
-		this.tiposPessoa = tiposPessoa;
 	}
 
 	public String novo() {
@@ -54,8 +48,8 @@ public class MbCliente implements Serializable {
 		return "form.xhtml?faces-redirect=true";
 	}
 
-	public String editar(EnCliente clienteSelecionado) {
-		cliente = clienteSelecionado;
+	public String editar(DtoCliente clienteSelecionado) {
+		cliente = boCliente.buscarPorId(clienteSelecionado.getId());
 		preparaListas();
 		return "form.xhtml?faces-redirect=true";
 	}
@@ -65,13 +59,13 @@ public class MbCliente implements Serializable {
 	}
 
 	// TODO
-	public void verDados(EnCliente clienteSelecionado) {
-		cliente = clienteSelecionado;
+	public void verDados(DtoCliente clienteSelecionado) {
+//		cliente = clienteSelecionado;
 	}
 
 	// TODO
-	public void desativar(EnCliente clienteSelecionado) {
-		cliente = clienteSelecionado;
+	public void desativar(DtoCliente clienteSelecionado) {
+//		cliente = clienteSelecionado;
 	}
 
 	public String salvar() {
@@ -81,8 +75,10 @@ public class MbCliente implements Serializable {
 			UtilsFaces.adicionarMsgSucessoPadrao();
 		else
 			UtilsFaces.adicionarMsgErroPadrao();
-
-		return "form.xhtml?faces-redirect=true";
+		
+		clientes = boCliente.buscarTodosPorDto(null);
+		
+		return "listar.xhtml?faces-redirect=true";
 
 	}
 
@@ -94,20 +90,28 @@ public class MbCliente implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public List<EnCliente> getClientes() {
-		return clientes;
-	}
-
-	public void setClientes(List<EnCliente> clientes) {
-		this.clientes = clientes;
-	}
-
 	public List<DtoVendedor> getVendedores() {
 		return vendedores;
 	}
 
 	public void setVendedores(List<DtoVendedor> vendedores) {
 		this.vendedores = vendedores;
+	}
+
+	public List<EnumTipoPessoa> getTiposPessoa() {
+		return tiposPessoa;
+	}
+
+	public void setTiposPessoa(List<EnumTipoPessoa> tiposPessoa) {
+		this.tiposPessoa = tiposPessoa;
+	}
+
+	public List<DtoCliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<DtoCliente> clientes) {
+		this.clientes = clientes;
 	}
 
 }

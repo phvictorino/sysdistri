@@ -40,7 +40,7 @@ public class EnEnderecoCliente implements Serializable {
 	private Integer codRota;
 
 	// bi-directional many-to-one association to Cidade
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "codcid", insertable = false, updatable = false)
 	private EnCidade cidade;
 
@@ -53,5 +53,93 @@ public class EnEnderecoCliente implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codrot", insertable = false, updatable = false)
 	private EnRota rota;
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public Integer getEnderecoAtual() {
+		return enderecoAtual;
+	}
+
+	public void setEnderecoAtual(Integer enderecoAtual) {
+		this.enderecoAtual = enderecoAtual;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public Integer getCodCidade() {
+		return codCidade;
+	}
+
+	public void setCodCidade(Integer codCidade) {
+		this.codCidade = codCidade;
+	}
+
+	public Integer getCodCliente() {
+		return codCliente;
+	}
+
+	public void setCodCliente(Integer codCliente) {
+		this.codCliente = codCliente;
+	}
+
+	public Integer getCodRota() {
+		return codRota;
+	}
+
+	public void setCodRota(Integer codRota) {
+		this.codRota = codRota;
+	}
+
+	public EnCidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(EnCidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public EnCliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(EnCliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public EnRota getRota() {
+		return rota;
+	}
+
+	public void setRota(EnRota rota) {
+		this.rota = rota;
+	}
 
 }

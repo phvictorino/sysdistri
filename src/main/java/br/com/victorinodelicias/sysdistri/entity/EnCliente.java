@@ -3,6 +3,7 @@ package br.com.victorinodelicias.sysdistri.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,7 +45,6 @@ public class EnCliente implements Serializable {
 	@Column(name = "emacli")
 	private String email;
 
-	@Max(value = 18)
 	@Column(name = "insestrgcli")
 	private String inscricaoEstadual;
 
@@ -73,7 +73,7 @@ public class EnCliente implements Serializable {
 	private List<EnContasPr> listaContas;
 
 	// bi-directional many-to-one association to TbEnderecoCliente
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<EnEnderecoCliente> listaEnderecosCliente;
 
 	// bi-directional many-to-one association to TbPedido
