@@ -25,4 +25,8 @@ public class BoCliente extends GenericBO<EnCliente> {
 		return daoCliente.buscarTodosPorDto(codVendedor);
 	}
 
+	public EnCliente buscarPorIdSemLazyEnderecos(Integer id) {
+		return daoCliente.buscarPorIdSemLazyEnderecos(id);
+	}
+
 }

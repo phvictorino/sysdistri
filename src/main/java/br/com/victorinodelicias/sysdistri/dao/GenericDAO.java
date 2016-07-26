@@ -14,6 +14,8 @@ import javax.transaction.Transactional;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
+import br.com.victorinodelicias.sysdistri.entity.EnEnderecoCliente;
+
 @Transactional
 public class GenericDAO<T> implements Serializable {
 

@@ -96,16 +96,14 @@ public class MbPedido implements Serializable {
 		System.out.println("Ver pedido");
 	}
 
-	public String salvar() {
+	public void salvar() {
 		EnPedido pedidoSalvo = boPedido.salvaOuAtualiza(pedido);
 
-		if (pedidoSalvo != null) {
+		if (pedidoSalvo != null)
 			UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
-		} else {
+		else
 			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
-		}
-		
-		return "listar.xhtml?faces-redirect=true";
+
 	}
 
 	public EnPedido getPedido() {

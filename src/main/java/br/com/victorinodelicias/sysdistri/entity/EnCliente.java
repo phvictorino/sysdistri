@@ -15,10 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 
 /**
  * The persistent class for the tb_clientes database table.

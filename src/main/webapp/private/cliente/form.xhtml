@@ -11,119 +11,192 @@
 		<h:outputStylesheet library="styles" name="paginas/formCliente.css" />
 		<div class="ui-grid">
 			<div class="ui-grid-responsive">
+				<p:tabView>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-3">
-						<p:outputLabel value="Nome" for="nome" />
-						<p:inputText id="nome" value="#{mbCliente.cliente.nome}"
-							required="true" />
-					</div>
-				</div>
+					<p:tab title="Cadastro">
+
+						<p:outputPanel id="formCadastroCliente">
+
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-3">
+									<p:outputLabel value="Nome" for="nome" />
+									<p:inputText id="nome" value="#{mbCliente.cliente.nome}"
+										required="true" />
+								</div>
+							</div>
 
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-3">
-						<p:outputLabel value="Vendedor" for="vendedor" />
-						<p:selectOneMenu id="vendedor" filter="true"
-							filterMatchMode="startsWith"
-							value="#{mbCliente.cliente.codVendedor}" autoWidth="false">
-							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
-							<f:selectItems value="#{mbCliente.vendedores}" var="v"
-								itemLabel="#{v.nome}" itemValue="#{v.id}" />
-						</p:selectOneMenu>
-					</div>
-				</div>
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-3">
+									<p:outputLabel value="Vendedor" for="vendedor" />
+									<p:selectOneMenu id="vendedor" filter="true"
+										filterMatchMode="startsWith"
+										value="#{mbCliente.cliente.codVendedor}" autoWidth="false">
+										<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+										<f:selectItems value="#{mbCliente.vendedores}" var="v"
+											itemLabel="#{v.nome}" itemValue="#{v.id}" />
+									</p:selectOneMenu>
+								</div>
+							</div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-3">
-						<p:outputLabel for="cpfCpnj" value="Selecione" />
-						<p:selectOneRadio id="cpfCpnj" value="#{mbCliente.cliente.tipo}">
-							<f:selectItems value="#{mbCliente.tiposPessoa}" var="tp"
-								itemLabel="#{tp.descricao}" itemValue="#{tp.codigo}" />
-							<p:ajax event="change" update="panelCpfCnpj" process="@this" />
-						</p:selectOneRadio>
-					</div>
-				</div>
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-3">
+									<p:outputLabel for="cpfCpnj" value="Selecione" />
+									<p:selectOneRadio id="cpfCpnj"
+										value="#{mbCliente.cliente.tipo}">
+										<f:selectItems value="#{mbCliente.tiposPessoa}" var="tp"
+											itemLabel="#{tp.descricao}" itemValue="#{tp.codigo}" />
+										<p:ajax event="change" update="panelCpfCnpj" process="@this" />
+									</p:selectOneRadio>
+								</div>
+							</div>
 
-				<div class="ui-grid-row">
-					<p:outputPanel id="panelCpfCnpj">
-						<div class="ui-grid-col-3">
-							<p:outputLabel id="labelCpf" for="inputCpf" value="CPF"
-								rendered="#{mbCliente.cliente.tipo == 0}" />
-							<p:inputMask id="inputCpf" mask="999.999.999-99"
-								value="#{mbCliente.cliente.cnpjCpf}"
-								rendered="#{mbCliente.cliente.tipo == 0}" />
+							<div class="ui-grid-row">
+								<p:outputPanel id="panelCpfCnpj">
+									<div class="ui-grid-col-3">
+										<p:outputLabel id="labelCpf" for="inputCpf" value="CPF"
+											rendered="#{mbCliente.cliente.tipo == 0}" />
+										<p:inputMask id="inputCpf" mask="999.999.999-99"
+											value="#{mbCliente.cliente.cnpjCpf}"
+											rendered="#{mbCliente.cliente.tipo == 0}" />
+									</div>
+
+									<div class="ui-grid-col-3">
+										<p:outputLabel id="labelCnpj" for="inputCnpj" value="CNPJ"
+											rendered="#{mbCliente.cliente.tipo == 1}" />
+										<p:inputMask id="inputCnpj" mask="99.999.999/9999-99"
+											value="#{mbCliente.cliente.cnpjCpf}"
+											rendered="#{mbCliente.cliente.tipo == 1}" />
+									</div>
+								</p:outputPanel>
+							</div>
+
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-3">
+									<p:outputLabel value="Telefone" for="telefone" />
+									<p:inputMask mask="(99) 99999999" id="telefone"
+										value="#{mbCliente.cliente.telefone}" />
+								</div>
+							</div>
+
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-3">
+									<p:outputLabel value="Celular" for="celular" />
+									<p:inputMask mask="(99) 99999999?9" id="celular"
+										value="#{mbCliente.cliente.celular}" />
+								</div>
+							</div>
+
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-3">
+									<p:outputLabel for="email" value="Email" />
+									<p:inputText id="email" value="#{mbCliente.cliente.email}" />
+								</div>
+							</div>
+
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-3">
+									<p:outputLabel for="insEstadual" value="Inscrição Estadual" />
+									<p:inputText id="insEstadual"
+										value="#{mbCliente.cliente.inscricaoEstadual}" maxlength="18" />
+								</div>
+							</div>
+
+							<p:outputLabel />
+							<p:commandButton value="Salvar" action="#{mbCliente.salvar()}"
+								process="formCadastroCliente" update="@form" />
+
+						</p:outputPanel>
+
+
+					</p:tab>
+
+					<p:tab title="Endereços" rendered="#{!mbCliente.novoCliente}">
+
+						<p:outputPanel id="panelFormEnderecoCliente">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-3">
+									<p:outputLabel for="cep" value="CEP" />
+									<p:inputMask mask="99999-999" id="cep" required="true"
+										value="#{mbCliente.enderecoCliente.cep}" />
+								</div>
+							</div>
+
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-3">
+									<p:outputLabel for="lograd" value="Logradouro" />
+									<p:inputText id="lograd" required="true"
+										value="#{mbCliente.enderecoCliente.logradouro}" />
+								</div>
+							</div>
+
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-3">
+									<p:outputLabel for="cidade" value="Cidade" />
+									<p:selectOneMenu id="cidade"
+										value="#{mbCliente.enderecoCliente.codCidade}" filter="true"
+										filterMatchMode="startsWith">
+										<f:selectItems value="#{mbCliente.cidades}" var="c"
+											itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
+									</p:selectOneMenu>
+								</div>
+							</div>
+
+						</p:outputPanel>
+
+						<p:commandButton value="Salvar" style="margin: 10px 10px 10px 0"
+							action="#{mbCliente.salvarEndereco()}"
+							update="panelFormEnderecoCliente tableEnderecos"
+							process="panelFormEnderecoCliente @this" />
+
+						<p:commandButton value="Limpar" style="margin: 10px 10px 10px 0"
+							action="#{mbCliente.limparEndereco()}"
+							update="panelFormEnderecoCliente" process="@this" />
+
+						<p:separator />
+
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-12">
+								<p:dataTable id="tableEnderecos"
+									value="#{mbCliente.cliente.listaEnderecosCliente}" var="ec"
+									reflow="true" emptyMessage="Nenhum endereço cadastrado.">
+
+									<p:column headerText="CEP">
+										<h:outputText value="#{ec.cep}" />
+									</p:column>
+
+									<p:column headerText="Logradouro">
+										<h:outputText value="#{ec.logradouro}" />
+									</p:column>
+
+									<p:column headerText="Cidade">
+										<h:outputText value="#{ec.cidade.nome}" />
+									</p:column>
+
+									<p:column headerText="Situação" width="120">
+										<p:commandButton rendered="#{ec.enderecoAtual == 1}"
+											action="#{mbCliente.alteraStatusEndereco(ec)}"
+											icon="fa fw fa-check" value="Ativo" update="tableEnderecos"
+											process="@this" />
+										<p:commandButton rendered="#{ec.enderecoAtual == 0}"
+											action="#{mbCliente.alteraStatusEndereco(ec)}"
+											icon="fa fw fa-close" value="Desativado"
+											update="tableEnderecos" process="@this" />
+									</p:column>
+									
+									<p:column headerText="Ações" width="120">
+										<p:commandButton icon="fa fw fa-pencil"
+											action="#{mbCliente.editarEndereco(ec)}" process="@this"
+											update=":#{p:component('panelFormEnderecoCliente')}" />
+									</p:column>
+
+								</p:dataTable>
+							</div>
 						</div>
 
-						<div class="ui-grid-col-3">
-							<p:outputLabel id="labelCnpj" for="inputCnpj" value="CNPJ"
-								rendered="#{mbCliente.cliente.tipo == 1}" />
-							<p:inputMask id="inputCnpj" mask="99.999.999/9999-99"
-								value="#{mbCliente.cliente.cnpjCpf}"
-								rendered="#{mbCliente.cliente.tipo == 1}" />
-						</div>
-					</p:outputPanel>
-				</div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-3">
-						<p:outputLabel value="Telefone" for="telefone" />
-						<p:inputMask mask="(99) 99999999" id="telefone"
-							value="#{mbCliente.cliente.telefone}" />
-					</div>
-				</div>
-
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-3">
-						<p:outputLabel value="Celular" for="celular" />
-						<p:inputMask mask="(99) 99999999?9" id="celular"
-							value="#{mbCliente.cliente.celular}" />
-					</div>
-				</div>
-
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-3">
-						<p:outputLabel for="email" value="Email" />
-						<p:inputText id="email" value="#{mbCliente.cliente.email}" />
-					</div>
-				</div>
-
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-3">
-						<p:outputLabel for="insEstadual" value="Inscrição Estadual" />
-						<p:inputText id="insEstadual"
-							value="#{mbCliente.cliente.inscricaoEstadual}" maxlength="18" />
-					</div>
-				</div>
-
-				<p:separator />
-
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-3">
-						<p:outputLabel for="insEstadual" value="Inscrição Estadual" />
-						<p:inputText id="insEstadual"
-							value="#{mbCliente.cliente.inscricaoEstadual}" maxlength="18" />
-					</div>
-				</div>
-
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-3">
-
-						<p:dataTable value="#{mbCliente.cliente.listaEnderecosCliente}"
-							var="ec" reflow="true" emptyMessage="Nenhum endereço cadastrado.">
-							
-							<p:column></p:column>
-
-						</p:dataTable>
-
-					</div>
-				</div>
-
-
-
-				<p:outputLabel />
-				<p:commandButton value="Salvar" action="#{mbCliente.salvar()}"
-					ajax="false" />
+					</p:tab>
+				</p:tabView>
 
 			</div>
 		</div>

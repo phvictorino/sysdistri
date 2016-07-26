@@ -3,14 +3,15 @@ package br.com.victorinodelicias.sysdistri.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 
 import br.com.victorinodelicias.dto.DtoPedidoBuscaLazy;
 import br.com.victorinodelicias.sysdistri.entity.EnPedido;
 
-public class DaoPedido extends GenericDAO<EnPedido> {
 
+public class DaoPedido extends GenericDAO<EnPedido> {
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unchecked")
@@ -20,6 +21,7 @@ public class DaoPedido extends GenericDAO<EnPedido> {
 
 		c.setFirstResult(dto.getPrimeiroRegistro());
 		c.setMaxResults(dto.getQtdRegistros());
+		c.setFetchMode("vendedor", FetchMode.JOIN);
 
 		if (dto.isAscendente() && dto.getAtributoOrdenacao() != null)
 			c.addOrder(Order.asc(dto.getAtributoOrdenacao()));

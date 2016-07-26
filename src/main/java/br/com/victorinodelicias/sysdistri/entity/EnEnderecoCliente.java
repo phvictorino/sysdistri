@@ -40,7 +40,7 @@ public class EnEnderecoCliente implements Serializable {
 	private Integer codRota;
 
 	// bi-directional many-to-one association to Cidade
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "codcid", insertable = false, updatable = false)
 	private EnCidade cidade;
 

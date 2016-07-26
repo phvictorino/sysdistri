@@ -4,6 +4,10 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.criterion.Restrictions;
+
 import br.com.victorinodelicias.dto.DtoCliente;
 import br.com.victorinodelicias.sysdistri.entity.EnCliente;
 
@@ -35,6 +39,13 @@ public class DaoCliente extends GenericDAO<EnCliente> {
 
 		return null;
 
+	}
+
+	public EnCliente buscarPorIdSemLazyEnderecos(Integer id) {
+		Criteria c = getCriteria();
+		c.add(Restrictions.idEq(id));
+		c.setFetchMode("listaEnderecosCliente", FetchMode.JOIN);
+		return (EnCliente) c.uniqueResult();
 	}
 
 }

@@ -31,7 +31,6 @@ public class EnPedido implements Serializable {
 	@Column(name = "datped")
 	private Date dataPedido;
 
-	@Max(value = 100)
 	@Column(name = "obsped")
 	private String observacao;
 

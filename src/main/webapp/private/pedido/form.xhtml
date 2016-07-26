@@ -11,8 +11,9 @@
 		<div class="ui-grid">
 			<div class="ui-grid-responsive">
 
-				<p:panelGrid id="gridFormPedido" columns="2" columnClasses="ui-grid-col-2,ui-grid-col-8"
-					layout="grid" styleClass="panelgrid-noborder">
+				<p:panelGrid id="gridFormPedido" columns="2"
+					columnClasses="ui-grid-col-2,ui-grid-col-8" layout="grid"
+					styleClass="panelgrid-noborder">
 
 					<p:outputLabel value="Vendedor" for="vendedor" />
 					<p:selectOneMenu id="vendedor"
@@ -21,7 +22,7 @@
 						<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
 						<f:selectItems value="#{mbPedido.vendedores}" var="v"
 							itemLabel="#{v.nome}" itemValue="#{v.id}" />
-						<p:ajax event="change" process="gridFormPedido"/>
+						<p:ajax event="change" process="gridFormPedido" />
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Cliente" for="cliente" />
@@ -51,7 +52,7 @@
 
 					<p:outputLabel />
 					<p:commandButton value="Salvar" action="#{mbPedido.salvar()}"
-						ajax="false" />
+						process="@form" update="@form" />
 				</p:panelGrid>
 
 			</div>
