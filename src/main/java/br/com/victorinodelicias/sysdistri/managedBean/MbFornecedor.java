@@ -13,6 +13,7 @@ import br.com.victorinodelicias.sysdistri.bussiness.BoCidade;
 import br.com.victorinodelicias.sysdistri.bussiness.BoFornecedor;
 import br.com.victorinodelicias.sysdistri.entity.EnCidade;
 import br.com.victorinodelicias.sysdistri.entity.EnFornecedor;
+import br.com.victorinodelicias.sysdistri.enums.EnumStatus;
 import br.com.victorinodelicias.sysdistri.enums.EnumTipoFaturamento;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
 import br.com.victorinodelicias.sysdistri.util.UtilsMensagem;
@@ -61,6 +62,7 @@ public class MbFornecedor implements Serializable {
 	}
 
 	public void salvar() {
+
 		EnFornecedor retorno = boFornecedor.salvaOuAtualiza(fornecedor);
 
 		if (retorno != null) {

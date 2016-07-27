@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import br.com.victorinodelicias.dto.DtoVendedor;
 import br.com.victorinodelicias.sysdistri.dao.DaoVendedor;
 import br.com.victorinodelicias.sysdistri.entity.EnVendedor;
+import br.com.victorinodelicias.sysdistri.enums.EnumStatus;
 
 public class BoVendedor extends GenericBO<EnVendedor> {
 
@@ -20,13 +21,20 @@ public class BoVendedor extends GenericBO<EnVendedor> {
 	public void init() {
 		this.dao = daoVendedor;
 	}
-	
+
 	public DtoVendedor buscarPorIdDto(Integer id) {
 		return daoVendedor.buscarPorIdDto(id);
 	}
 
 	public List<DtoVendedor> buscarTodosPorDto() {
 		return daoVendedor.buscarTodosPorDto();
+	}
+
+	@Override
+	public EnVendedor salvaOuAtualiza(EnVendedor obj) {
+		if (obj.getCodigo() == null)
+			obj.setStatus(EnumStatus.ATIVO.getCodigo());
+		return super.salvaOuAtualiza(obj);
 	}
 
 }

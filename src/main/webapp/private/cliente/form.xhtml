@@ -142,6 +142,19 @@
 								</div>
 							</div>
 
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-3">
+									<p:outputLabel for="rota" value="Rota" />
+									<p:selectOneMenu id="rota"
+										value="#{mbCliente.enderecoCliente.codRota}" filter="true"
+										filterMatchMode="startsWith">
+										<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+										<f:selectItems value="#{mbCliente.rotas}" var="r"
+											itemLabel="#{r.descricao}" itemValue="#{r.codigo}" />
+									</p:selectOneMenu>
+								</div>
+							</div>
+
 						</p:outputPanel>
 
 						<p:commandButton value="Salvar" style="margin: 10px 10px 10px 0"
@@ -174,16 +187,16 @@
 									</p:column>
 
 									<p:column headerText="Situação" width="120">
-										<p:commandButton rendered="#{ec.enderecoAtual == 1}"
+										<p:commandButton rendered="#{ec.status == 1}"
 											action="#{mbCliente.alteraStatusEndereco(ec)}"
 											icon="fa fw fa-check" value="Ativo" update="tableEnderecos"
 											process="@this" />
-										<p:commandButton rendered="#{ec.enderecoAtual == 0}"
+										<p:commandButton rendered="#{ec.status == 0}"
 											action="#{mbCliente.alteraStatusEndereco(ec)}"
 											icon="fa fw fa-close" value="Desativado"
 											update="tableEnderecos" process="@this" />
 									</p:column>
-									
+
 									<p:column headerText="Ações" width="120">
 										<p:commandButton icon="fa fw fa-pencil"
 											action="#{mbCliente.editarEndereco(ec)}" process="@this"

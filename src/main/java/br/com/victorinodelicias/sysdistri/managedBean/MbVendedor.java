@@ -12,6 +12,7 @@ import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 
 import br.com.victorinodelicias.sysdistri.bussiness.BoVendedor;
 import br.com.victorinodelicias.sysdistri.entity.EnVendedor;
+import br.com.victorinodelicias.sysdistri.enums.EnumStatus;
 import br.com.victorinodelicias.sysdistri.enums.EnumTipoFaturamento;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
 import br.com.victorinodelicias.sysdistri.util.UtilsMensagem;
@@ -31,14 +32,6 @@ public class MbVendedor implements Serializable {
 
 	@PostConstruct
 	public void init() {
-
-		// if (UtilsFaces.getSessionMapValue("vendedor") != null) {
-		// vendedor = (EnVendedor) UtilsFaces.getSessionMapValue("vendedor");
-		// UtilsFaces.removeSessionMapValue("vendedor");
-		// } else
-		// vendedor = new EnVendedor();
-
-		vendedores = new ArrayList<EnVendedor>();
 		vendedores = boVendedor.listarTodos();
 		listaTipoFaturamento = EnumTipoFaturamento.getValues();
 	}
@@ -51,6 +44,7 @@ public class MbVendedor implements Serializable {
 	public void salvar() {
 
 		if (vendedor != null) {
+
 			EnVendedor retorno = boVendedor.salvaOuAtualiza(vendedor);
 
 			if (retorno != null) {
@@ -78,15 +72,13 @@ public class MbVendedor implements Serializable {
 		}
 	}
 
-	public void deletar(EnVendedor vendedorSelecionado) {
-		try {
-			boVendedor.remover(vendedorSelecionado);
-			vendedores.remove(vendedorSelecionado);
-			UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
-		} catch (Exception e) {
-			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
-			e.printStackTrace();
-		}
+	public void alterarStatus(EnVendedor vendedorSelecionado) {
+		if (vendedorSelecionado.getStatus() == EnumStatus.ATIVO.getCodigo())
+			vendedorSelecionado.setStatus(EnumStatus.INATIVO.getCodigo());
+		else
+			vendedorSelecionado.setStatus(EnumStatus.ATIVO.getCodigo());
+		
+		boVendedor.salvaOuAtualiza(vendedorSelecionado);
 	}
 
 	public List<EnVendedor> getVendedores() {

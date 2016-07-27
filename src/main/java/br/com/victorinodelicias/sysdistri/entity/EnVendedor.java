@@ -1,11 +1,19 @@
 package br.com.victorinodelicias.sysdistri.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import br.com.victorinodelicias.sysdistri.enums.EnumTipoFaturamento;
-
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import br.com.victorinodelicias.sysdistri.enums.EnumStatus;
+import br.com.victorinodelicias.sysdistri.enums.EnumTipoFaturamento;
 
 /**
  * The persistent class for the tb_vendedores database table.
@@ -28,6 +36,9 @@ public class EnVendedor implements Serializable {
 	@Column(name = "tipfat")
 	private Integer tipoFaturamento;
 
+	@Column(name = "statven", columnDefinition = "integer default 1")
+	private Integer status;
+
 	// bi-directional many-to-one association to TbCliente
 	@OneToMany(mappedBy = "vendedor")
 	private List<EnCliente> listaClientes;
@@ -43,6 +54,14 @@ public class EnVendedor implements Serializable {
 	// bi-directional many-to-one association to TbContasPr
 	@OneToMany(mappedBy = "vendedor")
 	private List<EnContasPr> listaContas;
+
+	public EnumTipoFaturamento getEnumTipoFaturamento() {
+		return EnumTipoFaturamento.getValue(tipoFaturamento);
+	}
+
+	public EnumStatus getEnumStatus() {
+		return EnumStatus.getStatus(status);
+	}
 
 	public Integer getCodigo() {
 		return codigo;
@@ -66,6 +85,14 @@ public class EnVendedor implements Serializable {
 
 	public void setTipoFaturamento(Integer tipoFaturamento) {
 		this.tipoFaturamento = tipoFaturamento;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public List<EnCliente> getListaClientes() {
@@ -92,8 +119,12 @@ public class EnVendedor implements Serializable {
 		this.listaPrecos = listaPrecos;
 	}
 
-	public EnumTipoFaturamento getEnumTipoFaturamento() {
-		return EnumTipoFaturamento.getValue(this.tipoFaturamento);
+	public List<EnContasPr> getListaContas() {
+		return listaContas;
+	}
+
+	public void setListaContas(List<EnContasPr> listaContas) {
+		this.listaContas = listaContas;
 	}
 
 	@Override
@@ -102,9 +133,11 @@ public class EnVendedor implements Serializable {
 		int result = 1;
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		result = prime * result + ((listaClientes == null) ? 0 : listaClientes.hashCode());
+		result = prime * result + ((listaContas == null) ? 0 : listaContas.hashCode());
 		result = prime * result + ((listaPedidos == null) ? 0 : listaPedidos.hashCode());
 		result = prime * result + ((listaPrecos == null) ? 0 : listaPrecos.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((tipoFaturamento == null) ? 0 : tipoFaturamento.hashCode());
 		return result;
 	}
@@ -128,6 +161,11 @@ public class EnVendedor implements Serializable {
 				return false;
 		} else if (!listaClientes.equals(other.listaClientes))
 			return false;
+		if (listaContas == null) {
+			if (other.listaContas != null)
+				return false;
+		} else if (!listaContas.equals(other.listaContas))
+			return false;
 		if (listaPedidos == null) {
 			if (other.listaPedidos != null)
 				return false;
@@ -143,6 +181,11 @@ public class EnVendedor implements Serializable {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
 		if (tipoFaturamento == null) {
 			if (other.tipoFaturamento != null)
 				return false;
@@ -150,5 +193,4 @@ public class EnVendedor implements Serializable {
 			return false;
 		return true;
 	}
-
 }

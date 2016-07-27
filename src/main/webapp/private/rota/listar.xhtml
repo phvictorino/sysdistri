@@ -1,0 +1,81 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Rotas</ui:define>
+
+	<ui:define name="content">
+
+		<div class="ui-grid">
+
+			<div class="ui-grid-responsive">
+
+				<p:toolbar style="margin-bottom: 10px">
+					<p:toolbarGroup align="left">
+						<p:commandButton value="Nova rota" action="#{mbRota.novo()}" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<p:dataTable id="tableRotas" widgetVar="tableRotas"
+					emptyMessage="Nenhum registro encontrado." rows="10"
+					value="#{mbRota.rotas}" var="r" paginatorPosition="bottom"
+					paginator="true" reflow="true">
+
+					<p:column headerText="Código" width="120" sortBy="#{r.codigo}">
+						<h:outputText value="#{r.codigo}" />
+					</p:column>
+
+					<p:column headerText="Descrição" sortBy="#{r.descricao}">
+						<h:outputText value="#{r.descricao}" />
+					</p:column>
+
+					<p:column headerText="Status" width="120">
+						<p:commandButton icon="fa fw fa-close" value="Inativo"
+							rendered="#{r.status == 0}"
+							action="#{mbRota.alterarStatus(r)}" process="@this"
+							update="tableRotas" />
+						<p:commandButton icon="fa fw fa-check" value="Ativo"
+							rendered="#{r.status == 1}"
+							action="#{mbRota.alterarStatus(r)}" process="@this"
+							update="tableRotas" />
+					</p:column>
+
+					<p:column width="120" headerText="Ações">
+						<p:commandButton icon="fa fw fa-chevron-up" process="@this"
+							update="@form" action="#{mbRota.verDados(r)}" />
+						<p:commandButton icon="fa fw fa-pencil"
+							action="#{mbRota.editar(r)}" process="@this" />
+					</p:column>
+				</p:dataTable>
+
+			</div>
+
+		</div>
+
+		<p:dialog id="dialogDados" widgetVar="dialogDados" modal="true"
+			responsive="true" header="#{mbRota.rota.descricao}" width="600px"
+			resizable="false">
+
+			<p:dataTable reflow="true" emptyMessage="Nenhum cliente adicionado."
+				paginatorPosition="bottom" rows="10"
+				value="#{mbRota.rota.listaEnderecosCliente}" var="ec"
+				paginator="true">
+
+				<p:column headerText="Cidade">
+					<h:outputText value="#{ec.cidade.nome}" />
+				</p:column>
+
+				<p:column headerText="Cliente">
+					<h:outputText value="#{ec.cliente.nome}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</p:dialog>
+
+	</ui:define>
+
+</ui:composition>

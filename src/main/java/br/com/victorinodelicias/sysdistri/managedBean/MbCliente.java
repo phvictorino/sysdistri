@@ -14,11 +14,13 @@ import br.com.victorinodelicias.dto.DtoVendedor;
 import br.com.victorinodelicias.sysdistri.bussiness.BoCidade;
 import br.com.victorinodelicias.sysdistri.bussiness.BoCliente;
 import br.com.victorinodelicias.sysdistri.bussiness.BoEnderecoCliente;
+import br.com.victorinodelicias.sysdistri.bussiness.BoRota;
 import br.com.victorinodelicias.sysdistri.bussiness.BoVendedor;
 import br.com.victorinodelicias.sysdistri.entity.EnCidade;
 import br.com.victorinodelicias.sysdistri.entity.EnCliente;
 import br.com.victorinodelicias.sysdistri.entity.EnEnderecoCliente;
-import br.com.victorinodelicias.sysdistri.enums.EnumStatusEndereco;
+import br.com.victorinodelicias.sysdistri.entity.EnRota;
+import br.com.victorinodelicias.sysdistri.enums.EnumStatus;
 import br.com.victorinodelicias.sysdistri.enums.EnumTipoPessoa;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
 
@@ -35,6 +37,7 @@ public class MbCliente implements Serializable {
 	private EnEnderecoCliente enderecoCliente;
 	private List<EnCidade> cidades;
 	boolean novoCliente;
+	private List<EnRota> rotas;
 
 	@Inject
 	private BoCliente boCliente;
@@ -47,6 +50,9 @@ public class MbCliente implements Serializable {
 
 	@Inject
 	private BoEnderecoCliente boEnderecoCliente;
+
+	@Inject
+	private BoRota boRota;
 
 	@PostConstruct
 	public void init() {
@@ -67,6 +73,7 @@ public class MbCliente implements Serializable {
 
 	public String editar(DtoCliente clienteSelecionado) {
 		cliente = boCliente.buscarPorIdSemLazyEnderecos(clienteSelecionado.getId());
+		rotas = boRota.buscarTodosAtivosPorVendedor(cliente.getCodVendedor());
 		preparaListas();
 		novoCliente = false;
 		return "form.xhtml?faces-redirect=true";
@@ -99,9 +106,8 @@ public class MbCliente implements Serializable {
 			cliente = clienteSalvo;
 		} else
 			UtilsFaces.adicionarMsgErroPadrao();
-
+		rotas = boRota.buscarTodosAtivosPorVendedor(cliente.getCodVendedor());
 		clientes = boCliente.buscarTodosPorDto(null);
-
 	}
 
 	public void salvarEndereco() {
@@ -111,14 +117,13 @@ public class MbCliente implements Serializable {
 			if (enderecoCliente.getCodCliente() == null)
 				enderecoCliente.setCodCliente(cliente.getCodigo());
 
-			enderecoCliente.setEnderecoAtual(EnumStatusEndereco.ATIVO.getCodigo());
-
 			EnEnderecoCliente objSalvo = boEnderecoCliente.salvaOuAtualiza(enderecoCliente);
 
 			if (objSalvo != null) {
 				UtilsFaces.adicionarMsgSucessoPadrao();
 
 				cliente.setListaEnderecosCliente(boEnderecoCliente.buscarPorIdCliente(cliente.getCodigo()));
+				rotas = boRota.buscarTodosAtivosPorVendedor(cliente.getCodVendedor());
 
 				enderecoCliente = new EnEnderecoCliente();
 
@@ -132,13 +137,12 @@ public class MbCliente implements Serializable {
 
 	public void alteraStatusEndereco(EnEnderecoCliente enderecoClienteSelecionado) {
 
-		if (enderecoClienteSelecionado.getEnderecoAtual().intValue() == EnumStatusEndereco.ATIVO.getCodigo()
-				.intValue()) {
-			enderecoClienteSelecionado.setEnderecoAtual(EnumStatusEndereco.INATIVO.getCodigo());
+		if (enderecoClienteSelecionado.getStatus().intValue() == EnumStatus.ATIVO.getCodigo().intValue()) {
+			enderecoClienteSelecionado.setStatus(EnumStatus.INATIVO.getCodigo());
 		} else {
-			enderecoClienteSelecionado.setEnderecoAtual(EnumStatusEndereco.ATIVO.getCodigo());
+			enderecoClienteSelecionado.setStatus(EnumStatus.ATIVO.getCodigo());
 		}
-		
+
 		boEnderecoCliente.salvaOuAtualiza(enderecoClienteSelecionado);
 
 	}
@@ -205,6 +209,14 @@ public class MbCliente implements Serializable {
 
 	public void setNovoCliente(boolean novoCliente) {
 		this.novoCliente = novoCliente;
+	}
+
+	public List<EnRota> getRotas() {
+		return rotas;
+	}
+
+	public void setRotas(List<EnRota> rotas) {
+		this.rotas = rotas;
 	}
 
 }

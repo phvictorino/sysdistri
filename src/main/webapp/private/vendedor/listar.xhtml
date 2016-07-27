@@ -34,12 +34,20 @@
 						<h:outputText value="#{v.enumTipoFaturamento.descricao}" />
 					</p:column>
 
+					<p:column width="120" headerText="Status">
+						<p:commandButton icon="fa fw fa-check" value="Ativo"
+							rendered="#{v.status == 1}"
+							action="#{mbVendedor.alterarStatus(v)}" process="@this"
+							update="tableVendedores" />
+						<p:commandButton icon="fa fw fa-close" value="Inativo"
+							rendered="#{v.status == 0}"
+							action="#{mbVendedor.alterarStatus(v)}" process="@this"
+							update="tableVendedores" />
+					</p:column>
+
 					<p:column width="100" headerText="Ações">
 						<p:commandButton icon="fa fw fa-pencil"
 							action="#{mbVendedor.editar(v)}" process="@this" />
-						<p:commandButton icon="fa fa-trash"
-							action="#{mbVendedor.deletar(v)}" process="@this"
-							update="tableVendedores" />
 					</p:column>
 
 				</p:dataTable>

@@ -1,10 +1,13 @@
 package br.com.victorinodelicias.sysdistri.enums;
 
-public enum EnumStatusEndereco {
+import java.util.Arrays;
+import java.util.List;
+
+public enum EnumStatus {
 
 	INATIVO(0, "Inativo"), ATIVO(1, "Ativo");
 
-	private EnumStatusEndereco(Integer codigo, String descricao) {
+	private EnumStatus(Integer codigo, String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 	}
@@ -26,6 +29,18 @@ public enum EnumStatusEndereco {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public static EnumStatus getStatus(Integer codigo) {
+		for (EnumStatus e : values()) {
+			if (e.getCodigo().intValue() == codigo.intValue())
+				return e;
+		}
+		return null;
+	}
+
+	public static List<EnumStatus> getValues() {
+		return Arrays.asList(values());
 	}
 
 }

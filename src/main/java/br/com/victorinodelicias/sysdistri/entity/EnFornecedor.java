@@ -58,6 +58,9 @@ public class EnFornecedor implements Serializable {
 	@Column(name = "numlogfor")
 	private Integer numLogradouro;
 
+	@Column(name = "statfor", columnDefinition = "integer default 1")
+	private Integer status;
+
 	// bi-directional many-to-one association to TbContasPr
 	@OneToMany(mappedBy = "fornecedor")
 	private List<EnContasPr> listaContas;
@@ -175,6 +178,22 @@ public class EnFornecedor implements Serializable {
 		this.codCidade = codCidade;
 	}
 
+	public Integer getNumLogradouro() {
+		return numLogradouro;
+	}
+
+	public void setNumLogradouro(Integer numLogradouro) {
+		this.numLogradouro = numLogradouro;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public List<EnContasPr> getListaContas() {
 		return listaContas;
 	}
@@ -199,14 +218,6 @@ public class EnFornecedor implements Serializable {
 		this.listaProdutos = listaProdutos;
 	}
 
-	public Integer getNumLogradouro() {
-		return numLogradouro;
-	}
-
-	public void setNumLogradouro(Integer numLogradouro) {
-		this.numLogradouro = numLogradouro;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -226,6 +237,7 @@ public class EnFornecedor implements Serializable {
 		result = prime * result + ((logradouro == null) ? 0 : logradouro.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((numLogradouro == null) ? 0 : numLogradouro.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		result = prime * result + ((tipoFaturamento == null) ? 0 : tipoFaturamento.hashCode());
 		return result;
@@ -314,6 +326,11 @@ public class EnFornecedor implements Serializable {
 			if (other.numLogradouro != null)
 				return false;
 		} else if (!numLogradouro.equals(other.numLogradouro))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
 			return false;
 		if (telefone == null) {
 			if (other.telefone != null)

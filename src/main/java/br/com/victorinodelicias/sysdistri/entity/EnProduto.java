@@ -58,8 +58,8 @@ public class EnProduto implements Serializable {
 	@Column(name = "plucpro")
 	private BigDecimal percentualLucro;
 
-	@Column(name = "stapro")
-	private String status;
+	@Column(name = "statprod", columnDefinition = "integer default 1")
+	private Integer status;
 
 	@Column(name = "vcompro")
 	private BigDecimal valorCompra;
@@ -176,11 +176,11 @@ public class EnProduto implements Serializable {
 		this.percentualLucro = percentualLucro;
 	}
 
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

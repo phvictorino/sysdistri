@@ -24,8 +24,8 @@ public class EnEnderecoCliente implements Serializable {
 	@Column(name = "cepcli")
 	private String cep;
 
-	@Column(name = "fg_atucli")
-	private Integer enderecoAtual;
+	@Column(name = "statend")
+	private Integer status;
 
 	@Column(name = "logcli")
 	private String logradouro;
@@ -78,12 +78,12 @@ public class EnEnderecoCliente implements Serializable {
 		this.cep = cep;
 	}
 
-	public Integer getEnderecoAtual() {
-		return enderecoAtual;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setEnderecoAtual(Integer enderecoAtual) {
-		this.enderecoAtual = enderecoAtual;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public String getLogradouro() {
@@ -140,6 +140,91 @@ public class EnEnderecoCliente implements Serializable {
 
 	public void setRota(EnRota rota) {
 		this.rota = rota;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
+		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
+		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
+		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
+		result = prime * result + ((codCidade == null) ? 0 : codCidade.hashCode());
+		result = prime * result + ((codCliente == null) ? 0 : codCliente.hashCode());
+		result = prime * result + ((codRota == null) ? 0 : codRota.hashCode());
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((logradouro == null) ? 0 : logradouro.hashCode());
+		result = prime * result + ((rota == null) ? 0 : rota.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EnEnderecoCliente other = (EnEnderecoCliente) obj;
+		if (bairro == null) {
+			if (other.bairro != null)
+				return false;
+		} else if (!bairro.equals(other.bairro))
+			return false;
+		if (cep == null) {
+			if (other.cep != null)
+				return false;
+		} else if (!cep.equals(other.cep))
+			return false;
+		if (cidade == null) {
+			if (other.cidade != null)
+				return false;
+		} else if (!cidade.equals(other.cidade))
+			return false;
+		if (cliente == null) {
+			if (other.cliente != null)
+				return false;
+		} else if (!cliente.equals(other.cliente))
+			return false;
+		if (codCidade == null) {
+			if (other.codCidade != null)
+				return false;
+		} else if (!codCidade.equals(other.codCidade))
+			return false;
+		if (codCliente == null) {
+			if (other.codCliente != null)
+				return false;
+		} else if (!codCliente.equals(other.codCliente))
+			return false;
+		if (codRota == null) {
+			if (other.codRota != null)
+				return false;
+		} else if (!codRota.equals(other.codRota))
+			return false;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		if (logradouro == null) {
+			if (other.logradouro != null)
+				return false;
+		} else if (!logradouro.equals(other.logradouro))
+			return false;
+		if (rota == null) {
+			if (other.rota != null)
+				return false;
+		} else if (!rota.equals(other.rota))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		return true;
 	}
 
 }
