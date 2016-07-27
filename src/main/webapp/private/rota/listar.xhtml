@@ -32,15 +32,17 @@
 						<h:outputText value="#{r.descricao}" />
 					</p:column>
 
+					<p:column headerText="Vendedor" sortBy="#{r.vendedor}">
+						<h:outputText value="#{r.vendedor.nome}" />
+					</p:column>
+
 					<p:column headerText="Status" width="120">
 						<p:commandButton icon="fa fw fa-close" value="Inativo"
-							rendered="#{r.status == 0}"
-							action="#{mbRota.alterarStatus(r)}" process="@this"
-							update="tableRotas" />
+							rendered="#{r.status == 0}" action="#{mbRota.alterarStatus(r)}"
+							process="@this" update="tableRotas" />
 						<p:commandButton icon="fa fw fa-check" value="Ativo"
-							rendered="#{r.status == 1}"
-							action="#{mbRota.alterarStatus(r)}" process="@this"
-							update="tableRotas" />
+							rendered="#{r.status == 1}" action="#{mbRota.alterarStatus(r)}"
+							process="@this" update="tableRotas" />
 					</p:column>
 
 					<p:column width="120" headerText="Ações">

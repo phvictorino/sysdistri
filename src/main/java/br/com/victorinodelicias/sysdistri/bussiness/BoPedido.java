@@ -40,4 +40,8 @@ public class BoPedido extends GenericBO<EnPedido> {
 		return super.salvaOuAtualiza(pedido);
 	}
 
+	public EnPedido buscarSemLazyProdutos(Integer codigo) {
+		return daoPedido.buscarSemLazyProdutos(codigo);
+	}
+
 }

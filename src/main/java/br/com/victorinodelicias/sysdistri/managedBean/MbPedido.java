@@ -21,6 +21,8 @@ import br.com.victorinodelicias.sysdistri.bussiness.BoPedido;
 import br.com.victorinodelicias.sysdistri.bussiness.BoVendedor;
 import br.com.victorinodelicias.sysdistri.entity.EnFormaPagamento;
 import br.com.victorinodelicias.sysdistri.entity.EnPedido;
+import br.com.victorinodelicias.sysdistri.entity.EnProduto;
+import br.com.victorinodelicias.sysdistri.entity.EnProdutosDosPedido;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
 import br.com.victorinodelicias.sysdistri.util.UtilsMensagem;
 
@@ -36,6 +38,9 @@ public class MbPedido implements Serializable {
 	private List<DtoVendedor> vendedores;
 	private List<DtoCliente> clientes;
 	private List<EnFormaPagamento> formasPagamento;
+	private EnProdutosDosPedido produtoPedido;
+	private List<EnProduto> produtos;
+	private boolean modoEdicao;
 
 	@Inject
 	private BoPedido boPedido;
@@ -53,7 +58,9 @@ public class MbPedido implements Serializable {
 	public void init() {
 		pedido = new EnPedido();
 		criaListaPedidos();
-	}
+		modoEdicao = false;
+		produtoPedido = new EnProdutosDosPedido();
+ 	}
 
 	private void criaListaPedidos() {
 		modelPedidos = new LazyDataModel<EnPedido>() {
@@ -77,19 +84,24 @@ public class MbPedido implements Serializable {
 	public String novo() {
 		pedido = new EnPedido();
 		preparaListas();
+		modoEdicao = false;
 		return "form.xhtml?faces-redirect=true";
 	}
 
 	public String editar(EnPedido pedidoSelecionado) {
-		pedido = pedidoSelecionado;
+		pedido = boPedido.buscarSemLazyProdutos(pedidoSelecionado.getCodigo());
 		preparaListas();
+		modoEdicao = true;
 		return "form.xhtml?faces-redirect=true";
 	}
 
 	private void preparaListas() {
 		vendedores = boVendedor.buscarTodosPorDto();
-		clientes = boCliente.buscarTodosPorDto(pedido.getCodVendedor());
 		formasPagamento = boFormaPagamento.listarTodos();
+	}
+
+	public void atualizaClientes() {
+		clientes = boCliente.buscarTodosPorDto(pedido.getCodVendedor());
 	}
 
 	public void ver(EnPedido produtoSelecionado) {
@@ -152,6 +164,22 @@ public class MbPedido implements Serializable {
 
 	public void setFormasPagamento(List<EnFormaPagamento> formasPagamento) {
 		this.formasPagamento = formasPagamento;
+	}
+
+	public boolean isModoEdicao() {
+		return modoEdicao;
+	}
+
+	public void setModoEdicao(boolean modoEdicao) {
+		this.modoEdicao = modoEdicao;
+	}
+
+	public EnProdutosDosPedido getProdutoPedido() {
+		return produtoPedido;
+	}
+
+	public void setProdutoPedido(EnProdutosDosPedido produtoPedido) {
+		this.produtoPedido = produtoPedido;
 	}
 
 }

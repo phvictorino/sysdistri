@@ -15,7 +15,8 @@ public class EnCidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cidades_seq")
+	@SequenceGenerator(name = "cidades_seq", sequenceName = "cidades_sequence", allocationSize = 1)
 	@Column(name = "codcid", unique = true)
 	private Integer codigo;
 

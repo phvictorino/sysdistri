@@ -16,7 +16,8 @@ public class EnPreco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "precos_seq")
+	@SequenceGenerator(name = "precos_seq", sequenceName = "precos_sequence", allocationSize = 1)
 	@Column(name = "codpre", unique = true)
 	private Integer codigo;
 

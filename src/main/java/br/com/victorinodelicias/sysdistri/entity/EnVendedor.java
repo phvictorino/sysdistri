@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.com.victorinodelicias.sysdistri.enums.EnumStatus;
@@ -26,7 +27,8 @@ public class EnVendedor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vendedores_seq")
+	@SequenceGenerator(name = "vendedores_seq", sequenceName = "vendedores_sequence", allocationSize = 1)
 	@Column(name = "codven", unique = true)
 	private Integer codigo;
 
@@ -36,7 +38,7 @@ public class EnVendedor implements Serializable {
 	@Column(name = "tipfat")
 	private Integer tipoFaturamento;
 
-	@Column(name = "statven", columnDefinition = "integer default 1")
+	@Column(name = "statven")
 	private Integer status;
 
 	// bi-directional many-to-one association to TbCliente

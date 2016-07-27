@@ -20,7 +20,8 @@ public class EnProduto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produtos_seq")
+	@SequenceGenerator(name = "produtos_seq", sequenceName = "produtos_sequence", allocationSize = 1)
 	@Column(name = "codprod", unique = true)
 	private Integer codigo;
 

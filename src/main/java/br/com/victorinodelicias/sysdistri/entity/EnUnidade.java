@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -23,7 +24,8 @@ public class EnUnidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "unidades_seq")
+	@SequenceGenerator(name = "unidades_seq", sequenceName = "unidades_sequence", allocationSize = 1)
 	@Column(name = "coduni", unique = true)
 	private Integer codigo;
 

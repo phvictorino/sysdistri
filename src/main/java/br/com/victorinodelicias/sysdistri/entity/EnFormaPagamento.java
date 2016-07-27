@@ -15,7 +15,8 @@ public class EnFormaPagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "forma_pagamento_seq")
+	@SequenceGenerator(name = "forma_pagamento_seq", sequenceName = "forma_pagamento_sequence", allocationSize = 1)
 	@Column(name = "codfpag", unique = true)
 	private Integer codigo;
 

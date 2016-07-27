@@ -32,9 +32,10 @@ public class DaoRota extends GenericDAO<EnRota> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<EnRota> listarTodosSemLazyEnderecoCliente() {
+	public List<EnRota> listarTodosSemLazy() {
 		Criteria c = getCriteria();
 		c.setFetchMode("listaEnderecosCliente", FetchMode.JOIN);
+		c.setFetchMode("vendedor", FetchMode.JOIN);
 		return c.list();
 	}
 

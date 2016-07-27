@@ -15,7 +15,8 @@ public class EnFornecedor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fornecedores_seq")
+	@SequenceGenerator(name = "fornecedores_seq", sequenceName = "fornecedores_sequence", allocationSize = 1)
 	@Column(name = "codfor", unique = true)
 	private Integer codigo;
 

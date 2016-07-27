@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
@@ -29,7 +30,8 @@ public class EnCliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clientes_seq")
+	@SequenceGenerator(name = "clientes_seq", sequenceName = "clientes_sequence", allocationSize = 1)
 	@Column(name = "codcli", unique = true)
 	private Integer codigo;
 

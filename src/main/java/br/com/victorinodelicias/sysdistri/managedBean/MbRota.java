@@ -36,7 +36,7 @@ public class MbRota implements Serializable {
 	@PostConstruct
 	public void init() {
 		rota = new EnRota();
-		rotas = boRota.listarTodosSemLazyEnderecoCliente();
+		rotas = boRota.listarTodosSemLazy();
 		vendedores = boVendedores.buscarTodosPorDto();
 	}
 
@@ -62,7 +62,7 @@ public class MbRota implements Serializable {
 		else
 			UtilsFaces.adicionarMsgErroPadrao();
 
-		rotas = boRota.listarTodosSemLazyEnderecoCliente();
+		rotas = boRota.listarTodosSemLazy();
 
 	}
 

@@ -65,14 +65,12 @@ public class MbFornecedor implements Serializable {
 
 		EnFornecedor retorno = boFornecedor.salvaOuAtualiza(fornecedor);
 
-		if (retorno != null) {
+		if (retorno != null)
 			UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
-
-			listaFornecedores.remove(fornecedor);
-			listaFornecedores.add(retorno);
-
-		} else
+		else
 			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
+
+		listaFornecedores = boFornecedor.listarTodos();
 
 		UtilsFaces.redirecionar("private/fornecedor/listar.xhtml");
 	}

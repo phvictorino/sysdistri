@@ -9,6 +9,9 @@
 
 	<ui:define name="content">
 		<h:outputStylesheet library="styles" name="paginas/formCliente.css" />
+		<h:outputScript target="head" library="javascripts"
+			name="paginas/formCliente.js" />
+
 		<div class="ui-grid">
 			<div class="ui-grid-responsive">
 				<p:tabView>
@@ -157,14 +160,18 @@
 
 						</p:outputPanel>
 
-						<p:commandButton value="Salvar" style="margin: 10px 10px 10px 0"
+						<p:defaultCommand target="btnSalvarEndereco" scope="panelFormEnderecoCliente" />
+
+						<p:commandButton id="btnSalvarEndereco" value="Salvar"
+							style="margin: 10px 10px 10px 0"
 							action="#{mbCliente.salvarEndereco()}"
-							update="panelFormEnderecoCliente tableEnderecos"
-							process="panelFormEnderecoCliente @this" />
+							update=":#{p:component('panelFormEnderecoCliente')} tableEnderecos"
+							process=":#{p:component('panelFormEnderecoCliente')} @this" />
 
 						<p:commandButton value="Limpar" style="margin: 10px 10px 10px 0"
 							action="#{mbCliente.limparEndereco()}"
-							update="panelFormEnderecoCliente" process="@this" />
+							update=":#{p:component('panelFormEnderecoCliente')}"
+							process="@this" />
 
 						<p:separator />
 
@@ -213,5 +220,6 @@
 
 			</div>
 		</div>
+
 	</ui:define>
 </ui:composition>

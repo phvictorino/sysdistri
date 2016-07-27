@@ -24,10 +24,6 @@
 					value="#{mbPedido.modelPedidos}" var="p" paginatorPosition="bottom"
 					paginator="true" reflow="true">
 
-					<p:column headerText="Código" width="120" sortBy="#{p.codigo}">
-						<h:outputText value="#{p.codigo}" />
-					</p:column>
-
 					<p:column headerText="Vendedor" sortBy="#{p.vendedor.nome}">
 						<h:outputText value="#{p.vendedor.nome}" />
 					</p:column>
@@ -35,6 +31,13 @@
 					<p:column headerText="Data Pedido" sortBy="#{p.dataPedido}">
 						<h:outputText value="#{p.dataPedido}">
 							<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Valor Total" width="120"
+						sortBy="#{p.valorTotal}">
+						<h:outputText value="R$ #{p.valorTotal}">
+							<f:convertNumber pattern="#0.00" locale="pt_BR" />
 						</h:outputText>
 					</p:column>
 

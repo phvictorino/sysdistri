@@ -29,8 +29,8 @@ public class BoRota extends GenericBO<EnRota> {
 		return daoRota.buscarTodosAtivosPorVendedor(codVendedor);
 	}
 
-	public List<EnRota> listarTodosSemLazyEnderecoCliente() {
-		return daoRota.listarTodosSemLazyEnderecoCliente();
+	public List<EnRota> listarTodosSemLazy() {
+		return daoRota.listarTodosSemLazy();
 	}
 
 	@Override

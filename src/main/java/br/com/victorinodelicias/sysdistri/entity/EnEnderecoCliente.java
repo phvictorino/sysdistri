@@ -14,7 +14,8 @@ public class EnEnderecoCliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endereco_clientes_seq")
+	@SequenceGenerator(name = "endereco_clientes_seq", sequenceName = "endereco_clientes_sequence", allocationSize = 1)
 	@Column(name = "codecli", unique = true)
 	private Integer codigo;
 

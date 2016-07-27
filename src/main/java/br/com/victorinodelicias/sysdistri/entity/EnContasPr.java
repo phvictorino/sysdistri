@@ -21,7 +21,8 @@ public class EnContasPr implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contas_seq")
+	@SequenceGenerator(name = "contas_seq", sequenceName = "contas_sequence", allocationSize = 1)
 	@Column(name = "codcpr", unique = true)
 	private Integer codigo;
 

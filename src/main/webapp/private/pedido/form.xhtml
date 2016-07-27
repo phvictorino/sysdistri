@@ -11,51 +11,82 @@
 		<div class="ui-grid">
 			<div class="ui-grid-responsive">
 
-				<p:panelGrid id="gridFormPedido" columns="2"
-					columnClasses="ui-grid-col-2,ui-grid-col-8" layout="grid"
-					styleClass="panelgrid-noborder">
+				<p:tabView>
 
-					<p:outputLabel value="Vendedor" for="vendedor" />
-					<p:selectOneMenu id="vendedor"
-						value="#{mbPedido.pedido.codVendedor}" required="true"
-						filter="true" filterMatchMode="startsWith">
-						<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
-						<f:selectItems value="#{mbPedido.vendedores}" var="v"
-							itemLabel="#{v.nome}" itemValue="#{v.id}" />
-						<p:ajax event="change" process="gridFormPedido" />
-					</p:selectOneMenu>
+					<p:tab title="Informações">
 
-					<p:outputLabel value="Cliente" for="cliente" />
-					<p:selectOneMenu id="cliente" value="#{mbPedido.pedido.codCliente}"
-						required="true" filter="true" filterMatchMode="startsWith">
-						<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
-						<f:selectItems value="#{mbPedido.clientes}" var="c"
-							itemLabel="#{c.nome}" itemValue="#{c.id}" />
-					</p:selectOneMenu>
+						<p:panelGrid id="gridFormPedido" columns="2"
+							columnClasses="ui-grid-col-2,ui-grid-col-8" layout="grid"
+							styleClass="panelgrid-noborder">
 
-					<p:outputLabel value="Forma Pagamento" for="formaPag" />
-					<p:selectOneMenu id="formaPag"
-						value="#{mbPedido.pedido.codFormaPagamento}" required="true"
-						filter="true" filterMatchMode="startsWith">
-						<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
-						<f:selectItems value="#{mbPedido.formasPagamento}" var="fp"
-							itemValue="#{fp.codigo}" itemLabel="#{fp.descricao}" />
-					</p:selectOneMenu>
+							<p:outputLabel value="Vendedor" for="vendedor" />
+							<p:selectOneMenu id="vendedor" disabled="#{mbPedido.modoEdicao}"
+								value="#{mbPedido.pedido.codVendedor}" required="true"
+								filter="true" filterMatchMode="startsWith">
+								<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+								<f:selectItems value="#{mbPedido.vendedores}" var="v"
+									itemLabel="#{v.nome}" itemValue="#{v.id}" />
+								<p:ajax event="change" process="@this" update="cliente"
+									listener="#{mbPedido.atualizaClientes()}" />
+							</p:selectOneMenu>
 
-					<p:outputLabel value="Data Pedido" for="dataPed" />
-					<p:calendar id="dataPed" value="#{mbPedido.pedido.dataPedido}"
-						pattern="dd/MM/yyyy" locale="pt_BR" />
+							<p:outputLabel value="Cliente" for="cliente" />
+							<p:selectOneMenu id="cliente"
+								value="#{mbPedido.pedido.codCliente}"
+								disabled="#{mbPedido.modoEdicao}" required="true" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+								<f:selectItems value="#{mbPedido.clientes}" var="c"
+									itemLabel="#{c.nome}" itemValue="#{c.id}" />
+							</p:selectOneMenu>
 
-					<p:outputLabel value="Observação" for="observacao" />
-					<p:inputTextarea id="observacao" maxlength="100"
-						value="#{mbPedido.pedido.observacao}" />
+							<p:outputLabel value="Forma Pagamento" for="formaPag" />
+							<p:selectOneMenu id="formaPag"
+								value="#{mbPedido.pedido.codFormaPagamento}" required="true"
+								filter="true" filterMatchMode="startsWith">
+								<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+								<f:selectItems value="#{mbPedido.formasPagamento}" var="fp"
+									itemValue="#{fp.codigo}" itemLabel="#{fp.descricao}" />
+							</p:selectOneMenu>
 
-					<p:outputLabel />
-					<p:commandButton value="Salvar" action="#{mbPedido.salvar()}"
-						process="@form" update="@form" />
-				</p:panelGrid>
+							<p:outputLabel value="Data Pedido" for="dataPed" />
+							<p:calendar id="dataPed" value="#{mbPedido.pedido.dataPedido}"
+								pattern="dd/MM/yyyy" locale="pt_BR" />
+
+							<p:outputLabel value="Observação" for="observacao" />
+							<p:inputTextarea id="observacao" maxlength="100"
+								value="#{mbPedido.pedido.observacao}" />
+
+							<p:outputLabel />
+							<p:commandButton value="Salvar" action="#{mbPedido.salvar()}"
+								process="@form" update="@form" />
+						</p:panelGrid>
+
+					</p:tab>
+
+					<p:tab title="Produtos">
+
+						<p:outputLabel for="produto" value="Produto" />
+						<p:selectOneMenu id="produto"
+							value="#{mbPedido.produtoPedido.codProduto}" filter="true"
+							filterMatchMode="startsWith">
+
+						</p:selectOneMenu>
+
+
+						<div class="ui-grid-row">
+							<p:dataTable value="#{mbPedido.pedido.listaProdutosPedido}"
+								var="pp" emptyMessage="Nenhum produto cadastrado."></p:dataTable>
+
+
+						</div>
+
+					</p:tab>
+
+				</p:tabView>
 
 			</div>
 		</div>
+
 	</ui:define>
 </ui:composition>
