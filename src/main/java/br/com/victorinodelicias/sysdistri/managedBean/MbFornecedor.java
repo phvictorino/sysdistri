@@ -70,7 +70,7 @@ public class MbFornecedor implements Serializable {
 		else
 			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 
-		listaFornecedores = boFornecedor.listarTodos();
+		listaFornecedores = boFornecedor.listarTodos(); 
 
 		UtilsFaces.redirecionar("private/fornecedor/listar.xhtml");
 	}
