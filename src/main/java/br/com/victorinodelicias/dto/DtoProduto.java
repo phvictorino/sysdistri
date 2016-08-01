@@ -6,6 +6,6 @@ public class DtoProduto {
 
 	private Integer codigo;
 	private String nome;
-	private BigDecimal 
+//	private BigDecimal 
 
 }

@@ -3,7 +3,6 @@ package br.com.victorinodelicias.sysdistri.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 
@@ -34,8 +33,10 @@ public class DaoRota extends GenericDAO<EnRota> {
 	@SuppressWarnings("unchecked")
 	public List<EnRota> listarTodosSemLazy() {
 		Criteria c = getCriteria();
-		c.setFetchMode("listaEnderecosCliente", FetchMode.JOIN);
-		c.setFetchMode("vendedor", FetchMode.JOIN);
+		c.createAlias("listaEnderecosCliente", "endCli", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("endCli.cidade", "cid", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("endCli.cliente", "cliente", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("cliente.vendedor", "vendedor", JoinType.LEFT_OUTER_JOIN);
 		return c.list();
 	}
 
