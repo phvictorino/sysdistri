@@ -26,28 +26,36 @@
 
 	<aside class="sys-sidebar js-sidebar">
 		<nav class="sys-menu">
-			<ul>
-				<li><h:link outcome="/index.xhtml">
-						<i class="fa  fa-fw  fa-home"></i>Início</h:link></li>
-				<li class="is-selected"><h:link
-						outcome="/private/vendedor/listar.xhtml">
-						<i class="fa  fa-fw  fa-user"></i>Vendedores</h:link></li>
+			<ul class="menuPrincipal">
+				<li><h:link outcome="/dashboard.xhtml">
+						<i class="fa  fa-fw  fa-home"></i>Dashboard</h:link></li>
+
 				<li><h:link outcome="/private/contasReceber/listar.xhtml">
 						<i class="fa  fa-fw  fa-file-text"></i>Contas à receber</h:link></li>
+
+				<li><h:link outcome="/private/pedido/listar.xhtml">
+						<i class="fa  fa-fw  fa-shopping-cart "></i>Pedidos</h:link></li>
+				<p:separator />
+				<li><i class="fa fa-fw fa-gear" />Configurações</li>
+				<p:separator />
 				<li><h:link outcome="/private/cidade/listar.xhtml">
 						<i class="fa  fa-fw  fa-map-marker"></i>Cidades</h:link></li>
+				<li><h:link outcome="/private/cliente/listar.xhtml">
+						<i class="fa  fa-fw  fa-male "></i>Clientes</h:link></li>
 				<li><h:link outcome="/private/fornecedor/listar.xhtml">
 						<i class="fa  fa-fw  fa-truck"></i>Fornecedores</h:link></li>
 				<li><h:link outcome="/private/grupo/listar.xhtml">
 						<i class="fa  fa-fw  fa-list-alt"></i>Grupos</h:link></li>
+				<li><h:link outcome="/private/preco/listar.xhtml">
+						<i class="fa  fa-fw  fa-dollar "></i>Preços</h:link></li>
 				<li><h:link outcome="/private/produto/listar.xhtml">
 						<i class="fa  fa-fw  fa-database"></i>Produtos</h:link></li>
-				<li><h:link outcome="/private/pedido/listar.xhtml">
-						<i class="fa  fa-fw  fa-shopping-cart "></i>Pedidos</h:link></li>
-				<li><h:link outcome="/private/cliente/listar.xhtml">
-						<i class="fa  fa-fw  fa-male "></i>Clientes</h:link></li>
 				<li><h:link outcome="/private/rota/listar.xhtml">
 						<i class="fa  fa-fw  fa-map-marker "></i>Rotas</h:link></li>
+				<li><h:link outcome="/private/vendedor/listar.xhtml">
+						<i class="fa  fa-fw  fa-user"></i>Vendedores</h:link></li>
+
+
 			</ul>
 		</nav>
 	</aside>
