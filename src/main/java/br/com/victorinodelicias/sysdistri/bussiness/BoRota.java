@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import br.com.victorinodelicias.sysdistri.dao.DaoRota;
+import br.com.victorinodelicias.sysdistri.entity.EnEnderecoCliente;
 import br.com.victorinodelicias.sysdistri.entity.EnRota;
 import br.com.victorinodelicias.sysdistri.enums.EnumStatus;
 

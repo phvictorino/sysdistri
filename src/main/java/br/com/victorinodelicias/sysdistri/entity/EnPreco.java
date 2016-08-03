@@ -2,6 +2,9 @@ package br.com.victorinodelicias.sysdistri.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.com.victorinodelicias.sysdistri.enums.EnumStatus;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -33,7 +36,7 @@ public class EnPreco implements Serializable {
 	private String nomeTabelaVenda;
 
 	@Column(name = "stattab")
-	private String status;
+	private Integer status;
 
 	@Column(name = "vvendpre")
 	private BigDecimal valorProduto;
@@ -56,6 +59,10 @@ public class EnPreco implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codven", insertable = false, updatable = false)
 	private EnVendedor vendedor;
+
+	public EnumStatus getEnumStatus() {
+		return EnumStatus.getStatus(status);
+	}
 
 	public Integer getCodigo() {
 		return codigo;
@@ -89,11 +96,11 @@ public class EnPreco implements Serializable {
 		this.nomeTabelaVenda = nomeTabelaVenda;
 	}
 
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

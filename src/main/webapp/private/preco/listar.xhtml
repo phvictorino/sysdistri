@@ -19,31 +19,46 @@
 					</p:toolbarGroup>
 				</p:toolbar>
 
+				<p:contextMenu for="tablePrecos" widgetVar="cMenu">
+					<p:menuitem value="Editar" icon="ui-icon-pencil"
+						onclick="PF('tablePrecos').showCellEditor();" />
+				</p:contextMenu>
+
 				<p:dataTable id="tablePrecos" widgetVar="tablePrecos"
 					emptyMessage="Nenhum registro encontrado." rows="10"
 					value="#{mbPreco.listaPrecos}" var="p" paginatorPosition="bottom"
-					paginator="true" reflow="true">
+					paginator="true" reflow="true" editable="true">
 
-					<p:column headerText="Código" width="120" sortBy="#{p.codigo}">
-						<h:outputText value="#{p.codigo}" />
+					<p:ajax event="rowEdit" listener="#{mbPreco.onRowEdit}"
+						update="tablePrecos :fPadrao:mensagens" />
+					<p:ajax event="rowEditCancel" update="tablePrecos" />
+
+					<p:column headerText="Produto" sortBy="#{p.produto.descricao}">
+						<h:outputText value="#{p.produto.descricao}" />
 					</p:column>
 
 					<p:column headerText="Vendedor" sortBy="#{p.vendedor.nome}">
 						<h:outputText value="#{p.vendedor.nome}" />
 					</p:column>
 
-					<p:column headerText="Status" width="120">
-						<p:commandButton icon="fa fw fa-close" value="Inativo"
-							rendered="#{p.status == 0}" action="#{mbPreco.alterarStatus(r)}"
-							process="@this" update="tablePrecos" />
-						<p:commandButton icon="fa fw fa-check" value="Ativo"
-							rendered="#{p.status == 1}" action="#{mbPreco.alterarStatus(r)}"
-							process="@this" update="tablePrecos" />
+					<p:column headerText="Preço">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{p.valorVendedor}">
+									<f:convertNumber pattern="#0.00" locale="pt_BR" />
+								</h:outputText>
+							</f:facet>
+
+							<f:facet name="input">
+								<p:inputNumber value="#{p.valorVendedor}" required="true"
+									symbol="R$ " thousandSeparator="." decimalSeparator=","
+									decimalPlaces="2" />
+							</f:facet>
+						</p:cellEditor>
 					</p:column>
 
-					<p:column width="120" headerText="Ações">
-						<p:commandButton icon="fa fw fa-pencil"
-							action="#{mbPreco.editar(p)}" process="@this" />
+					<p:column style="width:32px">
+						<p:rowEditor />
 					</p:column>
 				</p:dataTable>
 

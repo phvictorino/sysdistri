@@ -127,3 +127,7 @@ body {
 		margin-left: 0;
 	}
 }
+
+.ui-growl {
+	top: 60px !important;
+}

@@ -18,4 +18,12 @@ public class DaoPreco extends GenericDAO<EnPreco> {
 		return c.list();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<EnPreco> listarTodosSemLazyVendedorEProdutos() {
+		Criteria c = getCriteria();
+		c.setFetchMode("vendedor", FetchMode.JOIN);
+		c.setFetchMode("produto", FetchMode.JOIN);
+		return c.list();
+	}
+
 }
