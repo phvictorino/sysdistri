@@ -30,6 +30,7 @@ public class MbPreco implements Serializable {
 	private Integer codGrupoSelecionado;
 	private List<EnGrupo> listaGrupos;
 	private List<DtoVendedor> listaVendedores;
+	private EnGrupo grupo;
 
 	@Inject
 	private BoPreco boPreco;
@@ -48,14 +49,19 @@ public class MbPreco implements Serializable {
 		listaVendedores = boVendedor.buscarTodosPorDto();
 	}
 
-	public String novo() {
-		preco = new EnPreco();
-		return "form.xhtml?faces-redirect=true";
+	public String editarGrupo(EnGrupo grupoSelecionado) {
+		grupo = grupoSelecionado;
+		return "editarGrupo.xhtml?faces-redirect=true";
 	}
 
-	public String editar(EnPreco precoSelecionado) {
-		preco = precoSelecionado;
-		return "form.xhtml?faces-redirect=true";
+	public String novoGrupo() {
+		preco = new EnPreco();
+		return "novoGrupo.xhtml?faces-redirect=true";
+	}
+
+	public String novoProduto() {
+		preco = new EnPreco();
+		return "formProduto.xhtml?faces-redirect=true";
 	}
 
 	public void alterarStatus(EnPreco precoSelecionado) {
@@ -65,18 +71,21 @@ public class MbPreco implements Serializable {
 			precoSelecionado.setStatus(EnumStatus.ATIVO.getCodigo());
 	}
 
-	public void salvar() {
+	public String salvar() {
 		try {
 			boPreco.salvaPrecoPorGrupo(preco, codGrupoSelecionado);
 			UtilsFaces.adicionarMsgSucessoPadrao();
+			return "listar.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			UtilsFaces.adicionarMsgErroPadrao();
 			e.printStackTrace();
 		}
 
+		return null;
+
 	}
 
-	public void onRowEdit(RowEditEvent event) {
+	public void onRowEditProduto(RowEditEvent event) {
 		EnPreco precoEditado = (EnPreco) event.getObject();
 
 		try {
@@ -85,15 +94,6 @@ public class MbPreco implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public String salvarESair() {
-		this.salvar();
-		return "listar.xhtml?faces-redirect=true";
-	}
-
-	public void salvarEFicar() {
-		this.salvar();
 	}
 
 	public List<EnPreco> getListaPrecos() {
@@ -134,6 +134,14 @@ public class MbPreco implements Serializable {
 
 	public void setListaVendedores(List<DtoVendedor> listaVendedores) {
 		this.listaVendedores = listaVendedores;
+	}
+
+	public EnGrupo getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(EnGrupo grupo) {
+		this.grupo = grupo;
 	}
 
 }

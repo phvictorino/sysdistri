@@ -13,54 +13,92 @@
 
 			<div class="ui-grid-responsive">
 
-				<p:toolbar style="margin-bottom: 10px">
-					<p:toolbarGroup align="left">
-						<p:commandButton value="Nova tabela" action="#{mbPreco.novo()}" />
-					</p:toolbarGroup>
-				</p:toolbar>
+				<p:tabView>
 
-				<p:contextMenu for="tablePrecos" widgetVar="cMenu">
-					<p:menuitem value="Editar" icon="ui-icon-pencil"
-						onclick="PF('tablePrecos').showCellEditor();" />
-				</p:contextMenu>
+					<p:tab title="Produtos">
 
-				<p:dataTable id="tablePrecos" widgetVar="tablePrecos"
-					emptyMessage="Nenhum registro encontrado." rows="10"
-					value="#{mbPreco.listaPrecos}" var="p" paginatorPosition="bottom"
-					paginator="true" reflow="true" editable="true">
+						<p:toolbar style="margin-bottom: 10px">
+							<p:toolbarGroup align="left">
+								<p:commandButton value="Nova tabela"
+									action="#{mbPreco.novoProduto()}" />
+							</p:toolbarGroup>
+						</p:toolbar>
 
-					<p:ajax event="rowEdit" listener="#{mbPreco.onRowEdit}"
-						update="tablePrecos :fPadrao:mensagens" />
-					<p:ajax event="rowEditCancel" update="tablePrecos" />
+						<p:contextMenu for="tablePrecosProdutos" widgetVar="cMenu">
+							<p:menuitem value="Editar" icon="ui-icon-pencil"
+								onclick="PF('tablePrecosProdutos').showCellEditor();" />
+						</p:contextMenu>
 
-					<p:column headerText="Produto" sortBy="#{p.produto.descricao}">
-						<h:outputText value="#{p.produto.descricao}" />
-					</p:column>
+						<p:dataTable id="tablePrecosProdutos"
+							widgetVar="tablePrecosProdutos"
+							emptyMessage="Nenhum registro encontrado." rows="10"
+							value="#{mbPreco.listaPrecos}" var="p" paginatorPosition="bottom"
+							paginator="true" reflow="true" editable="true">
 
-					<p:column headerText="Vendedor" sortBy="#{p.vendedor.nome}">
-						<h:outputText value="#{p.vendedor.nome}" />
-					</p:column>
+							<p:ajax event="rowEdit" listener="#{mbPreco.onRowEditProduto}"
+								update="tablePrecosProdutos :fPadrao:mensagens" />
+							<p:ajax event="rowEditCancel" update="tablePrecos" />
 
-					<p:column headerText="Preço">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText value="#{p.valorVendedor}">
-									<f:convertNumber pattern="#0.00" locale="pt_BR" />
-								</h:outputText>
-							</f:facet>
+							<p:column headerText="Produto" sortBy="#{p.produto.descricao}">
+								<h:outputText value="#{p.produto.descricao}" />
+							</p:column>
 
-							<f:facet name="input">
-								<p:inputNumber value="#{p.valorVendedor}" required="true"
-									symbol="R$ " thousandSeparator="." decimalSeparator=","
-									decimalPlaces="2" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
+							<p:column headerText="Vendedor" sortBy="#{p.vendedor.nome}">
+								<h:outputText value="#{p.vendedor.nome}" />
+							</p:column>
 
-					<p:column style="width:32px">
-						<p:rowEditor />
-					</p:column>
-				</p:dataTable>
+							<p:column headerText="Preço">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{p.valorVendedor}">
+											<f:convertNumber pattern="#0.00" locale="pt_BR" />
+										</h:outputText>
+									</f:facet>
+
+									<f:facet name="input">
+										<p:inputNumber value="#{p.valorVendedor}" required="true"
+											symbol="R$ " thousandSeparator="." decimalSeparator=","
+											decimalPlaces="2" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column style="width:32px">
+								<p:rowEditor editTitle="Editar" saveTitle="Salvar"
+									cancelTitle="Cancelar" />
+							</p:column>
+						</p:dataTable>
+
+					</p:tab>
+
+					<p:tab title="Grupos">
+
+						<p:toolbar style="margin-bottom: 10px">
+							<p:toolbarGroup align="left">
+								<p:commandButton value="Nova tabela"
+									action="#{mbPreco.novoGrupo()}" />
+							</p:toolbarGroup>
+						</p:toolbar>
+
+
+						<p:dataTable id="tablePrecosGrupo" widgetVar="tablePrecosGrupo"
+							emptyMessage="Nenhum registro encontrado." rows="10"
+							value="#{mbPreco.listaGrupos}" var="g" paginatorPosition="bottom"
+							paginator="true" reflow="true" editable="true">
+
+							<p:column headerText="Descrição" sortBy="#{g.descricao}">
+								<h:outputText value="#{g.descricao}" />
+							</p:column>
+
+							<p:column headerText="Ver" width="200">
+								<p:commandButton action="#{mbPreco.editarGrupo(g)}" value="Editar" />
+							</p:column>
+
+						</p:dataTable>
+
+					</p:tab>
+
+				</p:tabView>
 
 			</div>
 

@@ -68,42 +68,42 @@ public class UtilsFaces {
 	}
 
 	public static void adicionarMsgInfo(String msg) {
-		FacesMessage facesMsg = new FacesMessage(null, msg);
+		FacesMessage facesMsg = new FacesMessage("Informação", msg);
 		facesMsg.setSeverity(FacesMessage.SEVERITY_INFO);
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		keepMessage();
 	}
 
 	public static void adicionarMsgErro(String msg) {
-		FacesMessage facesMsg = new FacesMessage(null, msg);
+		FacesMessage facesMsg = new FacesMessage("Erro", msg);
 		facesMsg.setSeverity(FacesMessage.SEVERITY_ERROR);
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		keepMessage();
 	}
 
 	public static void adicionarMsgErroFatal(String msg) {
-		FacesMessage facesMsg = new FacesMessage(null, msg);
+		FacesMessage facesMsg = new FacesMessage("Erro fatal", msg);
 		facesMsg.setSeverity(FacesMessage.SEVERITY_FATAL);
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		keepMessage();
 	}
 
 	public static void adicionarMsgAviso(String msg) {
-		FacesMessage facesMsg = new FacesMessage(null, msg);
+		FacesMessage facesMsg = new FacesMessage("Aviso", msg);
 		facesMsg.setSeverity(FacesMessage.SEVERITY_WARN);
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		keepMessage();
 	}
 
 	public static void adicionarMsgSucessoPadrao() {
-		FacesMessage facesMsg = new FacesMessage(null, UtilsMensagem.MENSAGEM_SUCESSO);
+		FacesMessage facesMsg = new FacesMessage("Informação", UtilsMensagem.MENSAGEM_SUCESSO);
 		facesMsg.setSeverity(FacesMessage.SEVERITY_INFO);
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		keepMessage();
 	}
 
 	public static void adicionarMsgErroPadrao() {
-		FacesMessage facesMsg = new FacesMessage(null, UtilsMensagem.MENSAGEM_ERRO_INTERNO);
+		FacesMessage facesMsg = new FacesMessage("Erro", UtilsMensagem.MENSAGEM_ERRO_INTERNO);
 		facesMsg.setSeverity(FacesMessage.SEVERITY_ERROR);
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		keepMessage();

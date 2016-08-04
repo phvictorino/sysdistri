@@ -11,26 +11,14 @@
 		<div class="ui-grid">
 			<div class="ui-grid-responsive">
 
-				<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-5"
-					layout="grid" styleClass="panelgrid-noborder">
+				<div class="ui-grid-col-6">
+					<p:outputLabel value="Descrição Grupo" for="desc" />
+					<p:inputText readonly="true" id="desc"
+						value="#{mbPreco.grupo.descricao}" />
 
 					<p:outputLabel value="Nome Tabela Venda" for="nome" />
 					<p:inputText id="nome" value="#{mbPreco.preco.nomeTabelaVenda}"
 						required="true" />
-
-					<p:outputLabel value="Vendedor" for="vend" />
-					<p:selectOneMenu id="vend" value="#{mbPreco.preco.codVendedor}"
-						filter="true" filterMatchMode="startsWith">
-						<f:selectItems value="#{mbPreco.listaVendedores}" var="v"
-							itemValue="#{v.id}" itemLabel="#{v.nome}" />
-					</p:selectOneMenu>
-
-					<p:outputLabel value="Grupo" for="grupo" />
-					<p:selectOneMenu id="grupo" value="#{mbPreco.codGrupoSelecionado}"
-						filter="true" filterMatchMode="startsWith">
-						<f:selectItems value="#{mbPreco.listaGrupos}" var="g"
-							itemValue="#{g.codigo}" itemLabel="#{g.descricao}" />
-					</p:selectOneMenu>
 
 					<p:outputLabel value="Valor Produto" for="valorProd" />
 					<p:inputNumber id="valorProd" value="#{mbPreco.preco.valorProduto}"
@@ -49,13 +37,27 @@
 					<p:outputLabel value="Data Fim" for="datFim" />
 					<p:calendar id="datFim" value="#{mbPreco.preco.dataFim}"
 						pattern="dd/MM/yyyy" locale="pt_BR" />
+				</div>
 
-				</p:panelGrid>
+				<p:dataTable value="#{mbPreco.grupo.listaProdutos}" var="p"
+					emptyMessage="Nenhum produto cadastrado."
+					sortField="#{p.descricao}">
+
+					<p:column headerText="Código" sortBy="#{p.codigo}">
+						<h:outputText value="#{p.codigo}" />
+					</p:column>
+
+					<p:column headerText="Descrição" sortBy="#{p.descricao}">
+						<h:outputText value="#{p.descricao}" />
+					</p:column>
+
+				</p:dataTable>
+
+
+
 				<div class="ui-grid-col-12" style="text-align: center;">
-					<p:commandButton value="Salvar" action="#{mbPreco.salvarEFicar()}"
-						process="@form" update="@form" />
-					<p:commandButton value="Salvar e sair"
-						action="#{mbPreco.salvarESair()}" ajax="false" />
+					<p:commandButton value="Salvar" action="#{mbPreco.salvar()}"
+						ajax="false" />
 				</div>
 
 			</div>
