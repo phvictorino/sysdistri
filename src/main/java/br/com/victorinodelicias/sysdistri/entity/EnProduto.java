@@ -1,13 +1,26 @@
 package br.com.victorinodelicias.sysdistri.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Max;
 
 /**
  * The persistent class for the tb_produtos database table.
@@ -54,7 +67,6 @@ public class EnProduto implements Serializable {
 	@Column(name = "obsprod")
 	private String observacao;
 
-	@Min(value = 1)
 	@Max(value = 100)
 	@Column(name = "plucpro")
 	private BigDecimal percentualLucro;
@@ -68,9 +80,12 @@ public class EnProduto implements Serializable {
 	@Column(name = "codfor")
 	private Integer codForncedor;
 
-	// bi-directional many-to-one association to TbPreco
-	@OneToMany(mappedBy = "produto")
-	private List<EnPreco> listaPrecos;
+	@Column(name = "codpre")
+	private Integer codPreco;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codpre", insertable = false, updatable = false)
+	private EnPreco preco;
 
 	// bi-directional many-to-one association to TbFornecedore
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -201,12 +216,20 @@ public class EnProduto implements Serializable {
 		this.codForncedor = codForncedor;
 	}
 
-	public List<EnPreco> getListaPrecos() {
-		return listaPrecos;
+	public Integer getCodPreco() {
+		return codPreco;
 	}
 
-	public void setListaPrecos(List<EnPreco> listaPrecos) {
-		this.listaPrecos = listaPrecos;
+	public void setCodPreco(Integer codPreco) {
+		this.codPreco = codPreco;
+	}
+
+	public EnPreco getPreco() {
+		return preco;
+	}
+
+	public void setPreco(EnPreco preco) {
+		this.preco = preco;
 	}
 
 	public EnFornecedor getFornecedor() {
@@ -247,6 +270,7 @@ public class EnProduto implements Serializable {
 		int result = 1;
 		result = prime * result + ((codForncedor == null) ? 0 : codForncedor.hashCode());
 		result = prime * result + ((codGrupo == null) ? 0 : codGrupo.hashCode());
+		result = prime * result + ((codPreco == null) ? 0 : codPreco.hashCode());
 		result = prime * result + ((codUnidade == null) ? 0 : codUnidade.hashCode());
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		result = prime * result + ((dataUltimaCompra == null) ? 0 : dataUltimaCompra.hashCode());
@@ -257,10 +281,10 @@ public class EnProduto implements Serializable {
 		result = prime * result + ((estoqueMinimo == null) ? 0 : estoqueMinimo.hashCode());
 		result = prime * result + ((fornecedor == null) ? 0 : fornecedor.hashCode());
 		result = prime * result + ((grupo == null) ? 0 : grupo.hashCode());
-		result = prime * result + ((listaPrecos == null) ? 0 : listaPrecos.hashCode());
 		result = prime * result + ((listaProdutosPedidos == null) ? 0 : listaProdutosPedidos.hashCode());
 		result = prime * result + ((observacao == null) ? 0 : observacao.hashCode());
 		result = prime * result + ((percentualLucro == null) ? 0 : percentualLucro.hashCode());
+		result = prime * result + ((preco == null) ? 0 : preco.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((unidade == null) ? 0 : unidade.hashCode());
 		result = prime * result + ((valorCompra == null) ? 0 : valorCompra.hashCode());
@@ -285,6 +309,11 @@ public class EnProduto implements Serializable {
 			if (other.codGrupo != null)
 				return false;
 		} else if (!codGrupo.equals(other.codGrupo))
+			return false;
+		if (codPreco == null) {
+			if (other.codPreco != null)
+				return false;
+		} else if (!codPreco.equals(other.codPreco))
 			return false;
 		if (codUnidade == null) {
 			if (other.codUnidade != null)
@@ -336,11 +365,6 @@ public class EnProduto implements Serializable {
 				return false;
 		} else if (!grupo.equals(other.grupo))
 			return false;
-		if (listaPrecos == null) {
-			if (other.listaPrecos != null)
-				return false;
-		} else if (!listaPrecos.equals(other.listaPrecos))
-			return false;
 		if (listaProdutosPedidos == null) {
 			if (other.listaProdutosPedidos != null)
 				return false;
@@ -355,6 +379,11 @@ public class EnProduto implements Serializable {
 			if (other.percentualLucro != null)
 				return false;
 		} else if (!percentualLucro.equals(other.percentualLucro))
+			return false;
+		if (preco == null) {
+			if (other.preco != null)
+				return false;
+		} else if (!preco.equals(other.preco))
 			return false;
 		if (status == null) {
 			if (other.status != null)

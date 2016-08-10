@@ -43,20 +43,20 @@ public class MbPreco implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		listaGrupos = boGrupo.listarTodos();
 		preco = new EnPreco();
 		listaPrecos = boPreco.listarTodosSemLazyVendedorEProdutos();
-		listaGrupos = boGrupo.listarTodos();
 		listaVendedores = boVendedor.buscarTodosPorDto();
 	}
 
 	public String editarGrupo(EnGrupo grupoSelecionado) {
-		grupo = grupoSelecionado;
-		return "editarGrupo.xhtml?faces-redirect=true";
+		grupo = boGrupo.buscarPorCodigoSemLazyProdutos(grupoSelecionado.getCodigo());
+		return "formGrupo.xhtml?faces-redirect=true";
 	}
 
 	public String novoGrupo() {
 		preco = new EnPreco();
-		return "novoGrupo.xhtml?faces-redirect=true";
+		return "formGrupo.xhtml?faces-redirect=true";
 	}
 
 	public String novoProduto() {
@@ -71,10 +71,11 @@ public class MbPreco implements Serializable {
 			precoSelecionado.setStatus(EnumStatus.ATIVO.getCodigo());
 	}
 
-	public String salvar() {
+	public String salvarGrupo() {
 		try {
-			boPreco.salvaPrecoPorGrupo(preco, codGrupoSelecionado);
+			boPreco.salvaPrecoPorGrupo(preco, grupo.getCodigo());
 			UtilsFaces.adicionarMsgSucessoPadrao();
+			listaPrecos = boPreco.listarTodosSemLazyVendedorEProdutos();
 			return "listar.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			UtilsFaces.adicionarMsgErroPadrao();

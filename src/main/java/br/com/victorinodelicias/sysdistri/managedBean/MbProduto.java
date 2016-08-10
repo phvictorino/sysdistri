@@ -1,5 +1,8 @@
 package br.com.victorinodelicias.sysdistri.managedBean;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -8,21 +11,14 @@ import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 
 import br.com.victorinodelicias.sysdistri.bussiness.BoFornecedor;
 import br.com.victorinodelicias.sysdistri.bussiness.BoGrupo;
-import br.com.victorinodelicias.sysdistri.bussiness.BoPreco;
 import br.com.victorinodelicias.sysdistri.bussiness.BoProduto;
 import br.com.victorinodelicias.sysdistri.bussiness.BoUnidade;
 import br.com.victorinodelicias.sysdistri.entity.EnFornecedor;
 import br.com.victorinodelicias.sysdistri.entity.EnGrupo;
-import br.com.victorinodelicias.sysdistri.entity.EnPreco;
 import br.com.victorinodelicias.sysdistri.entity.EnProduto;
 import br.com.victorinodelicias.sysdistri.entity.EnUnidade;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
 import br.com.victorinodelicias.sysdistri.util.UtilsMensagem;
-
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 
 @Named
 @ViewAccessScoped
@@ -48,9 +44,6 @@ public class MbProduto implements Serializable {
 	@Inject
 	private BoFornecedor boFornecedor;
 
-	@Inject
-	private BoPreco boPreco;
-
 	@PostConstruct
 	public void init() {
 		produto = new EnProduto();
@@ -71,23 +64,10 @@ public class MbProduto implements Serializable {
 	}
 
 	public String salvar() {
-		boolean produtoNovo = false;
-
-		if (produto.getCodigo() == null)
-			produtoNovo = true;
-
 		EnProduto retorno = boProduto.salvaOuAtualiza(produto);
 
 		if (retorno != null) {
 			UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
-
-			if (produtoNovo) {
-				EnPreco preco = new EnPreco();
-				preco.setCodProduto(retorno.getCodigo());
-				preco.setDataInicio(new Date());
-				preco.setValorProduto(BigDecimal.ZERO);
-				preco.setValorVendedor(BigDecimal.ZERO);
-			}
 
 			listaProdutos = boProduto.listarTodosSemLazyFornecedor();
 		} else

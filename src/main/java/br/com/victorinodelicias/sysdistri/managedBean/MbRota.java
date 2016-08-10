@@ -72,7 +72,12 @@ public class MbRota implements Serializable {
 		else
 			rotaSelecionada.setStatus(EnumStatus.ATIVO.getCodigo());
 
-		boRota.salvaOuAtualiza(rotaSelecionada);
+		EnRota objSalvo = boRota.salvaOuAtualiza(rotaSelecionada);
+
+		if (objSalvo != null)
+			UtilsFaces.adicionarMsgSucessoPadrao();
+		else
+			UtilsFaces.adicionarMsgErroPadrao();
 
 	}
 

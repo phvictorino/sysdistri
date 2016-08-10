@@ -1,12 +1,20 @@
 package br.com.victorinodelicias.sysdistri.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import br.com.victorinodelicias.sysdistri.enums.EnumStatus;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * The persistent class for the tb_precos database table.
@@ -23,14 +31,6 @@ public class EnPreco implements Serializable {
 	@SequenceGenerator(name = "precos_seq", sequenceName = "precos_sequence", allocationSize = 1)
 	@Column(name = "codpre", unique = true)
 	private Integer codigo;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "datfim")
-	private Date dataFim;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "datini")
-	private Date dataInicio;
 
 	@Column(name = "tabven")
 	private String nomeTabelaVenda;
@@ -51,18 +51,14 @@ public class EnPreco implements Serializable {
 	private Integer codVendedor;
 
 	// bi-directional many-to-one association to TbProduto
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "codprod", insertable = false, updatable = false)
 	private EnProduto produto;
 
 	// bi-directional many-to-one association to TbVendedore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "codven", insertable = false, updatable = false)
 	private EnVendedor vendedor;
-
-	public EnumStatus getEnumStatus() {
-		return EnumStatus.getStatus(status);
-	}
 
 	public Integer getCodigo() {
 		return codigo;
@@ -70,22 +66,6 @@ public class EnPreco implements Serializable {
 
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
-	}
-
-	public Date getDataFim() {
-		return dataFim;
-	}
-
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
-	}
-
-	public Date getDataInicio() {
-		return dataInicio;
-	}
-
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
 	}
 
 	public String getNomeTabelaVenda() {
@@ -152,6 +132,10 @@ public class EnPreco implements Serializable {
 		this.vendedor = vendedor;
 	}
 
+	public EnumStatus getEnumStatus() {
+		return EnumStatus.getStatus(status);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -159,8 +143,6 @@ public class EnPreco implements Serializable {
 		result = prime * result + ((codProduto == null) ? 0 : codProduto.hashCode());
 		result = prime * result + ((codVendedor == null) ? 0 : codVendedor.hashCode());
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((dataFim == null) ? 0 : dataFim.hashCode());
-		result = prime * result + ((dataInicio == null) ? 0 : dataInicio.hashCode());
 		result = prime * result + ((nomeTabelaVenda == null) ? 0 : nomeTabelaVenda.hashCode());
 		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
@@ -193,16 +175,6 @@ public class EnPreco implements Serializable {
 			if (other.codigo != null)
 				return false;
 		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (dataFim == null) {
-			if (other.dataFim != null)
-				return false;
-		} else if (!dataFim.equals(other.dataFim))
-			return false;
-		if (dataInicio == null) {
-			if (other.dataInicio != null)
-				return false;
-		} else if (!dataInicio.equals(other.dataInicio))
 			return false;
 		if (nomeTabelaVenda == null) {
 			if (other.nomeTabelaVenda != null)

@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -40,6 +42,9 @@ public class EnVendedor implements Serializable {
 
 	@Column(name = "statven")
 	private Integer status;
+	
+	@Column(name = "codpre")
+	private Integer codPreco;
 
 	// bi-directional many-to-one association to TbCliente
 	@OneToMany(mappedBy = "vendedor")
@@ -56,6 +61,10 @@ public class EnVendedor implements Serializable {
 	// bi-directional many-to-one association to TbContasPr
 	@OneToMany(mappedBy = "vendedor")
 	private List<EnContasPr> listaContas;
+	
+	@OneToOne
+	@JoinColumn(name = "codpre", insertable = false, updatable = false)
+	private EnPreco preco;
 
 	public EnumTipoFaturamento getEnumTipoFaturamento() {
 		return EnumTipoFaturamento.getValue(tipoFaturamento);

@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 
 	$('.js-toggle').bind('click', function() {
@@ -14,6 +15,7 @@ function linkSelecionado() {
 	$('.menuPrincipal > li:has(a)').each(function(i) {
 		var item = $(this).text().toLowerCase().trim();
 		item = item.substr(0, 4);
+		item = "/" + item;
 		item = removeAcentosECedilha(item);
 		if (link.indexOf(item) >= 0) {
 			$(this).addClass("is-selected");

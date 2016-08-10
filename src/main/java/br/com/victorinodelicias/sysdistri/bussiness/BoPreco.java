@@ -20,6 +20,9 @@ public class BoPreco extends GenericBO<EnPreco> {
 	@Inject
 	private BoGrupo boGrupo;
 
+	@Inject
+	private BoProduto boProduto;
+
 	@PostConstruct
 	public void init() {
 		this.dao = daoPreco;
@@ -32,15 +35,21 @@ public class BoPreco extends GenericBO<EnPreco> {
 	public void salvaPrecoPorGrupo(EnPreco precoForm, Integer codGrupoSelecionado) {
 		EnGrupo grupo = boGrupo.buscarPorCodigoSemLazyProdutos(codGrupoSelecionado);
 		for (EnProduto p : grupo.getListaProdutos()) {
-			EnPreco preco = new EnPreco();
+			EnPreco preco = null;
+
+			if (p.getPreco() == null)
+				preco = new EnPreco();
+			else
+				preco = p.getPreco();
+
 			preco.setCodProduto(p.getCodigo());
 			preco.setCodVendedor(precoForm.getCodVendedor());
-			preco.setDataInicio(precoForm.getDataInicio());
-			preco.setDataFim(precoForm.getDataFim());
 			preco.setNomeTabelaVenda(precoForm.getNomeTabelaVenda());
 			preco.setValorProduto(precoForm.getValorProduto());
 			preco.setValorVendedor(precoForm.getValorVendedor());
-			daoPreco.salvaOuAtualiza(preco);
+			EnPreco precoSalvo = daoPreco.salvaOuAtualiza(preco);
+			p.setCodPreco(precoSalvo.getCodigo());
+			boProduto.salvaOuAtualiza(p);
 		}
 	}
 

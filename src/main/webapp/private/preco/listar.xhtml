@@ -37,7 +37,7 @@
 
 							<p:ajax event="rowEdit" listener="#{mbPreco.onRowEditProduto}"
 								update="tablePrecosProdutos :fPadrao:mensagens" />
-							<p:ajax event="rowEditCancel" update="tablePrecos" />
+							<p:ajax event="rowEditCancel" update="tablePrecosProdutos" />
 
 							<p:column headerText="Produto" sortBy="#{p.produto.descricao}">
 								<h:outputText value="#{p.produto.descricao}" />
@@ -90,7 +90,7 @@
 								<h:outputText value="#{g.descricao}" />
 							</p:column>
 
-							<p:column headerText="Ver" width="200">
+							<p:column headerText="Ações" width="200">
 								<p:commandButton action="#{mbPreco.editarGrupo(g)}" value="Editar" />
 							</p:column>
 
