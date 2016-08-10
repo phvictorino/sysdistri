@@ -38,6 +38,9 @@ public class EnProduto implements Serializable {
 	@Column(name = "codprod", unique = true)
 	private Integer codigo;
 
+	@Column(name = "codata")
+	private Integer codAtalho;
+
 	@Column(name = "codgru")
 	private Integer codGrupo;
 
@@ -268,6 +271,7 @@ public class EnProduto implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((codAtalho == null) ? 0 : codAtalho.hashCode());
 		result = prime * result + ((codForncedor == null) ? 0 : codForncedor.hashCode());
 		result = prime * result + ((codGrupo == null) ? 0 : codGrupo.hashCode());
 		result = prime * result + ((codPreco == null) ? 0 : codPreco.hashCode());
@@ -300,6 +304,11 @@ public class EnProduto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		EnProduto other = (EnProduto) obj;
+		if (codAtalho == null) {
+			if (other.codAtalho != null)
+				return false;
+		} else if (!codAtalho.equals(other.codAtalho))
+			return false;
 		if (codForncedor == null) {
 			if (other.codForncedor != null)
 				return false;
@@ -401,6 +410,14 @@ public class EnProduto implements Serializable {
 		} else if (!valorCompra.equals(other.valorCompra))
 			return false;
 		return true;
+	}
+
+	public Integer getCodAtalho() {
+		return codAtalho;
+	}
+
+	public void setCodAtalho(Integer codAtalho) {
+		this.codAtalho = codAtalho;
 	}
 
 }

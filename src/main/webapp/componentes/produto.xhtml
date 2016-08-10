@@ -16,7 +16,18 @@
 
 	<div class="ui-grid">
 		<div class="ui-grid-responsive">
-			<p:inputText id="codProduto" value="" />
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-3">
+					<p:outputLabel for="codAtalho" value="Cod. Atalho" />
+					<p:inputText id="codAtalho"
+						value="#{mbCompProduto.produtoBusca.codAtalho}" />
+				</div>
+
+				<div class="ui-grid-col-3">
+					<p:outputLabel for="codAtalho" value="Cod. Atalho" />
+					<p:selectOneMenu  />
+				</div>
+			</div>
 		</div>
 	</div>
 
