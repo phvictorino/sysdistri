@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.com.victorinodelicias.sysdistri.enums.EnumStatus;
+
 /**
  * The persistent class for the tb_grupos database table.
  * 
@@ -32,8 +34,15 @@ public class EnGrupo implements Serializable {
 	@Column(name = "desgru")
 	private String descricao;
 
+	@Column(name = "statgru")
+	private Integer status;
+
 	@OneToMany(mappedBy = "grupo")
 	private List<EnProduto> listaProdutos;
+
+	public EnumStatus getEnumStatus() {
+		return EnumStatus.getStatus(status);
+	}
 
 	public Integer getCodigo() {
 		return codigo;
@@ -66,6 +75,7 @@ public class EnGrupo implements Serializable {
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((listaProdutos == null) ? 0 : listaProdutos.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
 
@@ -93,12 +103,25 @@ public class EnGrupo implements Serializable {
 				return false;
 		} else if (!listaProdutos.equals(other.listaProdutos))
 			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return descricao;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }

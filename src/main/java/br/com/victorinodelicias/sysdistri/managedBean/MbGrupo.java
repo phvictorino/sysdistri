@@ -12,6 +12,7 @@ import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 import br.com.victorinodelicias.sysdistri.bussiness.BoGrupo;
 import br.com.victorinodelicias.sysdistri.bussiness.BoProduto;
 import br.com.victorinodelicias.sysdistri.entity.EnGrupo;
+import br.com.victorinodelicias.sysdistri.enums.EnumStatus;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
 import br.com.victorinodelicias.sysdistri.util.UtilsMensagem;
 
@@ -73,8 +74,21 @@ public class MbGrupo implements Serializable {
 	}
 
 	public void verDados(EnGrupo grupoSelecionado) {
-		grupoSelecionado.setListaProdutos(boProduto.buscarPorGrupoSemLazyUnidade(grupoSelecionado.getCodigo()));
-		grupo = grupoSelecionado;
+		grupo = boGrupo.buscarPorCodigoSemLazyProdutos(grupoSelecionado.getCodigo());
+	}
+
+	public void alterarStatus(EnGrupo grupoSelecionado) {
+		if (grupoSelecionado.getEnumStatus().equals(EnumStatus.ATIVO))
+			grupoSelecionado.setStatus(EnumStatus.INATIVO.getCodigo());
+		else
+			grupoSelecionado.setStatus(EnumStatus.ATIVO.getCodigo());
+
+		EnGrupo objSalvo = boGrupo.salvaOuAtualiza(grupoSelecionado);
+
+		if (objSalvo != null)
+			UtilsFaces.adicionarMsgSucessoPadrao();
+		else
+			UtilsFaces.adicionarMsgErroPadrao();
 	}
 
 	public EnGrupo getGrupo() {

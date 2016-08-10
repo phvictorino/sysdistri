@@ -3,7 +3,8 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:define name="title">Formulário de Pedido</ui:define>
 
@@ -66,12 +67,13 @@
 
 					<p:tab title="Produtos">
 
-						<p:outputLabel for="produto" value="Produto" />
-						<p:selectOneMenu id="produto"
-							value="#{mbPedido.produtoPedido.codProduto}" filter="true"
-							filterMatchMode="startsWith">
-
-						</p:selectOneMenu>
+						<div class="ui-grid-row">
+							<p:outputLabel for="produto" value="Produto" />
+							<p:selectOneMenu id="produto"
+								value="#{mbPedido.produtoPedido.codProduto}" filter="true"
+								filterMatchMode="startsWith">
+							</p:selectOneMenu>
+						</div>
 
 
 						<div class="ui-grid-row">

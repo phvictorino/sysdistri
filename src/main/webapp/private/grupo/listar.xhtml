@@ -32,15 +32,43 @@
 						<h:outputText value="#{g.descricao}" />
 					</p:column>
 
+					<p:column headerText="Status" width="120">
+						<p:commandButton icon="fa fw fa-close" value="Inativo"
+							rendered="#{g.status == 0}" action="#{mbGrupo.alterarStatus(g)}"
+							process="@this" update="tableGrupos" />
+						<p:commandButton icon="fa fw fa-check" value="Ativo"
+							rendered="#{g.status == 1}" action="#{mbGrupo.alterarStatus(g)}"
+							process="@this" update="tableGrupos" />
+					</p:column>
+
 					<p:column width="120" headerText="Ações">
 						<p:commandButton icon="fa fw fa-chevron-up" process="@this"
-							update="@form" action="#{mbGrupo.verDados(g)}" />
+							update="@form" action="#{mbGrupo.verDados(g)}"
+							oncomplete="PF('dialogGrupo').show();" />
 						<p:commandButton icon="fa fw fa-pencil"
 							action="#{mbGrupo.editar(g)}" process="@this" />
 						<p:commandButton icon="fa fa-trash" action="#{mbGrupo.deletar(g)}"
 							process="@this" update="tableGrupos" />
 					</p:column>
 				</p:dataTable>
+
+				<p:dialog id="dialogGrupo" widgetVar="dialogGrupo"
+					header="Produtos do grupo: #{mbGrupo.grupo.descricao}" width="600"
+					responsive="true">
+
+					<p:dataTable paginator="true" paginatorPosition="bottom" rows="10"
+						value="#{mbGrupo.grupo.listaProdutos}" var="p">
+
+						<p:column headerText="Descrição">
+							<h:outputText value="#{p.descricao}" />
+						</p:column>
+
+					</p:dataTable>
+					
+					Quantidade de produtos: <h:outputText
+						value="#{mbGrupo.grupo.listaProdutos.size()}" />
+
+				</p:dialog>
 
 			</div>
 

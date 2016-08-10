@@ -24,7 +24,6 @@ import br.com.victorinodelicias.sysdistri.entity.EnPedido;
 import br.com.victorinodelicias.sysdistri.entity.EnProduto;
 import br.com.victorinodelicias.sysdistri.entity.EnProdutosDosPedido;
 import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
-import br.com.victorinodelicias.sysdistri.util.UtilsMensagem;
 
 @Named
 @ViewAccessScoped
@@ -60,7 +59,7 @@ public class MbPedido implements Serializable {
 		criaListaPedidos();
 		modoEdicao = false;
 		produtoPedido = new EnProdutosDosPedido();
- 	}
+	}
 
 	private void criaListaPedidos() {
 		modelPedidos = new LazyDataModel<EnPedido>() {
@@ -98,6 +97,7 @@ public class MbPedido implements Serializable {
 	private void preparaListas() {
 		vendedores = boVendedor.buscarTodosPorDto();
 		formasPagamento = boFormaPagamento.listarTodos();
+		atualizaClientes();
 	}
 
 	public void atualizaClientes() {
@@ -112,9 +112,9 @@ public class MbPedido implements Serializable {
 		EnPedido pedidoSalvo = boPedido.salvaOuAtualiza(pedido);
 
 		if (pedidoSalvo != null)
-			UtilsFaces.adicionarMsgInfo(UtilsMensagem.MENSAGEM_SUCESSO);
+			UtilsFaces.adicionarMsgSucessoPadrao();
 		else
-			UtilsFaces.adicionarMsgErro(UtilsMensagem.MENSAGEM_ERRO_INTERNO);
+			UtilsFaces.adicionarMsgErroPadrao();
 
 	}
 
