@@ -4,7 +4,8 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:app="http://java.sun.com/jsf/composite/componentes">
 
 	<ui:define name="title">Formulário de Pedido</ui:define>
 
@@ -77,10 +78,7 @@
 
 
 						<div class="ui-grid-row">
-							<p:dataTable value="#{mbPedido.pedido.listaProdutosPedido}"
-								var="pp" emptyMessage="Nenhum produto cadastrado."></p:dataTable>
-
-
+							<app:produto produtoRetorno="#{mbPedido.pedido.}">
 						</div>
 
 					</p:tab>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="produtoRetorno" type="java.lang.Object"
+		required="true" />
+</composite:interface>
+
+
+<composite:implementation>
+
+	<div class="ui-grid">
+		<div class="ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-3">
+					<p:outputLabel for="codAtalho" value="Cod. Atalho" />
+					<p:inputText id="codAtalho" value="#{mbCompProduto.codAtalho}"
+						onblur="#{mbCompProduto.buscarPorCodigoAtalho()}" />
+				</div>
+
+				<div class="ui-grid-col-3">
+					<p:selectOneMenu id="selectProdutos" filter="true"
+						filterMatchMode="startsWith"
+						value="#{mbCompProduto.codProdSelecionado}">
+						<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+						<f:selectItems value="#{mbCompProduto.listaDtoProdutos}" var="p"
+							itemLabel="#{p.nome}" itemValue="#{p.codigo}" />
+						<p:ajax event="change"
+							listener="#{mbCompProduto.buscarPorCodigo()}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="ui-grid-col-3">
+					<h:outputText value="#{mbCompProduto.resultado.descricao}"
+						rendered="#{!mbCompProduto.resultado eq null}" />
+				</div>
+
+				<p:remoteCommand name="rcSetRetorno" id="rcSetRetorno">
+					<f:setPropertyActionListener value="#{mbCompProduto.resultado}"
+						target="#{cc.attrs.produtoRetorno}" />
+				</p:remoteCommand>
+			</div>
+		</div>
+	</div>
+
+</composite:implementation>
+
+</html>

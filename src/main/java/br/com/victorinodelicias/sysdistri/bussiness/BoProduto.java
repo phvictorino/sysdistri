@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import br.com.victorinodelicias.dto.DtoProduto;
 import br.com.victorinodelicias.sysdistri.dao.DaoProduto;
 import br.com.victorinodelicias.sysdistri.entity.EnProduto;
 
@@ -26,6 +27,14 @@ public class BoProduto extends GenericBO<EnProduto> {
 
 	public List<EnProduto> listarTodosSemLazyFornecedor() {
 		return daoProduto.listarTodosSemLazyFornecedor();
+	}
+
+	public List<DtoProduto> listarTodosPorDto() {
+		return daoProduto.listarTodosPorDto();
+	}
+
+	public EnProduto buscarPorCodigoAtalho(Integer codAtalho) {
+		return daoProduto.buscarPorCodigoAtalho(codAtalho);
 	}
 
 }
