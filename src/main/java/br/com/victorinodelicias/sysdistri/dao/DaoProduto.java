@@ -34,7 +34,7 @@ public class DaoProduto extends GenericDAO<EnProduto> {
 	public List<DtoProduto> listarTodosPorDto() {
 
 		String hql = "SELECT new br.com.victorinodelicias.dto.DtoProduto( ";
-		hql = hql + " p.codigo, p.descricao ) ";
+		hql = hql + " p.codigo, p.descricao, p.codAtalho ) ";
 		hql = hql + " FROM EnProduto p ";
 
 		Query query = em.createQuery(hql);

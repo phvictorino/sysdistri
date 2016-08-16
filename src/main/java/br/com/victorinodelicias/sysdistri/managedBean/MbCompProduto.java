@@ -13,6 +13,7 @@ import org.primefaces.context.RequestContext;
 import br.com.victorinodelicias.dto.DtoProduto;
 import br.com.victorinodelicias.sysdistri.bussiness.BoProduto;
 import br.com.victorinodelicias.sysdistri.entity.EnProduto;
+import br.com.victorinodelicias.sysdistri.util.UtilsFaces;
 
 @Named
 @ViewAccessScoped
@@ -21,9 +22,9 @@ public class MbCompProduto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer codAtalho;
-	private Integer codProdSelecionado;
 	private List<DtoProduto> listaDtoProdutos;
-	private EnProduto resultado;
+	private Integer idProdutoResultado;
+	private EnProduto produto;
 
 	@Inject
 	private BoProduto boProduto;
@@ -31,16 +32,19 @@ public class MbCompProduto implements Serializable {
 	@PostConstruct
 	public void init() {
 		listaDtoProdutos = boProduto.listarTodosPorDto();
-	}
-
-	public void buscarPorCodigo() {
-		resultado = boProduto.buscarPorId(codProdSelecionado);
-		RequestContext.getCurrentInstance().execute("rcSetRetorno()");
+		produto = new EnProduto();
 	}
 
 	public void buscarPorCodigoAtalho() {
-		resultado = boProduto.buscarPorCodigoAtalho(codAtalho);
-		RequestContext.getCurrentInstance().execute("rcSetRetorno()");
+		if (codAtalho != null && codAtalho.intValue() > 0) {
+			produto = boProduto.buscarPorCodigoAtalho(codAtalho);
+			if (produto != null) {
+				idProdutoResultado = produto.getCodigo();
+				RequestContext.getCurrentInstance().execute("rcSetRetorno()");
+			} else
+				UtilsFaces.adicionarMsgErro("Nenhum produto encontrado!");
+		} else
+			UtilsFaces.adicionarMsgErro("Digite algum número.");
 	}
 
 	public List<DtoProduto> getListaDtoProdutos() {
@@ -59,20 +63,20 @@ public class MbCompProduto implements Serializable {
 		this.codAtalho = codAtalho;
 	}
 
-	public EnProduto getResultado() {
-		return resultado;
+	public Integer getIdProdutoResultado() {
+		return idProdutoResultado;
 	}
 
-	public void setResultado(EnProduto resultado) {
-		this.resultado = resultado;
+	public void setIdProdutoResultado(Integer idProdutoResultado) {
+		this.idProdutoResultado = idProdutoResultado;
 	}
 
-	public Integer getCodProdSelecionado() {
-		return codProdSelecionado;
+	public EnProduto getProduto() {
+		return produto;
 	}
 
-	public void setCodProdSelecionado(Integer codProdSelecionado) {
-		this.codProdSelecionado = codProdSelecionado;
+	public void setProduto(EnProduto produto) {
+		this.produto = produto;
 	}
 
 }

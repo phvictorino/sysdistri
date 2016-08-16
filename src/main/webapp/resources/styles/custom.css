@@ -34,7 +34,7 @@ body {
 
 /*LABEL*/
 .ui-outputlabel {
-	float: right;
+	float: none;
 }
 
 @media ( max-width : 640px) {

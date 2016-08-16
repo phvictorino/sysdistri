@@ -29,7 +29,7 @@ import javax.persistence.TemporalType;
 @NamedQuery(name = "EnPedido.findAll", query = "SELECT t FROM EnPedido t")
 public class EnPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedidos_seq")
 	@SequenceGenerator(name = "pedidos_seq", sequenceName = "pedidos_sequence", allocationSize = 1)

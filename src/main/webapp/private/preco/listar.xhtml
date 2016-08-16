@@ -17,13 +17,6 @@
 
 					<p:tab title="Produtos">
 
-						<p:toolbar style="margin-bottom: 10px">
-							<p:toolbarGroup align="left">
-								<p:commandButton value="Nova tabela"
-									action="#{mbPreco.novoProduto()}" />
-							</p:toolbarGroup>
-						</p:toolbar>
-
 						<p:contextMenu for="tablePrecosProdutos" widgetVar="cMenu">
 							<p:menuitem value="Editar" icon="ui-icon-pencil"
 								onclick="PF('tablePrecosProdutos').showCellEditor();" />
@@ -91,7 +84,8 @@
 							</p:column>
 
 							<p:column headerText="Ações" width="200">
-								<p:commandButton action="#{mbPreco.editarGrupo(g)}" value="Editar" />
+								<p:commandButton action="#{mbPreco.editarGrupo(g)}"
+									value="Editar" />
 							</p:column>
 
 						</p:dataTable>

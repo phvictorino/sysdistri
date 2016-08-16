@@ -69,16 +69,10 @@
 					<p:tab title="Produtos">
 
 						<div class="ui-grid-row">
-							<p:outputLabel for="produto" value="Produto" />
-							<p:selectOneMenu id="produto"
-								value="#{mbPedido.produtoPedido.codProduto}" filter="true"
-								filterMatchMode="startsWith">
-							</p:selectOneMenu>
-						</div>
-
-
-						<div class="ui-grid-row">
-							<app:produto produtoRetorno="#{mbPedido.pedido.}">
+							<div class="ui-grid-col-12">
+								<app:produto
+									idProdutoRetorno="#{mbPedido.produtoPedido.codPedido}" />
+							</div>
 						</div>
 
 					</p:tab>
