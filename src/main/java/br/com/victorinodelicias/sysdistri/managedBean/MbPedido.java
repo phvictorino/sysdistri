@@ -1,6 +1,7 @@
 package br.com.victorinodelicias.sysdistri.managedBean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import br.com.victorinodelicias.dto.DtoVendedor;
 import br.com.victorinodelicias.sysdistri.bussiness.BoCliente;
 import br.com.victorinodelicias.sysdistri.bussiness.BoFormaPagamento;
 import br.com.victorinodelicias.sysdistri.bussiness.BoPedido;
+import br.com.victorinodelicias.sysdistri.bussiness.BoProduto;
 import br.com.victorinodelicias.sysdistri.bussiness.BoVendedor;
 import br.com.victorinodelicias.sysdistri.entity.EnFormaPagamento;
 import br.com.victorinodelicias.sysdistri.entity.EnPedido;
@@ -52,6 +54,9 @@ public class MbPedido implements Serializable {
 
 	@Inject
 	private BoFormaPagamento boFormaPagamento;
+
+	@Inject
+	private BoProduto boProduto;
 
 	@PostConstruct
 	public void init() {
@@ -116,6 +121,23 @@ public class MbPedido implements Serializable {
 		else
 			UtilsFaces.adicionarMsgErroPadrao();
 
+	}
+
+	public void adicionarProdutoPedido() {
+		if (produtoPedido != null) {
+			produtoPedido.setProduto(boProduto.buscarPorId(produtoPedido.getCodProduto()));
+			pedido.getListaProdutosPedido().add(produtoPedido);
+			UtilsFaces.adicionarMsgSucessoPadrao();
+		}
+	}
+
+	public void calculaSubTotal() {
+		if (produtoPedido != null) {
+			if (produtoPedido.getValorProduto() != null && produtoPedido.getQuantidade() != null) {
+				BigDecimal sub = produtoPedido.getValorProduto().multiply(produtoPedido.getQuantidade());
+				produtoPedido.setSubtotal(sub);
+			}
+		}
 	}
 
 	public EnPedido getPedido() {

@@ -16,36 +16,45 @@
 
 	<div class="ui-grid">
 		<div class="ui-grid-responsive">
-			<div class="ui-grid-row">
-				<div class="ui-grid-col-2">
-					<p:outputLabel for="codAtalho" value="Cod. Atalho" />
-					<p:inputText id="codAtalho" value="#{mbCompProduto.codAtalho}" />
-				</div>
+			<p:outputPanel id="panelCompProduto">
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						<p:outputLabel for="codAtalho" value="Cod. Atalho" />
+						<p:inputText id="codAtalho" value="#{mbCompProduto.codAtalho}" />
+					</div>
 
-				<div class="ui-grid-col-1">
-					<p:outputLabel for="btnCarregaPorCodigo" value="."
-						style="display: block" />
-					<p:commandButton id="btnCarregaPorCodigo" icon="fa fa-check"
-						process="@this codAtalho" update="selectProdutos"
-						action="#{mbCompProduto.buscarPorCodigoAtalho()}" />
-				</div>
+					<div class="ui-grid-col-1">
+						<p:outputLabel for="btnCarregaPorCodigo" value="."
+							style="display: block" />
+						<p:commandButton id="btnCarregaPorCodigo" icon="fa fa-check"
+							process="@this codAtalho" update="selectProdutos"
+							action="#{mbCompProduto.buscarPorCodigoAtalho()}" />
+					</div>
 
-				<div class="ui-grid-col-3">
-					<p:outputLabel for="selectProdutos" value="Descricao" />
-					<p:selectOneMenu id="selectProdutos" filter="true"
-						filterMatchMode="startsWith" value="#{mbCompProduto.codAtalho}">
-						<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
-						<f:selectItems value="#{mbCompProduto.listaDtoProdutos}" var="p"
-							itemLabel="#{p.nome}" itemValue="#{p.codAtalho}" />
-					</p:selectOneMenu>
+					<div class="ui-grid-col-3">
+						<p:outputLabel for="selectProdutos" value="Descricao"
+							style="display: block" />
+						<p:selectOneMenu id="selectProdutos" filter="true"
+							filterMatchMode="startsWith" value="#{mbCompProduto.codAtalho}">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+							<f:selectItems value="#{mbCompProduto.listaDtoProdutos}" var="p"
+								itemLabel="#{p.nome}" itemValue="#{p.codAtalho}" />
+							<p:ajax event="change"
+								listener="#{mbCompProduto.buscarPorCodigoAtalho()}"
+								update="codAtalho" process="@this" />
+						</p:selectOneMenu>
+					</div>
 				</div>
-			</div>
-			<p:remoteCommand name="rcSetRetorno" id="rcSetRetorno">
-				<f:setPropertyActionListener
-					value="#{mbCompProduto.idProdutoResultado}"
-					target="#{cc.attrs.idProdutoRetorno}" />
-			</p:remoteCommand>
+				<p:remoteCommand name="rcSetRetorno" id="rcSetRetorno">
+					<f:setPropertyActionListener
+						value="#{mbCompProduto.idProdutoResultado}"
+						target="#{cc.attrs.idProdutoRetorno}" />
+				</p:remoteCommand>
+			</p:outputPanel>
 		</div>
+
+		<p:defaultCommand target="btnCarregaPorCodigo"
+			scope="panelCompProduto" />
 	</div>
 
 </composite:implementation>

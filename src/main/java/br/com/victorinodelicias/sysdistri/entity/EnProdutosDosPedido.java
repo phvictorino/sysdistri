@@ -26,6 +26,9 @@ public class EnProdutosDosPedido implements Serializable {
 	@Column(name = "stotpped")
 	private BigDecimal subtotal;
 
+	@Column(name = "valprod")
+	private BigDecimal valorProduto;
+
 	@Column(name = "numped")
 	private Integer codPedido;
 
@@ -109,6 +112,7 @@ public class EnProdutosDosPedido implements Serializable {
 		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		result = prime * result + ((quantidade == null) ? 0 : quantidade.hashCode());
 		result = prime * result + ((subtotal == null) ? 0 : subtotal.hashCode());
+		result = prime * result + ((valorProduto == null) ? 0 : valorProduto.hashCode());
 		return result;
 	}
 
@@ -156,7 +160,20 @@ public class EnProdutosDosPedido implements Serializable {
 				return false;
 		} else if (!subtotal.equals(other.subtotal))
 			return false;
+		if (valorProduto == null) {
+			if (other.valorProduto != null)
+				return false;
+		} else if (!valorProduto.equals(other.valorProduto))
+			return false;
 		return true;
+	}
+
+	public BigDecimal getValorProduto() {
+		return valorProduto;
+	}
+
+	public void setValorProduto(BigDecimal valorProduto) {
+		this.valorProduto = valorProduto;
 	}
 
 }

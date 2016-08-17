@@ -66,14 +66,91 @@
 
 					</p:tab>
 
-					<p:tab title="Produtos">
+					<p:tab title="Produtos"
+						rendered="#{not empty mbPedido.pedido.codVendedor}">
 
-						<div class="ui-grid-row">
-							<div class="ui-grid-col-12">
-								<app:produto
-									idProdutoRetorno="#{mbPedido.produtoPedido.codPedido}" />
+						<p:outputPanel id="panelFormProdutoPedido">
+
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-12">
+									<app:produto
+										idProdutoRetorno="#{mbPedido.produtoPedido.codProduto}" />
+								</div>
 							</div>
-						</div>
+
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-2" style="padding-right: 20px">
+									<p:outputLabel for="quant" value="Qtd." />
+									<p:inputNumber id="quant" thousandSeparator=""
+										decimalPlaces="0" value="#{mbPedido.produtoPedido.quantidade}">
+										<p:ajax event="blur" listener="#{mbPedido.calculaSubTotal()}"
+											update="subTot" process="@this valorProd subTot" />
+									</p:inputNumber>
+								</div>
+
+								<div class="ui-grid-col-2" style="padding-right: 20px">
+									<p:outputLabel for="valorProd" value="Valor " />
+									<p:inputNumber id="valorProd" thousandSeparator="."
+										decimalPlaces="2" decimalSeparator="," symbol="R$"
+										symbolPosition="p"
+										value="#{mbPedido.produtoPedido.valorProduto}">
+										<p:ajax event="blur" listener="#{mbPedido.calculaSubTotal()}"
+											update="subTot" process="@this quant subTot" />
+									</p:inputNumber>
+								</div>
+
+								<div class="ui-grid-col-2" style="padding-right: 20px">
+									<p:outputLabel for="subTot" value="Sub Total" />
+									<p:inputNumber id="subTot" thousandSeparator="."
+										readonly="true" decimalPlaces="2" decimalSeparator=","
+										symbol="R$" symbolPosition="p"
+										value="#{mbPedido.produtoPedido.subtotal}">
+									</p:inputNumber>
+								</div>
+
+								<div class="ui-grid-col-2">
+									<p:commandButton icon="fa fa-plus" value="Adicionar"
+										action="#{mbPedido.adicionarProdutoPedido()}"
+										update="panelFormProdutoPedido tableProdutosPedido"
+										process="panelFormProdutoPedido" style="margin-top:14px" />
+
+								</div>
+							</div>
+
+						</p:outputPanel>
+
+
+
+						<p:separator />
+
+						<p:dataTable id="tableProdutosPedido"
+							widgetVar="tableProdutosPedido"
+							value="#{mbPedido.pedido.listaProdutosPedido}" var="pp">
+
+							<p:column headerText="Cod. Atalho">
+								<h:outputText value="#{pp.produto.codAtalho}" />
+							</p:column>
+
+							<p:column headerText="Descrição produto">
+								<h:outputText value="#{pp.produto.descricao}" />
+							</p:column>
+
+							<p:column headerText="Valor Unit.">
+								<h:outputText value="#{pp.valorProduto}">
+									<f:convertNumber locale="pt_BR" pattern="#0.00" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Quantidade">
+								<h:outputText value="#{pp.quantidade}" />
+							</p:column>
+
+							<p:column headerText="Sub total">
+								<h:outputText value="#{pp.subtotal}" />
+							</p:column>
+
+
+						</p:dataTable>
 
 					</p:tab>
 
