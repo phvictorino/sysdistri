@@ -42,7 +42,7 @@ public class DaoPedido extends GenericDAO<EnPedido> {
 
 	public EnPedido buscarSemLazyProdutos(Integer codigo) {
 		Criteria c = getCriteria();
-		c.add(Restrictions.idEq(codigo)).createAlias("listaProdutosPedido", "pp", JoinType.LEFT_OUTER_JOIN);
+		c.add(Restrictions.idEq(codigo)).setFetchMode("listaProdutosPedido", FetchMode.JOIN);
 		return (EnPedido) c.uniqueResult();
 	}
 

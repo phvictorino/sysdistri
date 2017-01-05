@@ -21,7 +21,8 @@ public class MbCompProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer codAtalho;
+	private Integer codigoAtalho;
+	private Integer codigoProduto;
 	private List<DtoProduto> listaDtoProdutos;
 	private Integer idProdutoResultado;
 	private EnProduto produto;
@@ -35,10 +36,24 @@ public class MbCompProduto implements Serializable {
 		produto = new EnProduto();
 	}
 
-	public void buscarPorCodigoAtalho() {
-		if (codAtalho != null && codAtalho.intValue() > 0) {
-			produto = boProduto.buscarPorCodigoAtalho(codAtalho);
+	public void buscarPorCodigo() {
+		if (codigoProduto != null && codigoProduto.intValue() > 0) {
+			produto = boProduto.buscarPorId(codigoProduto);
 			if (produto != null) {
+				idProdutoResultado = produto.getCodigo();
+				codigoProduto = produto.getCodigo();
+				RequestContext.getCurrentInstance().execute("rcSetRetorno()");
+			} else
+				UtilsFaces.adicionarMsgErro("Nenhum produto encontrado!");
+		} else
+			UtilsFaces.adicionarMsgErro("Digite algum número.");
+	}
+
+	public void buscarPorCodigoAtalho() {
+		if (codigoAtalho != null && codigoAtalho.intValue() > 0) {
+			produto = boProduto.buscarPorCodigoAtalho(codigoAtalho);
+			if (produto != null) {
+				codigoProduto = produto.getCodigo();
 				idProdutoResultado = produto.getCodigo();
 				RequestContext.getCurrentInstance().execute("rcSetRetorno()");
 			} else
@@ -55,14 +70,6 @@ public class MbCompProduto implements Serializable {
 		this.listaDtoProdutos = listaDtoProdutos;
 	}
 
-	public Integer getCodAtalho() {
-		return codAtalho;
-	}
-
-	public void setCodAtalho(Integer codAtalho) {
-		this.codAtalho = codAtalho;
-	}
-
 	public Integer getIdProdutoResultado() {
 		return idProdutoResultado;
 	}
@@ -77,6 +84,22 @@ public class MbCompProduto implements Serializable {
 
 	public void setProduto(EnProduto produto) {
 		this.produto = produto;
+	}
+
+	public Integer getCodigoProduto() {
+		return codigoProduto;
+	}
+
+	public void setCodigoProduto(Integer codigoProduto) {
+		this.codigoProduto = codigoProduto;
+	}
+
+	public Integer getCodigoAtalho() {
+		return codigoAtalho;
+	}
+
+	public void setCodigoAtalho(Integer codigoAtalho) {
+		this.codigoAtalho = codigoAtalho;
 	}
 
 }

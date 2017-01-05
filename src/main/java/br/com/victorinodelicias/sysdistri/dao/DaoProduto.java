@@ -33,18 +33,18 @@ public class DaoProduto extends GenericDAO<EnProduto> {
 	@SuppressWarnings("unchecked")
 	public List<DtoProduto> listarTodosPorDto() {
 
-		String hql = "SELECT new br.com.victorinodelicias.dto.DtoProduto( ";
-		hql = hql + " p.codigo, p.descricao, p.codAtalho ) ";
-		hql = hql + " FROM EnProduto p ";
+		StringBuilder hql = new StringBuilder("SELECT new br.com.victorinodelicias.dto.DtoProduto( ");
+		hql.append(" p.codigo, p.descricao, p.codAtalho ) ");
+		hql.append(" FROM EnProduto p ");
 
-		Query query = em.createQuery(hql);
+		Query query = em.createQuery(hql.toString());
 
 		try {
 			return query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		return null;
 	}
 
